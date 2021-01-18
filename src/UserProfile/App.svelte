@@ -1,8 +1,8 @@
 <script>
-  import MapContributions from './MapContributions.svelte'
-  import TreeCounter from './TreeCounter.svelte'
+  import MapContributions from "./MapContributions.svelte";
+  import TreeCounter from "./TreeCounter.svelte";
 
-  let userguid = 'prf_sFuRTP4aB8mhAxi3CzyFND8u';
+  let userguid = "prf_P0BbQ7CQMjrbDjjYQos232Np";
 </script>
 
 <div class="userprofile">
