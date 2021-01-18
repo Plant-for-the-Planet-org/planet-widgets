@@ -2,6 +2,15 @@
     import mapboxgl from "mapbox-gl";
     import styleJson from "../../public/data/styles/root.json";
     import {fetchTiles} from '../../utils/mapUtils';
+
+    export let userguid;
+    const fetchContributionsData = (async () => {
+        const response = await fetch(
+            `${__myapp.env.API_URL}/profiles/${userguid}/contributions`
+        );
+        return await response.json();
+    })();
+
     let mapStyle;
     const promise = fetchTiles(
       styleJson,
@@ -37,7 +46,7 @@
   <style>
     .view {
       height: 400px;
-      width: 400px;
+      width: 520px;
     }
   </style>
   

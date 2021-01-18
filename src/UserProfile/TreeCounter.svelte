@@ -1,39 +1,53 @@
 <script>
     import UserProfileLoader from "./../../utils/contentLoaders/UserProfileLoader.svelte";
+    import {getFormattedNumber} from "./../../utils/formatNumber"
+
+    export let userguid;
     const fetchProfileData = (async () => {
         const response = await fetch(
-            `${__myapp.env.API_URL}/profiles/prf_sFuRTP4aB8mhAxi3CzyFND8u`
+            `${__myapp.env.API_URL}/profiles/${userguid}`
         );
         return await response.json();
     })();
+
+
 </script>
 
 <div class="treeCounterContainer">
     {#await fetchProfileData}
         <UserProfileLoader />
     {:then data}
-        
-        <div class="treeCounterComponent">
-            <div class="treeCounter">
-                <div class="textContainer">
-                    <p class="treecount"> {data.score.personal+data.score.received} </p>
-                    <p class="treecountLabel">Trees Planted</p>
+        <div class="mainContainer">
+            <div class="treeCounterComponent">
+                <div class="treeCounter">
+                    <div class="textContainer">
+                        <p class="treecount"> {getFormattedNumber(data.score.personal+data.score.received)} </p>
+                        <p class="treecountLabel">Trees Planted</p>
+                    </div>
+                    <div class="textContainer">
+                        <p class="treecount"> {getFormattedNumber(data.score.target)} </p>
+                        <p class="treecountLabel">Target</p>
+                    </div>
                 </div>
-                <div class="textContainer">
-                    <p class="treecount"> {data.score.target} </p>
-                    <p class="treecountLabel">Target</p>
+                <div class="progressCounter">
+                    
                 </div>
             </div>
-            <div class="progressCounter">
-                
-            </div>
+            <button class="primaryButton" on:click="">Plant Trees</button>
         </div>
+        
     {:catch error}
         <p>An error occurred!</p>
     {/await}
 </div>
 
 <style>
+    .mainContainer{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
     .treeCounterContainer{
         height: 420px;
         width: 420px;
@@ -73,5 +87,18 @@
         font-weight: bold;
         text-align: center;
         color: white;
+        margin-top: 6px;
+    }
+    .primaryButton{
+        color: white;
+        font-weight: bold;
+        background-color: #68B030;
+        height: 52px;
+        padding: 18px 36px;
+        text-align: center;
+        border: 0px;
+        border-radius: 52px;
+        min-width: 280px;
+        margin-top: 24px;
     }
 </style>
