@@ -1,47 +1,68 @@
 <script>
-  import { loadModules,loadCss } from "esri-loader";  
+  import mapboxgl from "mapbox-gl";
+  import styleJson from "../public/data/styles/root.json";
 
-  export let centerText;
+  let mapStyle;
+  const promise = fetchTiles(
+    styleJson,
+    "https://basemaps.arcgis.com/arcgis/rest/services/World_Basemap_v2/VectorTileServer"
+  );
+  promise.then((style) => {
+    if (style) {
+      mapStyle = style;
+    }
+  });
 
   // Function that gets called when the element is created.
   // https://svelte.dev/tutorial/actions
   // https://svelte.school/tutorials/introduction-to-actions
   const createMap = async (domNode) => {
-    // Use esri-loader to load the EsriMap and MapView modules
-    // // https://github.com/Esri/esri-loader#usage
-    const esriLoaderOptions = { css: true };
-    const [EsriMap, MapView] = await loadModules(
-      ["esri/Map", "esri/views/MapView"],
-      esriLoaderOptions
-    );
-
-    // loadCss('http://server/path/to/esri/css/main.css');
-
-    // Create the map
-    const map = new EsriMap({
-      basemap: "streets"
-    });
-
-    // Create the mapView from the map
-    const view = new MapView({
-      container: domNode,
-      map: map,
-      zoom: 8,
-      center: [-90, 38] // longitude, latitude
-    });
-
-    // Use the watch functionality of the JavaScript API (view.watch) to call a
-    // function every time the extent changes. Every time it does, update the
-    // "centerText" variable - Svelte takes care of updating the UI based
-    // on this variable assignment
-    // (Reactivity!) https://svelte.dev/tutorial/reactive-assignments
-    view.watch("center", center => {
-      const { latitude, longitude } = center;
-      centerText = `Lat: ${latitude.toFixed(2)} | Lon: ${longitude.toFixed(2)}`;
+    const map = new mapboxgl.Map({
+      container: "map",
+      style: mapStyle, // stylesheet location
+      center: [-74.5, 40], // starting position [lng, lat]
+      zoom: 7, // starting zoom
     });
   };
-  const coordinates = { lat: 48, lng: 3 };
+
+  async function fetchTiles(style, metadataUrl) {
+    try {
+      const res = await fetch(metadataUrl);
+      const response = res.status === 200 ? await res.json() : null;
+      return format(style, response, metadataUrl);
+    } catch (e) {
+      console.log("Error:", e);
+      return null;
+    }
+  }
+
+  function format(style, metadata, metadataUrl) {
+    // ArcGIS Pro published vector services dont prepend tile or tileMap urls with a /
+    style.sources.esri = {
+      type: "vector",
+      scheme: "xyz",
+      tilejson: metadata.tilejson || "2.0.0",
+      format: (metadata.tileInfo && metadata.tileInfo.format) || "pbf",
+      /* mapbox-gl-js does not respect the indexing of esri tiles
+because we cache to different zoom levels depending on feature density, in rural areas 404s will still be encountered.
+more info: https://github.com/mapbox/mapbox-gl-js/pull/1377
+*/
+      // index: metadata.tileMap ? style.sources.esri.url + '/' + metadata.tileMap : null,
+      maxzoom: 15,
+      tiles: [metadataUrl + "/" + metadata.tiles[0]],
+      description: metadata.description,
+      name: metadata.name,
+    };
+    return style;
+  }
 </script>
+
+<!-- use:createMap calls the "createMap" function (defined above) when the  -->
+<!-- element is created. -->
+<!-- See the "createMap" function def above for more info. -->
+{#if mapStyle}
+  <div id="map" class="view" use:createMap />
+{/if}
 
 <style>
   .view {
@@ -49,12 +70,3 @@
     width: 400px;
   }
 </style>
-
-<!-- use:createMap calls the "createMap" function (defined above) when the  -->
-<!-- element is created. -->
-<!-- See the "createMap" function def above for more info. -->
-<div class="view" use:createMap />
-
-{#if centerText}
-  <p>{centerText}</p>
-{/if}
