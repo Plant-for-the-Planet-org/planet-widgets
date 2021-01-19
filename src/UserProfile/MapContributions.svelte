@@ -89,7 +89,7 @@
     </div>
     <div class="imageHeader">
             <img class="logo" src={getImageUrl('profile','avatar',data.image)} alt={data.displayName} />
-            {#if !data.hasLogoLicense}
+            {#if data.hasLogoLicense}
             <div class="logoPlanet" >
                 <img src={`${__myapp.env.CDN_URL}/logo/svg/planet.svg`} alt="Powered by Plant-for-the-Planet" />
             </div>
