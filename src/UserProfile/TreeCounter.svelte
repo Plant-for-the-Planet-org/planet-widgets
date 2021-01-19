@@ -29,9 +29,9 @@
                         <p class="treecountLabel">Target</p>
                     </div>
                 </div>
-                <div class="progressCounter">
+                <!-- <div class="progressCounter">
                     
-                </div>
+                </div> -->
             </div>
             <button class="primaryButton" on:click="">Plant Trees</button>
         </div>
@@ -64,6 +64,7 @@
         display: flex;
         justify-content: center;
         align-items: center;
+        position: relative;
     }
     .treeCounter{
         height: 266px;
@@ -100,5 +101,13 @@
         border-radius: 52px;
         min-width: 280px;
         margin-top: 24px;
+    }
+
+    .progressCounter{
+        position: absolute;
+        height: 266px;
+        width: 266px;
+        border-radius: 50%;
+        border: 24px solid #68B030;
     }
 </style>
