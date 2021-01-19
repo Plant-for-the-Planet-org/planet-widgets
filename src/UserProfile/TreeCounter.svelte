@@ -1,24 +1,13 @@
 <script>
-    import UserProfileLoader from "./../../utils/contentLoaders/UserProfileLoader.svelte";
     import { getFormattedNumber } from "./../../utils/formatNumber";
-    export let userguid;
-    const fetchProfileData = (async () => {
-        const response = await fetch(
-            `${__myapp.env.API_URL}/profiles/${userguid}`
-        );
-        return await response.json();
-    })();
-
+    export let data;
     let radius = 140;
     let size = 154;
     let circumference = 2 * Math.PI * radius;
-
+    
 </script>
 
 <div class="treeCounterContainer">
-    {#await fetchProfileData}
-        <UserProfileLoader />
-    {:then data}
         <div class="mainContainer">
             <div class="treeCounterComponent">
                 <div class="treeCounter">
@@ -52,14 +41,9 @@
                 fill="transparent"
                 />
             </svg>
-
-
             </div>
             <button class="primaryButton" on:click>Plant Trees</button>
         </div>
-    {:catch error}
-        <p>An error occurred!</p>
-    {/await}
 </div>
 
 <style>

@@ -4,6 +4,7 @@
     import { fetchTiles } from "../../utils/mapUtils";
 
     export let userguid;
+    export let data;
     const fetchContributionsData = (async () => {
         const response = await fetch(
             `${__myapp.env.API_URL}/profiles/${userguid}/contributions`
@@ -40,7 +41,7 @@
                     var treeCount = document.createTextNode(
                         contribution.properties.treeCount
                     );
-
+                    
                     el.appendChild(treeCount);
 
                     var svgNS = "http://www.w3.org/2000/svg";
@@ -79,13 +80,39 @@
 <!-- use:createMap calls the "createMap" function (defined above) when the  -->
 <!-- element is created. -->
 <!-- See the "createMap" function def above for more info. -->
-{#if mapStyle}
+<div class="mapContainer">
+    {#if mapStyle}
     <div id="map" class="view" use:createMap />
+    <div class="footer">
+        <a href={`https://www1.plant-for-the-planet.org/t/${data.slug}`} target="_blank" class="footerLink">View Profile </a>
+        <a class="footerLinkBold" href={`https://www1.plant-for-the-planet.org/`} target="_blank" >| Powered by Plant-for-the-Planet </a>
+    </div>
 {/if}
+</div>
 
 <style>
+    .mapContainer{
+        position: relative;
+        height: 400px;
+    }
     .view {
         height: 400px;
         width: 520px;
+    }
+    .footer{
+        display: flex;
+        flex-direction: row;
+        font-size: 14px;
+        position: absolute;
+        bottom: 12px;
+        right: 12px;
+    }
+    .footerLink{
+        color: #6DAFF0;
+    }
+    .footerLinkBold{
+        color: #6DAFF0;
+        font-weight: bold;
+        margin-left: 4px;
     }
 </style>
