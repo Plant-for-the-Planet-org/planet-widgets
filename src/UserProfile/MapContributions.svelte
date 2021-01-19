@@ -2,7 +2,7 @@
     import mapboxgl from "mapbox-gl";
     import styleJson from "../../public/data/styles/root.json";
     import { fetchTiles } from "../../utils/mapUtils";
-
+    import getImageUrl from "../../utils/getImageUrl";
     export let userguid;
     export let data;
     const fetchContributionsData = (async () => {
@@ -87,6 +87,14 @@
         <a href={`https://www1.plant-for-the-planet.org/t/${data.slug}`} target="_blank" class="footerLink">View Profile </a>
         <a class="footerLinkBold" href={`https://www1.plant-for-the-planet.org/`} target="_blank" >| Powered by Plant-for-the-Planet </a>
     </div>
+    <div class="imageHeader">
+            <img class="logo" src={getImageUrl('profile','avatar',data.image)} alt={data.displayName} />
+            {#if !data.hasLogoLicense}
+            <div class="logoPlanet" >
+                <img src={`${__myapp.env.CDN_URL}/logo/svg/planet.svg`} alt="Powered by Plant-for-the-Planet" />
+            </div>
+            {/if}
+    </div>
 {/if}
 </div>
 
@@ -114,5 +122,37 @@
         color: #6DAFF0;
         font-weight: bold;
         margin-left: 4px;
+    }
+
+    .imageHeader{
+        position: absolute;
+        top: 12px;
+        right: 12px;
+        display: flex;
+        flex-direction: row;
+    }
+
+    .logo{
+        border-radius: 50%;
+        height: 64px;
+        width: 64px;
+        box-shadow: 0px 2px 6px rgba(0,0,0,0.16);
+    }
+
+    .logoPlanet{
+        height: 64px;
+        width: 64px;
+        background-color: white;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 50%;
+        box-shadow: 0px 2px 6px rgba(0,0,0,0.16);
+        margin-left: 12px;
+    }
+
+    .logoPlanet > img{
+        height: 52px;
+        width: 52px;
     }
 </style>
