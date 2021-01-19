@@ -42,7 +42,9 @@
                 />
             </svg>
             </div>
-            <button class="primaryButton" on:click>Plant Trees</button>
+            <a href={`${__myapp.env.APP_URL}/s/${data.slug}`} class="primaryButton" on:click target="_blank">
+               Plant Trees
+            </a>
         </div>
 </div>
 
@@ -100,11 +102,17 @@
         font-weight: bold;
         background-color: #68b030;
         height: 52px;
-        padding: 18px 36px;
+        padding: 0px;
         text-align: center;
         border: 0px;
         border-radius: 52px;
         min-width: 280px;
         margin-top: 24px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    .primaryButton:hover{
+        text-decoration: none;
     }
 </style>
