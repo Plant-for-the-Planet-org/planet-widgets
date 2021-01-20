@@ -1,5 +1,5 @@
 {
-  "name": "planet-widgets",
+  "name": "svelte-app",
   "version": "3.1.0",
   "scripts": {
     "build": "rollup -c",
