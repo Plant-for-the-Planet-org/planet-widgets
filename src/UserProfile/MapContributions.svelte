@@ -102,6 +102,7 @@
     .mapContainer{
         position: relative;
         height: 400px;
+        border-radius: 20px;
     }
     .view {
         height: 400px;

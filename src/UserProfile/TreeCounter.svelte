@@ -19,12 +19,14 @@
                         </p>
                         <p class="treecountLabel">Trees Planted</p>
                     </div>
+                    {#if data.score.target !=0}
                     <div class="textContainer">
                         <p class="treecount">
                             {getFormattedNumber(data.score.target)}
                         </p>
                         <p class="treecountLabel">Target</p>
                     </div>
+                    {/if}   
                 </div>
 
             <svg style={`width:${size*2}px; height:${size*2}px;position:absolute;`}>
@@ -54,6 +56,9 @@
         flex-direction: column;
         justify-content: center;
         align-items: center;
+        position: fixed;
+        top:24px;
+        left: 60px;
     }
     .treeCounterContainer {
         height: 420px;
@@ -114,5 +119,21 @@
     }
     .primaryButton:hover{
         text-decoration: none;
+        cursor: pointer;
+        position: relative;
+        color: white;
+        font-weight: bold;
+        background-color: #68b030;
+        height: 55px;
+        padding: 0px;
+        text-align: center;
+        border: 0px;
+        border-radius: 52px;
+        min-width: 290px;
+        margin-top: 24px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 17px;
     }
 </style>
