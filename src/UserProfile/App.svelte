@@ -1,3 +1,4 @@
+<svelte:options tag="user-profile" immutable={true} />
 <script>
   import UserProfileLoader from "../../utils/contentLoaders/UserProfileLoader.svelte";
   import MapContributions from "./MapContributions.svelte";
