@@ -3,7 +3,7 @@
   import MapContributions from "./MapContributions.svelte";
   import TreeCounter from "./TreeCounter.svelte";
 
-  let userguid = "prf_NYCgTC4KSiJU7B0Fq76D7ieM";
+  export let userguid;
   const fetchProfileData = (async () => {
     const response = await fetch(`${__myapp.env.API_URL}/profiles/${userguid}`);
     return await response.json();
