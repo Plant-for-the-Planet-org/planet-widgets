@@ -30,7 +30,7 @@
         const map = new mapboxgl.Map({
             container: "map",
             style: mapStyle, // stylesheet location
-            center: [-74.5, 40], // starting position [lng, lat]
+            center:[-28.5,36.96], // starting position [lng, lat]
             zoom: 1, // starting zoom
         });
 
