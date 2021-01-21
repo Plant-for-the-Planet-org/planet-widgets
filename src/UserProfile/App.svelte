@@ -28,6 +28,7 @@
       display: flex;
       flex-direction: column;
       align-items: center;
+      border: 1px solid #D5D5D5 ;
     }
   @media screen and (min-width: 940px) {
     .userprofile {

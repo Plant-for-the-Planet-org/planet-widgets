@@ -105,12 +105,12 @@
         color: white;
         font-weight: bold;
         background-color: #68b030;
-        height: 52px;
+        height: 48px;
         padding: 0px;
         text-align: center;
         border: 0px;
         border-radius: 52px;
-        min-width: 280px;
+        min-width: 205px;
         margin-top: 24px;
         margin-bottom: 24px;
         display: flex;
@@ -120,7 +120,7 @@
         transition-timing-function: cubic-bezier(0.165, 0.84, 0.44, 1);
     }
     .primaryButton:hover{
-        transform: scale(1.05);
+        transform: translateY(-7px);
         cursor: pointer;
     }
     @media screen and (min-width: 940px) {
