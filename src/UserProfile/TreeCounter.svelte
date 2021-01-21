@@ -116,25 +116,12 @@
         display: flex;
         align-items: center;
         justify-content: center;
+        transition-duration: 0.5s;
+        transition-timing-function: cubic-bezier(0.165, 0.84, 0.44, 1);
     }
     .primaryButton:hover{
-        text-decoration: none;
+        transform: scale(1.05);
         cursor: pointer;
-        position: relative;
-        color: white;
-        font-weight: bold;
-        background-color: #68b030;
-        height: 55px;
-        padding: 0px;
-        text-align: center;
-        border: 0px;
-        border-radius: 52px;
-        min-width: 290px;
-        margin-top: 24px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        font-size: 17px;
     }
     @media screen and (min-width: 940px) {
         .treeCounterContainer {
