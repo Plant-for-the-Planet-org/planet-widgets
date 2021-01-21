@@ -54,9 +54,19 @@ export default {
       }),
     }),
     svelte({
+      include: /App\.svelte$/,
       compilerOptions: {
         // enable run-time checks when not in production
-        dev: !production
+        dev: !production,
+        customElement: true,
+      },
+    }),
+    svelte({
+      exclude: /App\.svelte$/,
+      compilerOptions: {
+        // enable run-time checks when not in production
+        dev: !production,
+        customElement: false,
       },
     }),
     json(),
