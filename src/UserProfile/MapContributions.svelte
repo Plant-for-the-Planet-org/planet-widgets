@@ -88,7 +88,9 @@
         <a class="footerLinkBold" href={`https://www1.plant-for-the-planet.org/`} target="_blank" >| Powered by Plant-for-the-Planet </a>
     </div>
     <div class="imageHeader">
-            <img class="logo" src={getImageUrl('profile','avatar',data.image)} alt={data.displayName} />
+        <a href={`https://www1.plant-for-the-planet.org/t/${data.slug}`} target="_blank">
+            <img class="logo" src={getImageUrl('profile','avatar',data.image)} alt={data.displayName} href="www.facebook.com"/>
+        </a>
             {#if data.hasLogoLicense}
             <div class="logoPlanet" >
                 <img src={`${__myapp.env.CDN_URL}/logo/svg/planet.svg`} alt="Powered by Plant-for-the-Planet" />

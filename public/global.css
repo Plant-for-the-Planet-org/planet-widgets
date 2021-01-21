@@ -151,6 +151,7 @@ video {
   justify-content: center;
   color: #68B030;
   font-weight: bold;
+  font-size: 18px;
 }
 
 .marker::after{

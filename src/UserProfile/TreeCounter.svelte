@@ -36,7 +36,7 @@
                 r={radius}
                 stroke="#68b030"
                 stroke-linecap="round"
-                stroke-width="24"
+                stroke-width="16"
                 transform={`rotate(-90,${size},${size})`}
                 stroke-dasharray={circumference}
                 stroke-dashoffset={circumference * (1- (data.score.personal + data.score.received)/data.score.target)}
@@ -69,8 +69,8 @@
         justify-content: center;
     }
     .treeCounterComponent {
-        height: 300px;
-        width: 300px;
+        height: 295px;
+        width: 295px;
         background-image: radial-gradient(white 0%, white 60%, #47a8dc 100%);
         border-radius: 50%;
         display: flex;
