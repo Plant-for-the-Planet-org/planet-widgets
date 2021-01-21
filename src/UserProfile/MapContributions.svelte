@@ -103,12 +103,12 @@
 <style>
     .mapContainer{
         position: relative;
-        height: 400px;
+        height: 420px;
         border-radius: 20px;
     }
     .view {
-        height: 400px;
-        width: 520px;
+        height: 420px;
+        width: 320px;
     }
     .footer{
         display: flex;
@@ -157,5 +157,11 @@
     .logoPlanet > img{
         height: 52px;
         width: 52px;
+    }
+
+    @media screen and (min-width: 940px) {
+        .view {
+            width: 520px;
+        }
     }
 </style>

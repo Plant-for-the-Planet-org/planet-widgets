@@ -56,17 +56,16 @@
         flex-direction: column;
         justify-content: center;
         align-items: center;
-        position: fixed;
-        top:24px;
-        left: 60px;
     }
     .treeCounterContainer {
         height: 420px;
-        width: 420px;
+        width: 320px;
         display: flex;
         flex-direction: column;
         align-items: center;
         justify-content: center;
+        border-top-right-radius: 10px;
+        border-top-left-radius: 10px;
     }
     .treeCounterComponent {
         height: 295px;
@@ -113,6 +112,7 @@
         border-radius: 52px;
         min-width: 280px;
         margin-top: 24px;
+        margin-bottom: 24px;
         display: flex;
         align-items: center;
         justify-content: center;
@@ -135,5 +135,14 @@
         align-items: center;
         justify-content: center;
         font-size: 17px;
+    }
+    @media screen and (min-width: 940px) {
+        .treeCounterContainer {
+            height: 420px;
+            width: 420px;
+            border-top-right-radius: 0px;
+            border-top-left-radius: 10px;
+            border-bottom-left-radius: 10px;
+        }
     }
 </style>

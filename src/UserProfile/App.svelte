@@ -23,10 +23,17 @@
 
 <style>
   .userprofile {
-    height: 420px;
-    width: 940px;
-    border-radius: 10px;
-    display: flex;
-    flex-direction: row;
+      width: 320px;
+      border-radius: 10px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+  @media screen and (min-width: 940px) {
+    .userprofile {
+      height: 420px;
+      width: 940px;
+      flex-direction: row;
+    } 
   }
 </style>
