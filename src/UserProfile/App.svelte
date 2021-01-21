@@ -1,3 +1,4 @@
+<svelte:options tag="user-profile" immutable={true} />
 <script>
   import UserProfileLoader from "../../utils/contentLoaders/UserProfileLoader.svelte";
   import MapContributions from "./MapContributions.svelte";
@@ -22,6 +23,8 @@
 </div>
 
 <style>
+
+  
   .userprofile {
       width: 320px;
       border-radius: 10px;
@@ -37,4 +40,6 @@
       flex-direction: row;
     } 
   }
+
+
 </style>
