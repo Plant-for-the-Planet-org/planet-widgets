@@ -9,8 +9,8 @@
     import getImageUrl from "../../utils/getImageUrl";
 
     export let userguid;
-    export const primaryColor =  '#68b030';
-    export const counterBackgroundColor = '#23519b';
+    export const primaryColor = "#68b030";
+    export const counterBackgroundColor = "#23519b";
     let mapStyle;
     let userpofiledata;
     const fetchProfileData = (async () => {
@@ -53,52 +53,63 @@
 
         map.on("load", () => {
             fetchContributionsData.then((contributions) => {
-                contributions.map((contribution) => {
-                    var el = document.createElement("div");
-                    var treeCount = document.createTextNode(
-                        contribution.properties.treeCount
-                    );
+                if (contributions.length > 0) {
+                    contributions.map((contribution) => {
+                        if (contribution.geometry) {
+                            var el = document.createElement("div");
+                            var treeCount = document.createTextNode(
+                                contribution.properties.treeCount
+                            );
 
-                    el.appendChild(treeCount);
+                            el.appendChild(treeCount);
 
-                    var svgNS = "http://www.w3.org/2000/svg";
-                    var tree = document.createElementNS(svgNS, "svg");
+                            var svgNS = "http://www.w3.org/2000/svg";
+                            var tree = document.createElementNS(svgNS, "svg");
 
-                    tree.setAttributeNS(null, "width", 10.5);
-                    tree.setAttributeNS(null, "height", 12.598);
-                    tree.setAttributeNS(null, "viewBox", "0 0 10.5 12.598");
+                            tree.setAttributeNS(null, "width", 10.5);
+                            tree.setAttributeNS(null, "height", 12.598);
+                            tree.setAttributeNS(
+                                null,
+                                "viewBox",
+                                "0 0 10.5 12.598"
+                            );
 
-                    var pathNS = "http://www.w3.org/2000/svg";
-                    var path = document.createElementNS(pathNS, "path");
-                    path.setAttributeNS(
-                        null,
-                        "d",
-                        "M9,15.1V12.235a2.9,2.9,0,0,1-1,.175,3.033,3.033,0,0,1-2.093-5.2,3.055,3.055,0,0,1-.24-1.19,3,3,0,0,1,5.5-1.68h.167a3.7,3.7,0,1,1-1,7.252v3.5Z"
-                    );
-                    path.setAttributeNS(
-                        null,
-                        "transform",
-                        "translate(-4.75 -2.75)"
-                    );
-                    path.setAttributeNS(null, "fill", primaryColor);
-                    path.setAttributeNS(null, "stroke", "#fff");
-                    path.setAttributeNS(null, "stroke-width", 0.5);
-                    tree.appendChild(path);
-                    el.appendChild(tree);
+                            var pathNS = "http://www.w3.org/2000/svg";
+                            var path = document.createElementNS(pathNS, "path");
+                            path.setAttributeNS(
+                                null,
+                                "d",
+                                "M9,15.1V12.235a2.9,2.9,0,0,1-1,.175,3.033,3.033,0,0,1-2.093-5.2,3.055,3.055,0,0,1-.24-1.19,3,3,0,0,1,5.5-1.68h.167a3.7,3.7,0,1,1-1,7.252v3.5Z"
+                            );
+                            path.setAttributeNS(
+                                null,
+                                "transform",
+                                "translate(-4.75 -2.75)"
+                            );
+                            path.setAttributeNS(null, "fill", primaryColor);
+                            path.setAttributeNS(null, "stroke", "#fff");
+                            path.setAttributeNS(null, "stroke-width", 0.5);
+                            tree.appendChild(path);
+                            el.appendChild(tree);
 
-                    el.className = "marker";
+                            el.className = "marker";
 
-                    // make a marker for each feature and add to the map
-                    new mapboxgl.Marker(el)
-                        .setLngLat(contribution.geometry.coordinates)
-                        .addTo(map);
-                });
+                            // make a marker for each feature and add to the map
+                            new mapboxgl.Marker(el)
+                                .setLngLat(contribution.geometry.coordinates)
+                                .addTo(map);
+                        }
+                    });
+                }
             });
         });
     };
 </script>
 
-<div class="userprofile" style="--primary-color: {primaryColor};--counter-background-color: {counterBackgroundColor}">
+<div
+    class="userprofile"
+    style="--primary-color: {primaryColor};--counter-background-color: {counterBackgroundColor}"
+>
     {#await fetchProfileData}
         <UserProfileLoader />
     {:then data}
@@ -195,8 +206,9 @@
     {/await}
 </div>
 <div class="marker" style="display:none">
-    <svg></svg>
+    <svg />
 </div>
+
 <style>
     @import "https://api.mapbox.com/mapbox-gl-js/v1.2.0/mapbox-gl.css";
     @import "https://fonts.googleapis.com/css2?family=Raleway:wght@400;700&display=swap";
@@ -372,7 +384,7 @@
         .userprofile {
             width: 940px;
         }
-        .treeCounterContainer{
+        .treeCounterContainer {
             width: 420px;
         }
         .view {
