@@ -187,7 +187,7 @@
                         target="_blank">
                         <img
                             class="logo"
-                            src={getImageUrl("profile", "avatar", data.image)}
+                            src={getImageUrl("profile", "thumb", data.image)}
                             alt={data.displayName}
                             href="www.facebook.com"
                         />
