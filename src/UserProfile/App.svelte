@@ -7,10 +7,9 @@
     import styleJson from "../../public/data/styles/root.json";
     import { fetchTiles } from "../../utils/mapUtils";
     import getImageUrl from "../../utils/getImageUrl";
-    import { get_current_component } from 'svelte/internal';
 
     export let userguid;
-   
+
     let mapStyle;
     let userpofiledata;
     const fetchProfileData = (async () => {
@@ -27,13 +26,11 @@
             }
         });
         return userpofiledata;
-        
     })();
 
     let radius = 140;
     let size = 154;
     let circumference = 2 * Math.PI * radius;
-
 
     const fetchContributionsData = (async () => {
         const response = await fetch(
@@ -42,17 +39,12 @@
         return await response.json();
     })();
 
-   
-
     // Function that gets called when the element is created.
     // https://svelte.dev/tutorial/actions
     // https://svelte.school/tutorials/introduction-to-actions
     const createMap = async (domNode) => {
-
-        let host = get_current_component();
-        let mapContainer = host.shadowRoot.getElementById("map")
         const map = new mapboxgl.Map({
-            container: mapContainer,
+            container: domNode,
             style: mapStyle, // stylesheet location
             center: [-28.5, 36.96], // starting position [lng, lat]
             zoom: 1, // starting zoom
@@ -103,8 +95,6 @@
             });
         });
     };
-
-    console.log("createMap", document.getElementById("map"));
 </script>
 
 <div class="userprofile">
@@ -203,18 +193,13 @@
         <p>An error occurred!</p>
     {/await}
 </div>
-
+<div class="marker" style="display:none">
+    <svg></svg>
+</div>
 <style>
-    :global(p, a) {
-        margin: 0;
-        padding: 0;
-        border: 0;
-        font-size: 100%;
-        font: inherit;
-        vertical-align: baseline;
-        font-family: "Raleway", sans-serif;
-        text-decoration: none;
-    }
+    @import "https://api.mapbox.com/mapbox-gl-js/v1.2.0/mapbox-gl.css";
+    @import "https://fonts.googleapis.com/css2?family=Raleway:wght@400;700&display=swap";
+
     .userprofile {
         width: 320px;
         border-radius: 10px;
@@ -222,6 +207,9 @@
         flex-direction: column;
         align-items: center;
         border: 1px solid #d5d5d5;
+        vertical-align: baseline;
+        font-family: "Raleway", sans-serif;
+        text-decoration: none;
     }
     @media screen and (min-width: 940px) {
         .userprofile {
@@ -379,6 +367,56 @@
     @media screen and (min-width: 940px) {
         .view {
             width: 520px;
+        }
+    }
+
+    .marker {
+        height: 30px;
+        min-width: 60px;
+        padding: 6px 8px;
+        background-color: white;
+        border-radius: 7px;
+        box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: center;
+        color: #68b030;
+        font-weight: bold;
+        font-size: 18px;
+    }
+
+    .marker::after {
+        content: "";
+        position: absolute;
+        left: 36%;
+        top: 100%;
+        width: 0;
+        height: 0;
+        border-left: 10px solid transparent;
+        border-right: 10px solid transparent;
+        border-top: 10px solid #fff;
+        clear: both;
+    }
+
+    .marker > svg {
+        margin-left: 3px;
+    }
+
+    a {
+        text-decoration: none;
+    }
+
+    #map {
+        border-bottom-left-radius: 10px;
+        border-bottom-right-radius: 10px;
+    }
+
+    @media screen and (min-width: 940px) {
+        #map {
+            border-bottom-left-radius: 0px;
+            border-top-right-radius: 10px;
+            border-bottom-right-radius: 10px;
         }
     }
 </style>
