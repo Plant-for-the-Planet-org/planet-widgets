@@ -1,14 +1,40 @@
 <svelte:options tag="user-profile" immutable={true} />
 
 <script>
-  import UserProfileLoader from "../../utils/contentLoaders/UserProfileLoader.svelte";
-  import { getFormattedNumber } from "./../../utils/formatNumber";
-
-  import mapboxgl from "mapbox-gl";
+    import UserProfileLoader from "../../utils/contentLoaders/UserProfileLoader.svelte";
+    import { getFormattedNumber } from "./../../utils/formatNumber";
+    import mapboxgl from "mapbox-gl";
     import styleJson from "../../public/data/styles/root.json";
     import { fetchTiles } from "../../utils/mapUtils";
     import getImageUrl from "../../utils/getImageUrl";
+    import { get_current_component } from 'svelte/internal';
+
     export let userguid;
+   
+    let mapStyle;
+    let userpofiledata;
+    const fetchProfileData = (async () => {
+        const response = await fetch(
+            `${__myapp.env.API_URL}/profiles/${userguid}`
+        );
+        userpofiledata = await response.json();
+        fetchTiles(
+            styleJson,
+            "https://basemaps.arcgis.com/arcgis/rest/services/World_Basemap_v2/VectorTileServer"
+        ).then((style) => {
+            if (style) {
+                mapStyle = style;
+            }
+        });
+        return userpofiledata;
+        
+    })();
+
+    let radius = 140;
+    let size = 154;
+    let circumference = 2 * Math.PI * radius;
+
+
     const fetchContributionsData = (async () => {
         const response = await fetch(
             `${__myapp.env.API_URL}/profiles/${userguid}/contributions`
@@ -16,25 +42,19 @@
         return await response.json();
     })();
 
-    let mapStyle;
-    const promise = fetchTiles(
-        styleJson,
-        "https://basemaps.arcgis.com/arcgis/rest/services/World_Basemap_v2/VectorTileServer"
-    );
-    promise.then((style) => {
-        if (style) {
-            mapStyle = style;
-        }
-    });
+   
 
     // Function that gets called when the element is created.
     // https://svelte.dev/tutorial/actions
     // https://svelte.school/tutorials/introduction-to-actions
     const createMap = async (domNode) => {
+
+        let host = get_current_component();
+        let mapContainer = host.shadowRoot.getElementById("map")
         const map = new mapboxgl.Map({
-            container: "map",
+            container: mapContainer,
             style: mapStyle, // stylesheet location
-            center:[-28.5,36.96], // starting position [lng, lat]
+            center: [-28.5, 36.96], // starting position [lng, lat]
             zoom: 1, // starting zoom
         });
 
@@ -45,15 +65,11 @@
                     var treeCount = document.createTextNode(
                         contribution.properties.treeCount
                     );
-                    
+
                     el.appendChild(treeCount);
 
                     var svgNS = "http://www.w3.org/2000/svg";
                     var tree = document.createElementNS(svgNS, "svg");
-
-                    //           <svg xmlns="http://www.w3.org/2000/svg" width="10.5" height="12.598" viewBox="0 0 10.5 12.598">
-                    //   <path id="tree_1_" data-name="tree (1)" d="M9,15.1V12.235a2.9,2.9,0,0,1-1,.175,3.033,3.033,0,0,1-2.093-5.2,3.055,3.055,0,0,1-.24-1.19,3,3,0,0,1,5.5-1.68h.167a3.7,3.7,0,1,1-1,7.252v3.5Z" transform="translate(-4.75 -2.75)" fill="#68b030" stroke="#fff" stroke-width="0.5"/>
-                    // </svg>
 
                     tree.setAttributeNS(null, "width", 10.5);
                     tree.setAttributeNS(null, "height", 12.598);
@@ -61,8 +77,16 @@
 
                     var pathNS = "http://www.w3.org/2000/svg";
                     var path = document.createElementNS(pathNS, "path");
-                    path.setAttributeNS(null, "d", "M9,15.1V12.235a2.9,2.9,0,0,1-1,.175,3.033,3.033,0,0,1-2.093-5.2,3.055,3.055,0,0,1-.24-1.19,3,3,0,0,1,5.5-1.68h.167a3.7,3.7,0,1,1-1,7.252v3.5Z");
-                    path.setAttributeNS(null, "transform", "translate(-4.75 -2.75)");
+                    path.setAttributeNS(
+                        null,
+                        "d",
+                        "M9,15.1V12.235a2.9,2.9,0,0,1-1,.175,3.033,3.033,0,0,1-2.093-5.2,3.055,3.055,0,0,1-.24-1.19,3,3,0,0,1,5.5-1.68h.167a3.7,3.7,0,1,1-1,7.252v3.5Z"
+                    );
+                    path.setAttributeNS(
+                        null,
+                        "transform",
+                        "translate(-4.75 -2.75)"
+                    );
                     path.setAttributeNS(null, "fill", "#68b030");
                     path.setAttributeNS(null, "stroke", "#fff");
                     path.setAttributeNS(null, "stroke-width", 0.5);
@@ -80,113 +104,134 @@
         });
     };
 
-    let radius = 140;
-    let size = 154;
-    let circumference = 2 * Math.PI * radius;
-  const fetchProfileData = (async () => {
-    const response = await fetch(`${__myapp.env.API_URL}/profiles/${userguid}`);
-    return await response.json();
-  })();
+    console.log("createMap", document.getElementById("map"));
 </script>
 
 <div class="userprofile">
-  {#await fetchProfileData}
-    <UserProfileLoader />
-  {:then data}
-  <div class="treeCounterContainer">
-    <div class="mainContainer">
-        <div class="treeCounterComponent">
-            <div class="treeCounter">
-                <div class="textContainer">
-                    <p class="treecount">
-                        {getFormattedNumber(
-                            data.score.personal + data.score.received
-                        )}
-                    </p>
-                    <p class="treecountLabel">Trees Planted</p>
-                </div>
-                {#if data.score.target !=0}
-                <div class="textContainer">
-                    <p class="treecount">
-                        {getFormattedNumber(data.score.target)}
-                    </p>
-                    <p class="treecountLabel">Target</p>
-                </div>
-                {/if}   
-            </div>
+    {#await fetchProfileData}
+        <UserProfileLoader />
+    {:then data}
+        <div class="treeCounterContainer">
+            <div class="mainContainer">
+                <div class="treeCounterComponent">
+                    <div class="treeCounter">
+                        <div class="textContainer">
+                            <p class="treecount">
+                                {getFormattedNumber(
+                                    data.score.personal + data.score.received
+                                )}
+                            </p>
+                            <p class="treecountLabel">Trees Planted</p>
+                        </div>
+                        {#if data.score.target != 0}
+                            <div class="textContainer">
+                                <p class="treecount">
+                                    {getFormattedNumber(data.score.target)}
+                                </p>
+                                <p class="treecountLabel">Target</p>
+                            </div>
+                        {/if}
+                    </div>
 
-        <svg style={`width:${size*2}px; height:${size*2}px;position:absolute;`}>
-            <circle
-            cx={size}
-            cy={size}
-            r={radius}
-            stroke="#68b030"
-            stroke-linecap="round"
-            stroke-width="16"
-            transform={`rotate(-90,${size},${size})`}
-            stroke-dasharray={circumference}
-            stroke-dashoffset={circumference * (1- (data.score.personal + data.score.received)/data.score.target)}
-            fill="transparent"
-            />
-        </svg>
+                    <svg
+                        style={`width:${size * 2}px; height:${
+                            size * 2
+                        }px;position:absolute;`}>
+                        <circle
+                            cx={size}
+                            cy={size}
+                            r={radius}
+                            stroke="#68b030"
+                            stroke-linecap="round"
+                            stroke-width="16"
+                            transform={`rotate(-90,${size},${size})`}
+                            stroke-dasharray={circumference}
+                            stroke-dashoffset={circumference *
+                                (1 -
+                                    (data.score.personal +
+                                        data.score.received) /
+                                        data.score.target)}
+                            fill="transparent"
+                        />
+                    </svg>
+                </div>
+                <a
+                    href={`${__myapp.env.APP_URL}/s/${data.slug}`}
+                    class="primaryButton"
+                    on:click
+                    target="_blank"> Plant Trees </a>
+            </div>
         </div>
-        <a href={`${__myapp.env.APP_URL}/s/${data.slug}`} class="primaryButton" on:click target="_blank">
-           Plant Trees
-        </a>
-    </div>
-</div>
-<div class="mapContainer">
-  {#if mapStyle}
-  <div id="map" class="view" use:createMap />
-  <div class="footer">
-      <a href={`https://www1.plant-for-the-planet.org/t/${data.slug}`} target="_blank" class="footerLink">View Profile </a>
-      <a class="footerLinkBold" href={`https://www1.plant-for-the-planet.org/`} target="_blank" >| Powered by Plant-for-the-Planet </a>
-  </div>
-  <div class="imageHeader">
-      <a href={`https://www1.plant-for-the-planet.org/t/${data.slug}`} target="_blank">
-          <img class="logo" src={getImageUrl('profile','avatar',data.image)} alt={data.displayName} href="www.facebook.com"/>
-      </a>
-          {#if data.hasLogoLicense}
-          <div class="logoPlanet" >
-              <img src={`${__myapp.env.CDN_URL}/logo/svg/planet.svg`} alt="Powered by Plant-for-the-Planet" />
-          </div>
-          {/if}
-  </div>
-{/if}
-</div>
-  {:catch error}
-    <p>An error occurred!</p>
-  {/await}
+        <div class="mapContainer">
+            {#if mapStyle}
+                <div id="map" class="view" use:createMap />
+                <div class="footer">
+                    <a
+                        href={`https://www1.plant-for-the-planet.org/t/${data.slug}`}
+                        target="_blank"
+                        class="footerLink">View Profile
+                    </a>
+                    <a
+                        class="footerLinkBold"
+                        href={`https://www1.plant-for-the-planet.org/`}
+                        target="_blank">| Powered by Plant-for-the-Planet
+                    </a>
+                </div>
+                <div class="imageHeader">
+                    <a
+                        href={`https://www1.plant-for-the-planet.org/t/${data.slug}`}
+                        target="_blank">
+                        <img
+                            class="logo"
+                            src={getImageUrl("profile", "avatar", data.image)}
+                            alt={data.displayName}
+                            href="www.facebook.com"
+                        />
+                    </a>
+                    {#if data.hasLogoLicense}
+                        <div class="logoPlanet">
+                            <img
+                                src={`${__myapp.env.CDN_URL}/logo/svg/planet.svg`}
+                                alt="Powered by Plant-for-the-Planet"
+                            />
+                        </div>
+                    {/if}
+                </div>
+            {/if}
+        </div>
+    {:catch error}
+        <p>An error occurred!</p>
+    {/await}
 </div>
 
 <style>
-  :global(p, a) {
-    margin: 0;
-    padding: 0;
-    border: 0;
-    font-size: 100%;
-    font: inherit;
-    vertical-align: baseline;
-    font-family: "Raleway", sans-serif;
-    text-decoration: none;
-  }
-  .userprofile {
-    width: 320px;
-    border-radius: 10px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    border: 1px solid #d5d5d5;
-  }
-  @media screen and (min-width: 940px) {
-    .userprofile {
-      height: 420px;
-      width: 940px;
-      flex-direction: row;
+    :global(p, a) {
+        margin: 0;
+        padding: 0;
+        border: 0;
+        font-size: 100%;
+        font: inherit;
+        vertical-align: baseline;
+        font-family: "Raleway", sans-serif;
+        text-decoration: none;
     }
-  }
+    .userprofile {
+        width: 320px;
+        border-radius: 10px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        border: 1px solid #d5d5d5;
+    }
+    @media screen and (min-width: 940px) {
+        .userprofile {
+            height: 420px;
+            width: 940px;
+            flex-direction: row;
+        }
+    }
 
-  .mainContainer {
+    .mainContainer {
         display: flex;
         flex-direction: column;
         justify-content: center;
@@ -257,7 +302,7 @@
         transition-timing-function: cubic-bezier(0.165, 0.84, 0.44, 1);
         text-decoration: none;
     }
-    .primaryButton:hover{
+    .primaryButton:hover {
         transform: translateY(-7px);
         cursor: pointer;
     }
@@ -271,7 +316,7 @@
         }
     }
 
-    .mapContainer{
+    .mapContainer {
         position: relative;
         height: 420px;
         border-radius: 20px;
@@ -280,7 +325,7 @@
         height: 420px;
         width: 320px;
     }
-    .footer{
+    .footer {
         display: flex;
         flex-direction: row;
         font-size: 14px;
@@ -288,18 +333,18 @@
         bottom: 12px;
         right: 12px;
     }
-    .footerLink{
-        color: #6DAFF0;
+    .footerLink {
+        color: #6daff0;
         text-decoration: none;
     }
-    .footerLinkBold{
-        color: #6DAFF0;
+    .footerLinkBold {
+        color: #6daff0;
         font-weight: bold;
         margin-left: 4px;
         text-decoration: none;
     }
 
-    .imageHeader{
+    .imageHeader {
         position: absolute;
         top: 12px;
         right: 12px;
@@ -307,14 +352,14 @@
         flex-direction: row;
     }
 
-    .logo{
+    .logo {
         border-radius: 50%;
         height: 64px;
         width: 64px;
-        box-shadow: 0px 2px 6px rgba(0,0,0,0.16);
+        box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.16);
     }
 
-    .logoPlanet{
+    .logoPlanet {
         height: 64px;
         width: 64px;
         background-color: white;
@@ -322,11 +367,11 @@
         align-items: center;
         justify-content: center;
         border-radius: 50%;
-        box-shadow: 0px 2px 6px rgba(0,0,0,0.16);
+        box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.16);
         margin-left: 12px;
     }
 
-    .logoPlanet > img{
+    .logoPlanet > img {
         height: 52px;
         width: 52px;
     }
