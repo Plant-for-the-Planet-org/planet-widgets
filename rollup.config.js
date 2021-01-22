@@ -5,6 +5,9 @@ import livereload from "rollup-plugin-livereload";
 import { terser } from "rollup-plugin-terser";
 import css from "rollup-plugin-css-only";
 import json from "@rollup/plugin-json";
+import {config} from 'dotenv';
+import replace from '@rollup/plugin-replace';
+import gzipPlugin from 'rollup-plugin-gzip'
 
 const production = !process.env.ROLLUP_WATCH;
 
@@ -34,24 +37,43 @@ function serve() {
 }
 
 export default {
-  input: "src/main.js",
+  input: "src/UserProfile/userprofile.js",
   output: {
     sourcemap: true,
     format: "iife",
     name: "app",
-    file: "public/build/bundle.js",
+    file: "public/build/userprofile.js",
   },
   plugins: [
+    gzipPlugin(),
+    replace({
+      // stringify the object       
+      __myapp: JSON.stringify({
+        env: {
+          isProd: production,
+          ...config().parsed // attached the .env config
+        }
+      }),
+    }),
     svelte({
+      include: /App\.svelte$/,
       compilerOptions: {
         // enable run-time checks when not in production
         dev: !production,
+        customElement: true
       },
+      emitCss: false,
+    }),
+    svelte({
+      exclude: /App\.svelte$/,
+      compilerOptions: {
+        // enable run-time checks when not in production
+        dev: !production,
+        customElement: false
+      },
+      emitCss: false,
     }),
     json(),
-    // we'll extract any component CSS out into
-    // a separate file - better for performance
-    css({ output: "bundle.css" }),
 
     // If you have external dependencies installed from
     // npm, you'll most likely need these plugins. In
