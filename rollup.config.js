@@ -7,6 +7,7 @@ import css from "rollup-plugin-css-only";
 import json from "@rollup/plugin-json";
 import {config} from 'dotenv';
 import replace from '@rollup/plugin-replace';
+import gzipPlugin from 'rollup-plugin-gzip'
 
 const production = !process.env.ROLLUP_WATCH;
 
@@ -44,6 +45,7 @@ export default {
     file: "public/build/userprofile.js",
   },
   plugins: [
+    gzipPlugin(),
     replace({
       // stringify the object       
       __myapp: JSON.stringify({
