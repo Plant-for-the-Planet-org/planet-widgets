@@ -9,7 +9,8 @@
     import getImageUrl from "../../utils/getImageUrl";
 
     export let userguid;
-
+    export const primaryColor =  '#68b030';
+    export const counterBackgroundColor = '#23519b';
     let mapStyle;
     let userpofiledata;
     const fetchProfileData = (async () => {
@@ -79,7 +80,7 @@
                         "transform",
                         "translate(-4.75 -2.75)"
                     );
-                    path.setAttributeNS(null, "fill", "#68b030");
+                    path.setAttributeNS(null, "fill", primaryColor);
                     path.setAttributeNS(null, "stroke", "#fff");
                     path.setAttributeNS(null, "stroke-width", 0.5);
                     tree.appendChild(path);
@@ -97,7 +98,7 @@
     };
 </script>
 
-<div class="userprofile">
+<div class="userprofile" style="--primary-color: {primaryColor};--counter-background-color: {counterBackgroundColor}">
     {#await fetchProfileData}
         <UserProfileLoader />
     {:then data}
@@ -131,7 +132,7 @@
                             cx={size}
                             cy={size}
                             r={radius}
-                            stroke="#68b030"
+                            stroke={primaryColor}
                             stroke-linecap="round"
                             stroke-width="16"
                             transform={`rotate(-90,${size},${size})`}
@@ -211,13 +212,6 @@
         font-family: "Raleway", sans-serif;
         text-decoration: none;
     }
-    @media screen and (min-width: 940px) {
-        .userprofile {
-            height: 420px;
-            width: 940px;
-            flex-direction: row;
-        }
-    }
 
     .mainContainer {
         display: flex;
@@ -249,7 +243,7 @@
         height: 266px;
         width: 266px;
         border-radius: 50%;
-        background-color: #23519b;
+        background-color: var(--counter-background-color);
         display: flex;
         flex-direction: column;
         justify-content: center;
@@ -274,7 +268,7 @@
     .primaryButton {
         color: white;
         font-weight: bold;
-        background-color: #68b030;
+        background-color: var(--primary-color);
         height: 48px;
         padding: 0px;
         text-align: center;
@@ -293,15 +287,6 @@
     .primaryButton:hover {
         transform: translateY(-7px);
         cursor: pointer;
-    }
-    @media screen and (min-width: 940px) {
-        .treeCounterContainer {
-            height: 420px;
-            width: 420px;
-            border-top-right-radius: 0px;
-            border-top-left-radius: 10px;
-            border-bottom-left-radius: 10px;
-        }
     }
 
     .mapContainer {
@@ -364,7 +349,32 @@
         width: 52px;
     }
 
+    @media screen and (min-width: 640px) {
+        .userprofile {
+            height: 420px;
+            width: 640px;
+            flex-direction: row;
+        }
+        .treeCounterContainer {
+            height: 420px;
+            width: 100%;
+            width: 320px;
+            border-top-right-radius: 0px;
+            border-top-left-radius: 10px;
+            border-bottom-left-radius: 10px;
+        }
+        .view {
+            width: 320px;
+        }
+    }
+
     @media screen and (min-width: 940px) {
+        .userprofile {
+            width: 940px;
+        }
+        .treeCounterContainer{
+            width: 420px;
+        }
         .view {
             width: 520px;
         }
@@ -381,7 +391,7 @@
         flex-direction: row;
         align-items: center;
         justify-content: center;
-        color: #68b030;
+        color: var(--primary-color);
         font-weight: bold;
         font-size: 18px;
     }
