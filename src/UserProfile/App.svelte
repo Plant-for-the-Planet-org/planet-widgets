@@ -95,7 +95,9 @@
                             el.className = "marker";
 
                             // make a marker for each feature and add to the map
-                            new mapboxgl.Marker(el)
+                            new mapboxgl.Marker(el,{
+                                anchor:'bottom'
+                            })
                                 .setLngLat(contribution.geometry.coordinates)
                                 .addTo(map);
                         }
