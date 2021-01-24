@@ -8,9 +8,13 @@
     import { fetchTiles } from "../../utils/mapUtils";
     import getImageUrl from "../../utils/getImageUrl";
 
+    // Props that can be passed
     export let userguid;
     export const primaryColor = "#68b030";
     export const counterBackgroundColor = "#23519b";
+    export const theme = "light";
+    export const community = true;
+
     let mapStyle;
     let userpofiledata;
     const fetchProfileData = (async () => {
@@ -95,8 +99,8 @@
                             el.className = "marker";
 
                             // make a marker for each feature and add to the map
-                            new mapboxgl.Marker(el,{
-                                anchor:'bottom'
+                            new mapboxgl.Marker(el, {
+                                anchor: "bottom",
                             })
                                 .setLngLat(contribution.geometry.coordinates)
                                 .addTo(map);
@@ -121,9 +125,12 @@
                     <div class="treeCounter">
                         <div class="textContainer">
                             <p class="treecount">
-                                {getFormattedNumber(
-                                    data.score.personal + data.score.received
-                                )}
+                                {community
+                                    ? getFormattedNumber(
+                                          data.score.personal +
+                                              data.score.received
+                                      )
+                                    : getFormattedNumber(data.score.personal)}
                             </p>
                             <p class="treecountLabel">Trees Planted</p>
                         </div>
