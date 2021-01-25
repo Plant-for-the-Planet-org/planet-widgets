@@ -53,6 +53,8 @@
             style: mapStyle, // stylesheet location
             center: [-28.5, 36.96], // starting position [lng, lat]
             zoom: 1, // starting zoom
+            height:'100%',
+            width:'100%'
         });
 
         map.on("load", () => {
@@ -223,7 +225,7 @@
     @import "https://fonts.googleapis.com/css2?family=Raleway:wght@400;700&display=swap";
 
     .userprofile {
-        width: 320px;
+        width: 100%;
         border-radius: 10px;
         display: flex;
         flex-direction: column;
@@ -242,7 +244,7 @@
     }
     .treeCounterContainer {
         height: 420px;
-        width: 320px;
+        width: 100%;
         display: flex;
         flex-direction: column;
         align-items: center;
@@ -314,10 +316,11 @@
         position: relative;
         height: 420px;
         border-radius: 20px;
+        width:100%;
     }
     .view {
         height: 420px;
-        width: 320px;
+        width: 100%;
     }
     .footer {
         display: flex;
@@ -372,32 +375,33 @@
 
     @media screen and (min-width: 640px) {
         .userprofile {
-            height: 420px;
-            width: 640px;
             flex-direction: row;
         }
         .treeCounterContainer {
-            height: 420px;
-            width: 100%;
-            width: 320px;
             border-top-right-radius: 0px;
             border-top-left-radius: 10px;
             border-bottom-left-radius: 10px;
         }
+        .mapContainer{
+            width:100%
+        }
         .view {
-            width: 320px;
+            width:100%
         }
     }
 
     @media screen and (min-width: 940px) {
         .userprofile {
-            width: 940px;
+            max-width: 940px;
         }
         .treeCounterContainer {
-            width: 420px;
+            max-width: 420px;
+        }
+        .mapContainer{
+            max-width: 520px;
         }
         .view {
-            width: 520px;
+            max-width: 520px;
         }
     }
 
