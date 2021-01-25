@@ -15,7 +15,7 @@
     export let primaryColor = "#68b030";
     export let counterBackgroundColor = "#23519b";
     export let theme = "light";
-    export let community = true;
+    export let community = false;
     export let locale= "de";
 
 
