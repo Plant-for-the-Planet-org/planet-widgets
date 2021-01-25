@@ -20,8 +20,8 @@ Docs will be updated soon...
         </tr>
         <tr>
             <td>1</td>
-            <td>userguid</td>
-            <td>Unique GUID of the user which will fetch the data.</td>
+            <td>user</td>
+            <td>Unique GUID or slug of the user which will be used to fetch the data.</td>
             <td>For eg. 'prf_h6smcMDN23Qet1CP7BEplM60'</td>
             <td>NULL</td>
             <td>Required</td>
