@@ -63,7 +63,7 @@ Docs will be updated soon...
             <td>locale</td>
             <td>Change the language of the widget</td>
             <td>de = German, en = English, more coming soon</td>
-            <td>Default: de</td>
+            <td>Default: en</td>
             <td>Optional</td>
         </tr>
     </table>

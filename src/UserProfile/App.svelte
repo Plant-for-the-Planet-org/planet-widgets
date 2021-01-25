@@ -16,7 +16,7 @@
     export let counterBackgroundColor = "#23519b";
     export let theme = "light";
     export let community = false;
-    export let locale= "de";
+    export let locale= "en";
 
 
     let language;
