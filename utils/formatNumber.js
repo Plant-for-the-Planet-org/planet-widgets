@@ -1,8 +1,9 @@
 export function getFormattedNumber(
-    number
+    number,
+    locale
   ) {
       // To Do - use user's lang code
-    const formatter = new Intl.NumberFormat('en-IN');
+    const formatter = new Intl.NumberFormat(locale);
     return formatter.format(number);
   }
   

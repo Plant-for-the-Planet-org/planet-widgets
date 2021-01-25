@@ -7,10 +7,26 @@
     import styleJson from "../../public/data/styles/root.json";
     import { fetchTiles } from "../../utils/mapUtils";
     import getImageUrl from "../../utils/getImageUrl";
+    import enLocale from './../../public/data/locales/en.json';
+    import deLocale from './../../public/data/locales/de.json';
 
+    // Props that can be passed
     export let userguid;
-    export const primaryColor = "#68b030";
-    export const counterBackgroundColor = "#23519b";
+    export let primaryColor = "#68b030";
+    export let counterBackgroundColor = "#23519b";
+    export let theme = "light";
+    export let community = false;
+    export let locale= "en";
+
+
+    let language;
+
+    switch(locale){
+        case "en": language=enLocale; break;
+        case "de": language=deLocale; break;
+        default: language=enLocale; break;
+    }
+
     let mapStyle;
     let userpofiledata;
     const fetchProfileData = (async () => {
@@ -49,6 +65,8 @@
             style: mapStyle, // stylesheet location
             center: [-28.5, 36.96], // starting position [lng, lat]
             zoom: 1, // starting zoom
+            height:'100%',
+            width:'100%'
         });
 
         map.on("load", () => {
@@ -95,8 +113,8 @@
                             el.className = "marker";
 
                             // make a marker for each feature and add to the map
-                            new mapboxgl.Marker(el,{
-                                anchor:'bottom'
+                            new mapboxgl.Marker(el, {
+                                anchor: "bottom",
                             })
                                 .setLngLat(contribution.geometry.coordinates)
                                 .addTo(map);
@@ -121,18 +139,21 @@
                     <div class="treeCounter">
                         <div class="textContainer">
                             <p class="treecount">
-                                {getFormattedNumber(
-                                    data.score.personal + data.score.received
-                                )}
+                                {community
+                                    ? getFormattedNumber(
+                                          data.score.personal +
+                                              data.score.received, locale
+                                      )
+                                    : getFormattedNumber(data.score.personal,locale)}
                             </p>
-                            <p class="treecountLabel">Trees Planted</p>
+                            <p class="treecountLabel">{language.treesPlanted}</p>
                         </div>
                         {#if data.score.target != 0}
                             <div class="textContainer">
                                 <p class="treecount">
-                                    {getFormattedNumber(data.score.target)}
+                                    {getFormattedNumber(data.score.target, locale)}
                                 </p>
-                                <p class="treecountLabel">Target</p>
+                                <p class="treecountLabel">{language.target}</p>
                             </div>
                         {/if}
                     </div>
@@ -163,7 +184,7 @@
                     href={`${__myapp.env.APP_URL}/s/${data.slug}`}
                     class="primaryButton"
                     on:click
-                    target="_blank"> Plant Trees </a>
+                    target="_blank">{language.plantTrees}</a>
             </div>
         </div>
         <div class="mapContainer">
@@ -173,12 +194,12 @@
                     <a
                         href={`https://www1.plant-for-the-planet.org/t/${data.slug}`}
                         target="_blank"
-                        class="footerLink">View Profile
+                        class="footerLink">{language.viewProfile}
                     </a>
                     <a
                         class="footerLinkBold"
                         href={`https://www1.plant-for-the-planet.org/`}
-                        target="_blank">| Powered by Plant-for-the-Planet
+                        target="_blank">| {language.poweredBy}
                     </a>
                 </div>
                 <div class="imageHeader">
@@ -216,7 +237,7 @@
     @import "https://fonts.googleapis.com/css2?family=Raleway:wght@400;700&display=swap";
 
     .userprofile {
-        width: 320px;
+        width: 100%;
         border-radius: 10px;
         display: flex;
         flex-direction: column;
@@ -235,7 +256,7 @@
     }
     .treeCounterContainer {
         height: 420px;
-        width: 320px;
+        width: 100%;
         display: flex;
         flex-direction: column;
         align-items: center;
@@ -307,10 +328,11 @@
         position: relative;
         height: 420px;
         border-radius: 20px;
+        width:100%;
     }
     .view {
         height: 420px;
-        width: 320px;
+        width: 100%;
     }
     .footer {
         display: flex;
@@ -365,32 +387,33 @@
 
     @media screen and (min-width: 640px) {
         .userprofile {
-            height: 420px;
-            width: 640px;
             flex-direction: row;
         }
         .treeCounterContainer {
-            height: 420px;
-            width: 100%;
-            width: 320px;
             border-top-right-radius: 0px;
             border-top-left-radius: 10px;
             border-bottom-left-radius: 10px;
         }
+        .mapContainer{
+            width:100%
+        }
         .view {
-            width: 320px;
+            width:100%
         }
     }
 
     @media screen and (min-width: 940px) {
         .userprofile {
-            width: 940px;
+            max-width: 940px;
         }
         .treeCounterContainer {
-            width: 420px;
+            max-width: 420px;
+        }
+        .mapContainer{
+            max-width: 520px;
         }
         .view {
-            width: 520px;
+            max-width: 520px;
         }
     }
 
