@@ -7,13 +7,25 @@
     import styleJson from "../../public/data/styles/root.json";
     import { fetchTiles } from "../../utils/mapUtils";
     import getImageUrl from "../../utils/getImageUrl";
+    import enLocale from './../../public/data/locales/en.json';
+    import deLocale from './../../public/data/locales/de.json';
 
     // Props that can be passed
     export let userguid;
-    export const primaryColor = "#68b030";
-    export const counterBackgroundColor = "#23519b";
-    export const theme = "light";
-    export const community = true;
+    export let primaryColor = "#68b030";
+    export let counterBackgroundColor = "#23519b";
+    export let theme = "light";
+    export let community = true;
+    export let locale= "de";
+
+
+    let language;
+
+    switch(locale){
+        case "en": language=enLocale; break;
+        case "de": language=deLocale; break;
+        default: language=enLocale; break;
+    }
 
     let mapStyle;
     let userpofiledata;
@@ -130,18 +142,18 @@
                                 {community
                                     ? getFormattedNumber(
                                           data.score.personal +
-                                              data.score.received
+                                              data.score.received, locale
                                       )
-                                    : getFormattedNumber(data.score.personal)}
+                                    : getFormattedNumber(data.score.personal,locale)}
                             </p>
-                            <p class="treecountLabel">Trees Planted</p>
+                            <p class="treecountLabel">{language.treesPlanted}</p>
                         </div>
                         {#if data.score.target != 0}
                             <div class="textContainer">
                                 <p class="treecount">
-                                    {getFormattedNumber(data.score.target)}
+                                    {getFormattedNumber(data.score.target, locale)}
                                 </p>
-                                <p class="treecountLabel">Target</p>
+                                <p class="treecountLabel">{language.target}</p>
                             </div>
                         {/if}
                     </div>
@@ -172,7 +184,7 @@
                     href={`${__myapp.env.APP_URL}/s/${data.slug}`}
                     class="primaryButton"
                     on:click
-                    target="_blank"> Plant Trees </a>
+                    target="_blank">{language.plantTrees}</a>
             </div>
         </div>
         <div class="mapContainer">
@@ -182,12 +194,12 @@
                     <a
                         href={`https://www1.plant-for-the-planet.org/t/${data.slug}`}
                         target="_blank"
-                        class="footerLink">View Profile
+                        class="footerLink">{language.viewProfile}
                     </a>
                     <a
                         class="footerLinkBold"
                         href={`https://www1.plant-for-the-planet.org/`}
-                        target="_blank">| Powered by Plant-for-the-Planet
+                        target="_blank">| {language.poweredBy}
                     </a>
                 </div>
                 <div class="imageHeader">
