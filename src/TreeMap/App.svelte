@@ -1,8 +1,8 @@
-<svelte:options tag="user-profile" immutable={true} />
+<svelte:options tag="tree-map" immutable={true} />
 
 <script>
     import UserProfileLoader from "../../utils/contentLoaders/UserProfileLoader.svelte";
-    import { getFormattedNumber } from "./../../utils/formatNumber";
+    import { getFormattedNumber } from "../../utils/formatNumber";
     import mapboxgl from "mapbox-gl";
     import styleJson from "../../public/data/styles/root.json";
     import { fetchTiles } from "../../utils/mapUtils";
@@ -11,9 +11,9 @@
     import deLocale from './../../public/data/locales/de.json';
 
     // Props that can be passed
-    export let userguid;
+    export let user;
     export let primaryColor = "#68b030";
-    export let counterBackgroundColor = "#23519b";
+    export let circleBGColor = "#23519b";
     export let theme = "light";
     export let community = false;
     export let locale= "en";
@@ -31,7 +31,7 @@
     let userpofiledata;
     const fetchProfileData = (async () => {
         const response = await fetch(
-            `${__myapp.env.API_URL}/profiles/${userguid}`
+            `${__myapp.env.API_URL}/profiles/${user}`
         );
         userpofiledata = await response.json();
         fetchTiles(
@@ -51,7 +51,7 @@
 
     const fetchContributionsData = (async () => {
         const response = await fetch(
-            `${__myapp.env.API_URL}/profiles/${userguid}/contributions`
+            `${__myapp.env.API_URL}/profiles/${user}/contributions`
         );
         return await response.json();
     })();
@@ -127,8 +127,8 @@
 </script>
 
 <div
-    class="userprofile"
-    style="--primary-color: {primaryColor};--counter-background-color: {counterBackgroundColor}"
+    class="treemap"
+    style="--primary-color: {primaryColor};--counter-background-color: {circleBGColor}; --background-color: {theme=== "light" ? "#fff" : "#2f3336"}"
 >
     {#await fetchProfileData}
         <UserProfileLoader />
@@ -236,7 +236,7 @@
     @import "https://api.mapbox.com/mapbox-gl-js/v1.2.0/mapbox-gl.css";
     @import "https://fonts.googleapis.com/css2?family=Raleway:wght@400;700&display=swap";
 
-    .userprofile {
+    .treemap {
         width: 100%;
         border-radius: 10px;
         display: flex;
@@ -246,6 +246,8 @@
         vertical-align: baseline;
         font-family: "Raleway", sans-serif;
         text-decoration: none;
+        margin: 12px;
+        background-color: var(--background-color);
     }
 
     .mainContainer {
@@ -303,7 +305,7 @@
     .primaryButton {
         color: white;
         font-weight: bold;
-        background-color: var(--primary-color);
+        background-image: linear-gradient(97deg, #68B030 4%, #007A49 116%);
         height: 48px;
         padding: 0px;
         text-align: center;
@@ -386,7 +388,7 @@
     }
 
     @media screen and (min-width: 640px) {
-        .userprofile {
+        .treemap {
             flex-direction: row;
         }
         .treeCounterContainer {
@@ -403,7 +405,7 @@
     }
 
     @media screen and (min-width: 940px) {
-        .userprofile {
+        .treemap {
             max-width: 940px;
         }
         .treeCounterContainer {
@@ -421,7 +423,7 @@
         height: 30px;
         min-width: 60px;
         padding: 6px 8px;
-        background-color: white;
+        background-color: var(--background-color);
         border-radius: 7px;
         box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px;
         display: flex;
