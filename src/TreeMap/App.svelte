@@ -246,7 +246,7 @@
         vertical-align: baseline;
         font-family: "Raleway", sans-serif;
         text-decoration: none;
-        margin: 12px;
+        margin: 10px 0px 10px 0px;
         background-color: var(--background-color);
     }
 
