@@ -37,12 +37,12 @@ function serve() {
 }
 
 export default {
-  input: "src/UserProfile/userprofile.js",
+  input: "src/TreeMap/treemap.js",
   output: {
     sourcemap: true,
     format: "iife",
     name: "app",
-    file: "public/build/userprofile.js",
+    file: "public/build/treemap.js",
   },
   plugins: [
     gzipPlugin(),
