@@ -289,7 +289,7 @@
                         </a>
                     {/if}
                     {#if data.hasLogoLicense}
-                        <div class="logoPlanet">
+                        <div class="logoPlanet" style={`background-color:${theme === 'dark' ? "#2f3336" : ""}`}>
                             {#if theme === "dark"}
                                 <img
                                     src={`${__myapp.env.CDN_URL}/logo/svg/planetDark.svg`}

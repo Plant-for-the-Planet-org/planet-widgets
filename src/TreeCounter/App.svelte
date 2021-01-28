@@ -49,10 +49,13 @@
 
 <div
     class="treecounter"
-    style="--primary-color: {primaryColor};--counter-background-color: {counterBGColor}; --background-color: {theme ===
+    style="--primary-color: {primaryColor};
+    --counter-background-color: {counterBGColor}; 
+    --background-color: {theme ===
     'light'
         ? '#fff'
-        : '#2f3336'}"
+        : '#2f3336'};
+    --link-color: {theme === 'light' ? '#6daff0' : '#fff'}"
 >
     {#await fetchProfileData}
         <UserProfileLoader />
@@ -136,7 +139,7 @@
                     />
                 </a>
                 {#if data.hasLogoLicense}
-                    <div class="logoPlanet">
+                <div class="logoPlanet" style={`background-color:${theme === 'dark' ? "#2f3336" : ""}`}>
                         {#if theme === "dark"}
                                 <img
                                     src={`${__myapp.env.CDN_URL}/logo/svg/planetDark.svg`}
@@ -302,11 +305,11 @@
         margin-bottom: 12px;
     }
     .footerLink {
-        color: #6daff0;
+        color: var(--link-color);
         text-decoration: none;
     }
     .footerLinkBold {
-        color: #6daff0;
+        color: var(--link-color);
         font-weight: bold;
         margin-left: 4px;
         text-decoration: none;
