@@ -3,5 +3,8 @@
     "target":"Ziel",
     "plantTrees":"Bäume pflanzen",
     "viewProfile":"Profil anzeigen",
-    "poweredBy":"Powered by Plant-for-the-Planet"
+    "poweredBy":"Powered by Plant-for-the-Planet",
+    "treesPlantedBy":"trees planted by",
+    "and":"und",
+    "treesPlantedByComm":"trees planted by community."
 }

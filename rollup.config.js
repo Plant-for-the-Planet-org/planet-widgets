@@ -3,7 +3,6 @@ import commonjs from "@rollup/plugin-commonjs";
 import resolve from "@rollup/plugin-node-resolve";
 import livereload from "rollup-plugin-livereload";
 import { terser } from "rollup-plugin-terser";
-import css from "rollup-plugin-css-only";
 import json from "@rollup/plugin-json";
 import {config} from 'dotenv';
 import replace from '@rollup/plugin-replace';
@@ -36,7 +35,8 @@ function serve() {
   };
 }
 
-export default {
+//Todo separate the treemap and treecounter.js files
+export default [{
   input: "src/TreeMap/treemap.js",
   output: {
     sourcemap: true,
@@ -47,7 +47,7 @@ export default {
   plugins: [
     gzipPlugin(),
     replace({
-      // stringify the object       
+      // stringify the object
       __myapp: JSON.stringify({
         env: {
           isProd: production,
@@ -101,4 +101,69 @@ export default {
   watch: {
     clearScreen: false,
   },
-};
+},{
+  input: "src/TreeCounter/treecounter.js",
+  output: {
+    sourcemap: true,
+    format: "iife",
+    name: "app",
+    file: "public/build/treecounter.js",
+  },
+  plugins: [
+    gzipPlugin(),
+    replace({
+      // stringify the object
+      __myapp: JSON.stringify({
+        env: {
+          isProd: production,
+          ...config().parsed // attached the .env config
+        }
+      }),
+    }),
+    svelte({
+      include: /App\.svelte$/,
+      compilerOptions: {
+        // enable run-time checks when not in production
+        dev: !production,
+        customElement: true
+      },
+      emitCss: false,
+    }),
+    svelte({
+      exclude: /App\.svelte$/,
+      compilerOptions: {
+        // enable run-time checks when not in production
+        dev: !production,
+        customElement: false
+      },
+      emitCss: false,
+    }),
+    json(),
+
+    // If you have external dependencies installed from
+    // npm, you'll most likely need these plugins. In
+    // some cases you'll need additional configuration -
+    // consult the documentation for details:
+    // https://github.com/rollup/plugins/tree/master/packages/commonjs
+    resolve({
+      browser: true,
+      dedupe: ["svelte"],
+    }),
+    commonjs(),
+
+    // In dev mode, call `npm run start` once
+    // the bundle has been generated
+    !production && serve(),
+
+    // Watch the `public` directory and refresh the
+    // browser on changes when not in production
+    !production && livereload("public"),
+
+    // If we're building for production (npm run build
+    // instead of npm run dev), minify
+    production && terser(),
+  ],
+  watch: {
+    clearScreen: false,
+  },
+}];
