@@ -1,4 +1,4 @@
-<svelte:options tag="tree-map" immutable={true} />
+<svelte:options tag="tree-counter" immutable={true} />
 
 <script>
     import UserProfileLoader from "../../utils/contentLoaders/UserProfileLoader.svelte";
@@ -7,33 +7,37 @@
     import styleJson from "../../public/data/styles/root.json";
     import { fetchTiles } from "../../utils/mapUtils";
     import getImageUrl from "../../utils/getImageUrl";
-    import enLocale from './../../public/data/locales/en.json';
-    import deLocale from './../../public/data/locales/de.json';
+    import enLocale from "./../../public/data/locales/en.json";
+    import deLocale from "./../../public/data/locales/de.json";
 
     // Props that can be passed
     export let user;
     export let primaryColor = "#68b030";
-    export let theme = "light";
     export let circleBGColor;
+    export let theme = "light";
     export let community = false;
-    export let locale= "en";
+    export let locale = "en";
 
     let counterBGColor = circleBGColor ? circleBGColor : theme === 'light' ? "#23519b" : "#2f3336";
 
     let language;
 
-    switch(locale){
-        case "en": language=enLocale; break;
-        case "de": language=deLocale; break;
-        default: language=enLocale; break;
+    switch (locale) {
+        case "en":
+            language = enLocale;
+            break;
+        case "de":
+            language = deLocale;
+            break;
+        default:
+            language = enLocale;
+            break;
     }
 
     let mapStyle;
     let userpofiledata;
     const fetchProfileData = (async () => {
-        const response = await fetch(
-            `${__myapp.env.API_URL}/profiles/${user}`
-        );
+        const response = await fetch(`${__myapp.env.API_URL}/profiles/${user}`);
         userpofiledata = await response.json();
         fetchTiles(
             styleJson,
@@ -66,8 +70,8 @@
             style: mapStyle, // stylesheet location
             center: [-28.5, 36.96], // starting position [lng, lat]
             zoom: 1, // starting zoom
-            height:'100%',
-            width:'100%'
+            height: "100%",
+            width: "100%",
         });
 
         map.on("load", () => {
@@ -128,118 +132,136 @@
 </script>
 
 <div
-    class="treemap"
-    style="--primary-color: {primaryColor};--counter-background-color: {counterBGColor}; --background-color: {theme=== "light" ? "#fff" : "#2f3336"}"
+    class="treecounter"
+    style="--primary-color: {primaryColor};--counter-background-color: {counterBGColor}; --background-color: {theme ===
+    'light'
+        ? '#fff'
+        : '#2f3336'}"
 >
     {#await fetchProfileData}
         <UserProfileLoader />
     {:then data}
         <div class="treeCounterContainer">
-            <div class="mainContainer">
-                <div class="treeCounterComponent">
-                    <div class="treeCounter">
-                        <div class="textContainer">
-                            <p class={`treecount ${theme === 'dark' ? "planted" : ""}`}>
-                                {community
-                                    ? getFormattedNumber(
-                                          data.score.personal +
-                                              data.score.received, locale
-                                      )
-                                    : getFormattedNumber(data.score.personal,locale)}
-                            </p>
-                            <p class={`treecountLabel ${theme === 'dark' ? "planted" : ""}`}>{language.treesPlanted}</p>
-                        </div>
-                        {#if data.score.target != 0}
-                            <div class="textContainer">
-                                <p class="treecount">
-                                    {getFormattedNumber(data.score.target, locale)}
-                                </p>
-                                <p class="treecountLabel">{language.target}</p>
-                            </div>
-                        {/if}
-                    </div>
-
-                    <svg
-                        style={`width:${size * 2}px; height:${
-                            size * 2
-                        }px;position:absolute;`}>
-                        <circle
-                            cx={size}
-                            cy={size}
-                            r={radius}
-                            stroke={primaryColor}
-                            stroke-linecap="round"
-                            stroke-width="16"
-                            transform={`rotate(-90,${size},${size})`}
-                            stroke-dasharray={circumference}
-                            stroke-dashoffset={circumference *
-                                (1 -
-                                    (data.score.personal +
-                                        data.score.received) /
-                                        data.score.target)}
-                            fill="transparent"
-                        />
-                    </svg>
-                </div>
-                <a
-                    href={`${__myapp.env.APP_URL}/s/${data.slug}`}
-                    class="primaryButton"
-                    on:click
-                    target="_blank">{language.plantTrees}</a>
-            </div>
-        </div>
-        <div class="mapContainer">
-            {#if mapStyle}
-                <div id="map" class="view" use:createMap />
-                <div class="footer">
-                    <a
-                        href={`https://www1.plant-for-the-planet.org/t/${data.slug}`}
-                        target="_blank"
-                        class="footerLink">{language.viewProfile}
-                    </a>
-                    <a
-                        class="footerLinkBold"
-                        href={`https://www1.plant-for-the-planet.org/`}
-                        target="_blank">| {language.poweredBy}
-                    </a>
-                    <div class="infoIcon" style={`color: ${theme === 'dark' ? "#fff" : "#000"}`}>
-                        <svg xmlns="http://www.w3.org/2000/svg" height="14" width="14" viewBox="0 0 512 512">
-                            <path
-                              fill={"#6daff0"}
-                              d="M256 40c118.621 0 216 96.075 216 216 0 119.291-96.61 216-216 216-119.244 0-216-96.562-216-216 0-119.203 96.602-216 216-216m0-32C119.043 8 8 119.083 8 256c0 136.997 111.043 248 248 248s248-111.003 248-248C504 119.083 392.957 8 256 8zm-36 344h12V232h-12c-6.627 0-12-5.373-12-12v-8c0-6.627 5.373-12 12-12h48c6.627 0 12 5.373 12 12v140h12c6.627 0 12 5.373 12 12v8c0 6.627-5.373 12-12 12h-72c-6.627 0-12-5.373-12-12v-8c0-6.627 5.373-12 12-12zm36-240c-17.673 0-32 14.327-32 32s14.327 32 32 32 32-14.327 32-32-14.327-32-32-32z"
-                            />
-                          </svg>
-                          <p class="infoText ">
-                            
-                            {getFormattedNumber(data.score.personal,locale)} {language.treesPlantedBy} {data.displayName}
+            <div class="treeCounterComponent">
+                <div class="treeCounter">
+                    <div class="textContainer">
+                        <p class={`treecount ${theme === 'dark' ? "planted" : ""}`}>
                             {community
-                                ? `${language.and} ${getFormattedNumber(data.score.received, locale)} ${language.treesPlantedByComm}` 
-                                : ""}
-                          </p>
+                                ? getFormattedNumber(
+                                      data.score.personal + data.score.received,
+                                      locale
+                                  )
+                                : getFormattedNumber(
+                                      data.score.personal,
+                                      locale
+                                  )}
+                        </p>
+                        <p class={`treecountLabel ${theme === 'dark' ? "planted" : ""}`}>
+                            {language.treesPlanted}
+                        </p>
                     </div>
-                    
-                </div>
-                <div class="imageHeader">
-                    <a
-                        href={`https://www1.plant-for-the-planet.org/t/${data.slug}`}
-                        target="_blank">
-                        <img
-                            class="logo"
-                            src={getImageUrl("profile", "thumb", data.image)}
-                            alt={data.displayName}
-                            href="www.facebook.com"
-                        />
-                    </a>
-                    {#if data.hasLogoLicense}
-                        <div class="logoPlanet">
-                            <img
-                                src={`${__myapp.env.CDN_URL}/logo/svg/planet.svg`}
-                                alt="Powered by Plant-for-the-Planet"
-                            />
+                    {#if data.score.target != 0}
+                        <div class="textContainer">
+                            <p class="treecount">
+                                {getFormattedNumber(data.score.target, locale)}
+                            </p>
+                            <p class="treecountLabel">{language.target}</p>
                         </div>
                     {/if}
                 </div>
-            {/if}
+
+                <svg
+                    style={`width:${size * 2}px; height:${
+                        size * 2
+                    }px;position:absolute;`}
+                >
+                    <circle
+                        cx={size}
+                        cy={size}
+                        r={radius}
+                        stroke={primaryColor}
+                        stroke-linecap="round"
+                        stroke-width="16"
+                        transform={`rotate(-90,${size},${size})`}
+                        stroke-dasharray={circumference}
+                        stroke-dashoffset={circumference *
+                            (1 -
+                                (data.score.personal + data.score.received) /
+                                    data.score.target)}
+                        fill="transparent"
+                    />
+                </svg>
+            </div>
+            <a
+                href={`${__myapp.env.APP_URL}/s/${data.slug}`}
+                class="primaryButton"
+                on:click
+                target="_blank">{language.plantTrees}</a
+            >
+
+            <div class="imageHeader">
+                <a
+                    href={`https://www1.plant-for-the-planet.org/t/${data.slug}`}
+                    target="_blank"
+                >
+                    <img
+                        class="logo"
+                        src={getImageUrl("profile", "thumb", data.image)}
+                        alt={data.displayName}
+                        href="www.facebook.com"
+                    />
+                </a>
+                {#if data.hasLogoLicense}
+                    <div class="logoPlanet">
+                        <img
+                            src={`${__myapp.env.CDN_URL}/logo/svg/planet.svg`}
+                            alt="Powered by Plant-for-the-Planet"
+                        />
+                    </div>
+                {/if}
+            </div>
+
+            <div class="footer">
+                <a
+                    href={`https://www1.plant-for-the-planet.org/t/${data.slug}`}
+                    target="_blank"
+                    class="footerLink"
+                    >{language.viewProfile}
+                </a>
+                <a
+                    class="footerLinkBold"
+                    href={`https://www1.plant-for-the-planet.org/`}
+                    target="_blank"
+                    >| {language.poweredBy}
+                </a>
+                <div
+                    class="infoIcon"
+                    style={`color: ${theme === "dark" ? "#fff" : "#000"}`}
+                >
+                    <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        height="14"
+                        width="14"
+                        viewBox="0 0 512 512"
+                    >
+                        <path
+                            fill={"#6daff0"}
+                            d="M256 40c118.621 0 216 96.075 216 216 0 119.291-96.61 216-216 216-119.244 0-216-96.562-216-216 0-119.203 96.602-216 216-216m0-32C119.043 8 8 119.083 8 256c0 136.997 111.043 248 248 248s248-111.003 248-248C504 119.083 392.957 8 256 8zm-36 344h12V232h-12c-6.627 0-12-5.373-12-12v-8c0-6.627 5.373-12 12-12h48c6.627 0 12 5.373 12 12v140h12c6.627 0 12 5.373 12 12v8c0 6.627-5.373 12-12 12h-72c-6.627 0-12-5.373-12-12v-8c0-6.627 5.373-12 12-12zm36-240c-17.673 0-32 14.327-32 32s14.327 32 32 32 32-14.327 32-32-14.327-32-32-32z"
+                        />
+                    </svg>
+                    <p class="infoText ">
+                        {getFormattedNumber(data.score.personal, locale)}
+                        {language.treesPlantedBy}
+                        {data.displayName}
+                        {community
+                            ? `${language.and} ${getFormattedNumber(
+                                  data.score.received,
+                                  locale
+                              )} ${language.treesPlantedByComm}`
+                            : ""}
+                    </p>
+                </div>
+            </div>
         </div>
     {:catch error}
         <p>An error occurred!</p>
@@ -253,8 +275,9 @@
     @import "https://api.mapbox.com/mapbox-gl-js/v1.2.0/mapbox-gl.css";
     @import "https://fonts.googleapis.com/css2?family=Raleway:wght@400;700&display=swap";
 
-    .treemap {
+    .treecounter {
         width: 100%;
+        max-width: 420px;
         border-radius: 10px;
         display: flex;
         flex-direction: column;
@@ -267,14 +290,8 @@
         background-color: var(--background-color);
     }
 
-    .mainContainer {
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-    }
     .treeCounterContainer {
-        height: 420px;
+        min-height: 420px;
         width: 100%;
         display: flex;
         flex-direction: column;
@@ -282,6 +299,12 @@
         justify-content: center;
         border-top-right-radius: 10px;
         border-top-left-radius: 10px;
+        max-width: 420px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        position: relative;
     }
     .treeCounterComponent {
         height: 295px;
@@ -292,6 +315,7 @@
         justify-content: center;
         align-items: center;
         position: relative;
+        margin-top: 100px;
     }
     .treeCounter {
         height: 266px;
@@ -319,13 +343,10 @@
         margin: 0px;
         margin-top: 6px;
     }
-    .planted{
-        color: var(--primary-color)
-    }
     .primaryButton {
         color: white;
         font-weight: bold;
-        background-image: linear-gradient(97deg, #68B030 4%, #007A49 116%);
+        background-image: linear-gradient(97deg, #68b030 4%, #007a49 116%);
         height: 48px;
         padding: 0px;
         text-align: center;
@@ -345,24 +366,11 @@
         transform: translateY(-7px);
         cursor: pointer;
     }
-
-    .mapContainer {
-        position: relative;
-        height: 420px;
-        border-radius: 20px;
-        width:100%;
-    }
-    .view {
-        height: 420px;
-        width: 100%;
-    }
     .footer {
         display: flex;
         flex-direction: row;
         font-size: 14px;
-        position: absolute;
-        bottom: 12px;
-        right: 12px;
+        margin-bottom: 12px;
     }
     .footerLink {
         color: #6daff0;
@@ -408,34 +416,16 @@
     }
 
     @media screen and (min-width: 640px) {
-        .treemap {
-            flex-direction: row;
-        }
         .treeCounterContainer {
             border-top-right-radius: 0px;
             border-top-left-radius: 10px;
             border-bottom-left-radius: 10px;
         }
-        .mapContainer{
-            width:100%
-        }
-        .view {
-            width:100%
-        }
     }
 
     @media screen and (min-width: 940px) {
-        .treemap {
-            max-width: 940px;
-        }
         .treeCounterContainer {
             max-width: 420px;
-        }
-        .mapContainer{
-            max-width: 520px;
-        }
-        .view {
-            max-width: 520px;
         }
     }
 
@@ -476,18 +466,6 @@
         text-decoration: none;
     }
 
-    #map {
-        border-bottom-left-radius: 10px;
-        border-bottom-right-radius: 10px;
-    }
-
-    @media screen and (min-width: 940px) {
-        #map {
-            border-bottom-left-radius: 0px;
-            border-top-right-radius: 10px;
-            border-bottom-right-radius: 10px;
-        }
-    }
     .infoIcon{
         margin-left: 4px;
         position: relative;
@@ -513,5 +491,9 @@
     }
     .infoIcon:hover > .infoText {
         display: block;
+    }
+
+    .planted{
+        color: var(--primary-color)
     }
 </style>

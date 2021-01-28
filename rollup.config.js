@@ -3,11 +3,11 @@ import commonjs from "@rollup/plugin-commonjs";
 import resolve from "@rollup/plugin-node-resolve";
 import livereload from "rollup-plugin-livereload";
 import { terser } from "rollup-plugin-terser";
-import css from "rollup-plugin-css-only";
 import json from "@rollup/plugin-json";
 import {config} from 'dotenv';
 import replace from '@rollup/plugin-replace';
 import gzipPlugin from 'rollup-plugin-gzip'
+import multi from '@rollup/plugin-multi-entry';
 
 const production = !process.env.ROLLUP_WATCH;
 
@@ -37,7 +37,7 @@ function serve() {
 }
 
 export default {
-  input: "src/TreeMap/treemap.js",
+  input: ["src/TreeMap/treemap.js","src/TreeCounter/treecounter.js"],
   output: {
     sourcemap: true,
     format: "iife",
@@ -45,6 +45,7 @@ export default {
     file: "public/build/treemap.js",
   },
   plugins: [
+    multi(),
     gzipPlugin(),
     replace({
       // stringify the object       
