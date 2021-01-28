@@ -15,8 +15,8 @@
     export let primaryColor = "#68b030";
     export let theme = "light";
     export let circleBGColor;
-    export let community = false;
-    export let locale= "en";
+    export let community = true;
+    export let locale = "en";
 
     let counterBGColor = circleBGColor ? circleBGColor : theme === 'light' ? "#23519b" : "#2f3336";
 
@@ -210,14 +210,14 @@
                             />
                           </svg>
                           <p class="infoText ">
-                            
+
                             {getFormattedNumber(data.score.personal,locale)} {language.treesPlantedBy} {data.displayName}
                             {community
-                                ? `${language.and} ${getFormattedNumber(data.score.received, locale)} ${language.treesPlantedByComm}` 
+                                ? `${language.and} ${getFormattedNumber(data.score.received, locale)} ${language.treesPlantedByComm}`
                                 : ""}
                           </p>
                     </div>
-                    
+
                 </div>
                 <div class="imageHeader">
                     <a

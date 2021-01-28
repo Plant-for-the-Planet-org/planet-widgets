@@ -36,6 +36,7 @@ function serve() {
   };
 }
 
+//Todo separate the treemap and treecounter.js files
 export default {
   input: ["src/TreeMap/treemap.js","src/TreeCounter/treecounter.js"],
   output: {
@@ -48,7 +49,7 @@ export default {
     multi(),
     gzipPlugin(),
     replace({
-      // stringify the object       
+      // stringify the object
       __myapp: JSON.stringify({
         env: {
           isProd: production,

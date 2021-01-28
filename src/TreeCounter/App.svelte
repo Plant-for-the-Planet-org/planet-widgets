@@ -15,7 +15,7 @@
     export let primaryColor = "#68b030";
     export let circleBGColor;
     export let theme = "light";
-    export let community = false;
+    export let community = true;
     export let locale = "en";
 
     let counterBGColor = circleBGColor ? circleBGColor : theme === 'light' ? "#23519b" : "#2f3336";
@@ -33,6 +33,8 @@
             language = enLocale;
             break;
     }
+
+//Todo Remove the Map styles and functions from treecounter.js
 
     let mapStyle;
     let userpofiledata;
