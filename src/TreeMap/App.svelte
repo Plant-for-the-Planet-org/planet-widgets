@@ -317,7 +317,7 @@
 <style>
     /* @import "https://api.mapbox.com/mapbox-gl-js/v1.2.0/mapbox-gl.css"; */
     @import "https://fonts.googleapis.com/css2?family=Raleway:wght@400;700&display=swap";
-    @import "map.css";
+    @import "https://widgets.plant-for-the-planet.org/map.css";
     .treemap {
         width: 100%;
         border-radius: 10px;
