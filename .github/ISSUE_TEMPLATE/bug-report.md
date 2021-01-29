@@ -33,8 +33,8 @@ Steps to reproduce the behavior:
 - Browser: [e.g. latest Chrome, Safari]
 
 **Smartphone (please complete the following information):**
-- Device: [e.g. iPhone 11]
-- OS: [e.g. iOS 14.4]
+- Device: [e.g. iPhone]
+- OS: [e.g. latest iOS]
 - Browser: [e.g. stock browser, Safari]
 
 **Additional context**
