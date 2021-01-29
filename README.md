@@ -36,7 +36,7 @@ Docs will be updated soon...
         </tr>
         <tr>
             <td>3</td>
-            <td>counterBackgroundColor</td>
+            <td>circleBGColor</td>
             <td>The color which is applied to the background of the tree counter</td>
             <td>Hex code, RGB, or RGBA</td>
             <td>Default: "#23519b"</td>
@@ -53,9 +53,9 @@ Docs will be updated soon...
         <tr>
             <td>5</td>
             <td>community</td>
-            <td>Decide whether to show the received trees or not</td>
+            <td>Decide whether to show the received trees or not, these are trees gifted or supported by other individuals.</td>
             <td>true OR false</td>
-            <td>Default: false</td>
+            <td>Default: true</td>
             <td>Optional</td>
         </tr>
         <tr>
