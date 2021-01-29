@@ -102,12 +102,12 @@ export default [{
     clearScreen: false,
   },
 },{
-  input: "src/TreeCounter/treecounter.js",
+  input: "src/TreeProfile/treeprofile.js",
   output: {
     sourcemap: true,
     format: "iife",
     name: "app",
-    file: "public/build/treecounter.js",
+    file: "public/build/treeprofile.js",
   },
   plugins: [
     gzipPlugin(),
