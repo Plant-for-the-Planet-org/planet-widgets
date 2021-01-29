@@ -1,4 +1,4 @@
-<svelte:options tag="tree-counter" immutable={true} />
+<svelte:options tag="tree-profile" immutable={true} />
 
 <script>
     import UserProfileLoader from "../../utils/contentLoaders/UserProfileLoader.svelte";
@@ -50,7 +50,7 @@
 <div
     class="treecounter"
     style="--primary-color: {primaryColor};
-    --counter-background-color: {counterBGColor}; 
+    --counter-background-color: {counterBGColor};
     --background-color: {theme ===
     'light'
         ? '#fff'
