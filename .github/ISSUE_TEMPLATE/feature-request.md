@@ -1,12 +1,12 @@
 ---
 name: Feature request
-about: Suggest a feature for Plant-for-the-Planet Web App
+about: Suggest a feature for Plant-for-the-Planet Widgets
 title: ''
 labels: enhancement
 assignees: ''
 ---
 
-**Describe the feature you'd like to see included in Plant-for-the-Planet Web App.**
+**Describe the feature you'd like to see included in Plant-for-the-Planet Widgets.**
 *A clear, detailed description of the feature you're requesting.*
 
 **What are the use cases for this feature?**
