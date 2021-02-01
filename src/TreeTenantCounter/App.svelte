@@ -2,7 +2,7 @@
 
 <script>
     import UserProfileLoader from "../../utils/contentLoaders/UserProfileLoader.svelte";
-    import { getFormattedNumber } from "../../utils/formatNumber";
+    import {  localizedAbbreviatedNumber } from "../../utils/formatNumber";
     import getImageUrl from "../../utils/getImageUrl";
     import enLocale from "./../../public/data/locales/en.json";
     import deLocale from "./../../public/data/locales/de.json";
@@ -15,6 +15,8 @@
     export let community = "true";
     export let locale = "en";
     export let goal;
+
+    goal = Number(goal);
 
     let counterBGColor = circleBGColor
         ? circleBGColor
@@ -71,11 +73,7 @@
                                 theme === "dark" ? "planted" : ""
                             }`}
                         >
-                            {
-                            getFormattedNumber(
-                                      data.total,
-                                      locale
-                                  )}
+                            {localizedAbbreviatedNumber(locale, Number(data.total),1)}
                         </p>
                         <p
                             class={`treecountLabel ${
@@ -85,10 +83,10 @@
                             {language.treesPlanted}
                         </p>
                     </div>
-                    {#if goal != 0}
+                    {#if goal !== 0}
                         <div class="textContainer">
                             <p class="treecount">
-                                {getFormattedNumber(goal, locale)}
+                                {localizedAbbreviatedNumber(locale, Number(goal),1)}
                             </p>
                             <p class="treecountLabel">{language.target}</p>
                         </div>
@@ -148,8 +146,7 @@
         flex-direction: column;
         align-items: center;
         justify-content: center;
-        border-top-right-radius: 10px;
-        border-top-left-radius: 10px;
+        border-radius: 10px;
         max-width: 420px;
         display: flex;
         flex-direction: column;
@@ -166,7 +163,6 @@
         justify-content: center;
         align-items: center;
         position: relative;
-        margin-top: 100px;
     }
     .treeCounter {
         height: 266px;

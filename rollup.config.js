@@ -37,12 +37,12 @@ function serve() {
 
 //Todo separate the treemap and treecounter.js files
 export default [{
-  input: "src/TreeMap/treemap.js",
+  input: "src/TreeMap/tree-map.js",
   output: {
     sourcemap: true,
     format: "iife",
     name: "app",
-    file: "public/build/treemap.js",
+    file: "public/build/tree-map.js",
   },
   plugins: [
     gzipPlugin(),
@@ -102,12 +102,12 @@ export default [{
     clearScreen: false,
   },
 },{
-  input: "src/TreeCounter/treecounter.js",
+  input: "src/TreeProfile/tree-profile.js",
   output: {
     sourcemap: true,
     format: "iife",
     name: "app",
-    file: "public/build/treecounter.js",
+    file: "public/build/tree-profile.js",
   },
   plugins: [
     gzipPlugin(),
