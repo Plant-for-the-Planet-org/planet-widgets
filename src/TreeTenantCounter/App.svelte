@@ -6,15 +6,14 @@
     import getImageUrl from "../../utils/getImageUrl";
     import enLocale from "./../../public/data/locales/en.json";
     import deLocale from "./../../public/data/locales/de.json";
-
+    
     // Props that can be passed
-    export let user;
     export let primaryColor = "#68b030";
     export let circleBGColor;
     export let theme = "light";
-    export let community = "true";
     export let locale = "en";
     export let goal;
+    export let tenantKey;
 
     goal = Number(goal);
 
@@ -41,7 +40,7 @@
     let userpofiledata;
     const fetchProfileData = (async () => {
         const response = await fetch(`${__myapp.env.API_URL}/tenantScore`,{headers: {
-        'tenant-key': "ten_I9TW3ncG"}});
+        'tenant-key': 'ten_I9TW3ncG'}});
         userpofiledata = await response.json();
         return userpofiledata;
     })();
