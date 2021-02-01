@@ -2,7 +2,7 @@
 
 <script>
     import UserProfileLoader from "../../utils/contentLoaders/UserProfileLoader.svelte";
-    import { getFormattedNumber } from "../../utils/formatNumber";
+    import { localizedAbbreviatedNumber } from "../../utils/formatNumber";
     import mapboxgl from "mapbox-gl";
     import styleJson from "../../public/data/styles/root.json";
     import { fetchTiles } from "../../utils/mapUtils";
@@ -156,14 +156,14 @@
                                 }`}
                             >
                                 {community === "true"
-                                    ? getFormattedNumber(
+                                    ? localizedAbbreviatedNumber(locale,
                                           data.score.personal +
                                               data.score.received,
-                                          locale
+                                          1
                                       )
-                                    : getFormattedNumber(
+                                    : localizedAbbreviatedNumber(locale,
                                           data.score.personal,
-                                          locale
+                                          1
                                       )}
                             </p>
                             <p
@@ -177,9 +177,9 @@
                         {#if data.score.target != 0}
                             <div class="textContainer">
                                 <p class="treecount">
-                                    {getFormattedNumber(
+                                    {localizedAbbreviatedNumber(locale,
                                         data.score.target,
-                                        locale
+                                        1
                                     )}
                                 </p>
                                 <p class="treecountLabel">{language.target}</p>
@@ -255,16 +255,16 @@
                                 />
                             </svg>
                             <p class="infoText ">
-                                {getFormattedNumber(
-                                    data.score.personal,
-                                    locale
+                                {localizedAbbreviatedNumber(locale,
+                                    Number(data.score.personal),
+                                    1
                                 )}
                                 {language.treesPlantedBy}
                                 {data.displayName}
                                 {community === "true"
-                                    ? `${language.and} ${getFormattedNumber(
-                                          data.score.received,
-                                          locale
+                                    ? `${language.and} ${localizedAbbreviatedNumber(locale,
+                                          Number(data.score.received),
+                                          1
                                       )} ${language.treesPlantedByComm}`
                                     : ""}
                             </p>

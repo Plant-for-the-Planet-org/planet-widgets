@@ -2,7 +2,7 @@
 
 <script>
     import UserProfileLoader from "../../utils/contentLoaders/UserProfileLoader.svelte";
-    import { getFormattedNumber } from "../../utils/formatNumber";
+    import { localizedAbbreviatedNumber } from "../../utils/formatNumber";
     import getImageUrl from "../../utils/getImageUrl";
     import enLocale from "./../../public/data/locales/en.json";
     import deLocale from "./../../public/data/locales/de.json";
@@ -70,13 +70,13 @@
                             }`}
                         >
                             {community === "true"
-                                ? getFormattedNumber(
+                                ? localizedAbbreviatedNumber(locale,
                                       data.score.personal + data.score.received,
-                                      locale
+                                      1
                                   )
-                                : getFormattedNumber(
+                                : localizedAbbreviatedNumber(locale,
                                       data.score.personal,
-                                      locale
+                                      1
                                   )}
                         </p>
                         <p
@@ -90,7 +90,7 @@
                     {#if data.score.target != 0}
                         <div class="textContainer">
                             <p class="treecount">
-                                {getFormattedNumber(data.score.target, locale)}
+                                {localizedAbbreviatedNumber(locale, Number(data.score.target), 1)}
                             </p>
                             <p class="treecountLabel">{language.target}</p>
                         </div>
@@ -185,13 +185,13 @@
                             />
                         </svg>
                         <p class="infoText ">
-                            {getFormattedNumber(data.score.personal, locale)}
+                            {localizedAbbreviatedNumber(locale, Number(data.score.personal), 1)}
                             {language.treesPlantedBy}
                             {data.displayName}
                             {community === "true"
-                                ? `${language.and} ${getFormattedNumber(
-                                      data.score.received,
-                                      locale
+                                ? `${language.and} ${localizedAbbreviatedNumber(locale,
+                                      Number(data.score.received),
+                                      1
                                   )} ${language.treesPlantedByComm}`
                                 : ""}
                         </p>
