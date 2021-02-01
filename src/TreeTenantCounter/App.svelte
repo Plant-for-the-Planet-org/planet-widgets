@@ -189,81 +189,7 @@
         margin: 0px;
         margin-top: 6px;
     }
-    .primaryButton {
-        color: white;
-        font-weight: bold;
-        background-image: linear-gradient(97deg, #68b030 4%, #007a49 116%);
-        height: 48px;
-        padding: 0px;
-        text-align: center;
-        border: 0px;
-        border-radius: 52px;
-        min-width: 205px;
-        margin-top: 24px;
-        margin-bottom: 24px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        transition-duration: 0.5s;
-        transition-timing-function: cubic-bezier(0.165, 0.84, 0.44, 1);
-        text-decoration: none;
-    }
-    .primaryButton:hover {
-        transform: translateY(-7px);
-        cursor: pointer;
-    }
-    .footer {
-        display: flex;
-        flex-direction: row;
-        font-size: 14px;
-        margin-bottom: 12px;
-    }
-    .footerLink {
-        color: var(--link-color);
-        text-decoration: none;
-    }
-    .footerLinkBold {
-        color: var(--link-color);
-        font-weight: bold;
-        margin-left: 4px;
-        text-decoration: none;
-    }
-
-    .imageHeader {
-        position: absolute;
-        top: 12px;
-        right: 12px;
-        display: flex;
-        flex-direction: row;
-    }
-
-    .logo {
-        border-radius: 50%;
-        height: 64px;
-        width: 64px;
-        box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.16);
-    }
-
-    .logoPlanet {
-        height: 64px;
-        width: 64px;
-        background-color: white;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        border-radius: 50%;
-        box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.16);
-        margin-left: 12px;
-    }
-
-    .logoPlanet > img {
-        height: 52px;
-        width: 52px;
-    }
-
-    .logoPlanet > svg {
-        border-radius: 50%;
-    }
+    
 
     @media screen and (min-width: 640px) {
         .treeCounterContainer {
@@ -278,38 +204,6 @@
             max-width: 420px;
         }
     }
-
-    a {
-        text-decoration: none;
-    }
-
-    .infoIcon {
-        margin-left: 4px;
-        position: relative;
-    }
-
-    .infoText {
-        background-color: var(--background-color);
-        margin: 0px;
-        padding: 8px;
-        position: absolute;
-        right: 0px;
-        bottom: 20px;
-        width: 220px;
-        border-radius: 4px;
-        text-align: center;
-    }
-
-    .infoIcon > .infoText {
-        display: none;
-    }
-    .infoIcon:hover {
-        cursor: pointer;
-    }
-    .infoIcon:hover > .infoText {
-        display: block;
-    }
-
     .planted {
         color: var(--primary-color);
     }
