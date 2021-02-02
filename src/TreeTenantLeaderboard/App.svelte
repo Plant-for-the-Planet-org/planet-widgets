@@ -1,6 +1,7 @@
 <svelte:options tag="tree-tenantleaderboard" immutable={true} />
 
 <script>
+    export let theme = "light";
     let selectedTab = "recent";
     export let tenantKey;
     function setSelectedTab(tab) {
@@ -17,10 +18,14 @@
         leaderboardData = await response.json();
         return leaderboardData;
     })();
+
+    
 </script>
 
 {#await fetchProfileData then leaderboardData}
-    <div class="leaderboardSection">
+    <div class="leaderboardSection" 
+    style = "--background-color: {theme ==='light' ? '#fff'
+    : '#2f3336'}; --text-color: {theme === 'light' ? '#2f3336' : '#fff'};">
         <h2 class="leaderboardTitle">Forest Frontrunners</h2>
         <div class="headerButtons">
             <button
@@ -71,6 +76,8 @@
         display: flex;
         flex-direction: column;
         align-items: center;
+        background-color: var(--background-color);
+        color: var(--text-color);
     }
 
     .leaderboardTitle {
@@ -78,7 +85,7 @@
         font-weight: 600;
         font-size: 36px;
         letter-spacing: -0.4px;
-        color: #080707;
+        /* color: #080707; */
     }
     .row-container {
         width: 100%;
@@ -95,7 +102,7 @@
         border-bottom: 1px solid #dddbda;
         display: flex;
         justify-content: space-between;
-        color: #080707;
+        /* color: #080707; */
     }
 
     .row > .user {
@@ -103,7 +110,7 @@
     }
 
     .row > .treeCount {
-        color: #3e3e3c;
+        /* color: #3e3e3c; */
     }
     .headerButtons {
         align-self: center;
