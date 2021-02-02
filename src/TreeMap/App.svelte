@@ -80,12 +80,28 @@
 
         map.on("load", () => {
             fetchContributionsData.then((contributions) => {
+                let unique_coordinates = [];
+                let unique_coordinates_count = [];
+                contributions = Object.values(contributions).filter((c) => {
+                  if (c.geometry && c.geometry.type === 'Point' && c.geometry.coordinates) {
+                    if (unique_coordinates_count[c.geometry.coordinates.toString()]) {
+                      unique_coordinates_count[c.geometry.coordinates.toString()] += Number(c.properties.treeCount);
+                    } else {
+                      unique_coordinates_count[c.geometry.coordinates.toString()] = Number(c.properties.treeCount);
+                    }
+                    if (!unique_coordinates.includes(c.geometry.coordinates.toString())) {
+                      unique_coordinates.push(c.geometry.coordinates.toString());
+                      return true;
+                    }
+                  }
+                  return false;
+                });
                 if (contributions.length > 0) {
                     contributions.map((contribution) => {
                         if (contribution.geometry) {
                             var el = document.createElement("div");
                             var treeCount = document.createTextNode(
-                                contribution.properties.treeCount
+                                getFormattedNumber(unique_coordinates_count[contribution.geometry.coordinates.toString()],locale)
                             );
 
                             el.appendChild(treeCount);
