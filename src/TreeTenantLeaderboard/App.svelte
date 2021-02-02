@@ -1,8 +1,12 @@
 <svelte:options tag="tree-tenantleaderboard" immutable={true} />
 
 <script>
+    import {getFormattedNumber} from '../../utils/formatNumber';
+    import enLocale from "./../../public/data/locales/en.json";
+    import deLocale from "./../../public/data/locales/de.json";
     export let theme = "light";
     let selectedTab = "recent";
+    export let locale = "en";
     export let tenantKey;
     function setSelectedTab(tab) {
         selectedTab = tab;
@@ -19,6 +23,7 @@
         return leaderboardData;
     })();
 
+    
     
 </script>
 
@@ -42,23 +47,25 @@
             >
         </div>
 
-        <div class="row-container">
+        <ul class="row-container">
             {#if selectedTab === "recent"}
                 {#each leaderboardData.mostRecent as item}
-                    <div class="row">
+                    <li class="row">
                         <p class="user">{item.donorName}</p>
-                        <p class="treeCount">{item.treeCount} Trees</p>
-                    </div>
+                        <p class="treeCount">
+                            {getFormattedNumber(item.treeCount, locale)} {" "}Trees</p>
+                        </li>
                 {/each}
             {:else if selectedTab === "highest"}
                 {#each leaderboardData.mostDonated as item}
                     <div class="row">
                         <p class="user">{item.donorName}</p>
-                        <p class="treeCount">{item.treeCount} Trees</p>
+                        <p class="treeCount">
+                        {getFormattedNumber(item.treeCount, locale)} {" "}Trees</p>
                     </div>
                 {/each}
             {/if}
-        </div>
+                </ul>
     </div>
 {:catch error}
     <p>An error occurred!</p>
@@ -78,6 +85,7 @@
         align-items: center;
         background-color: var(--background-color);
         color: var(--text-color);
+        border-radius: 10px;
     }
 
     .leaderboardTitle {
@@ -90,11 +98,14 @@
     .row-container {
         width: 100%;
         height: auto;
+        margin: 0px;
+        padding: 0px;
     }
     @media screen and (min-width: 320px) {
         .leaderboardSection {
             width: 100%;
             max-width: 528px;
+            
         }
     }
 
