@@ -17,7 +17,7 @@
 
     goal = Number(goal);
 
-    let counterBGColor = circleBGColor
+    $:counterBGColor = circleBGColor
         ? circleBGColor
         : theme === "light"
         ? "#23519b"

@@ -15,7 +15,7 @@
     export let community = "true";
     export let locale = "en";
 
-    let counterBGColor = circleBGColor
+    $:counterBGColor = circleBGColor
         ? circleBGColor
         : theme === "light"
         ? "#23519b"
