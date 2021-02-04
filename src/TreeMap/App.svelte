@@ -127,8 +127,7 @@
               'text-field': ['number-format', ["+", ['get', 'treeCount', ["properties"]]], { 'min-fraction-digits': 1, 'max-fraction-digits': 1 }
             ],
               'text-size': 13,
-              'circle-stroke-width': 5,
-              'font-color':'#fff'
+              'circle-stroke-width': 5
             },
           });
 
@@ -150,7 +149,7 @@
               id: 'unclustered-point-label',
               type: 'symbol',
               source: 'trees',
-              filter: ['!==', ['has', 'point_count']],
+              filter: ['!=', ['has', 'point_count']],
               layout: {
                 'text-field': [
                   'number-format',
