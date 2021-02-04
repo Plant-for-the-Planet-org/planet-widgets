@@ -96,10 +96,11 @@
             data: contributionCollectionFile,
             cluster: true,
             clusterMaxZoom: 18,
-            clusterRadius: 20,
+            clusterRadius: 50,
             clusterProperties: {
             //  "treeSum": ["+", ["get", "treeCount", ["properties"]]],
-            "treeSum": ["+", ["get", "treeCount", ["properties"]]],
+              sum: ["+", ["get", "treeCount", ["properties"]]],
+
             }
           });
 
@@ -110,7 +111,9 @@
             filter: ['has', 'point_count'],
             paint:{
               'circle-color':'#61B030',
-              'circle-radius': 20
+              'circle-radius': 20,
+              'circle-stroke-width': 4,
+              'circle-stroke-color': '#fff'
             },
           });
 
@@ -120,11 +123,15 @@
             type: 'symbol',
             source: 'trees',
             filter: ['has', 'point_count'],
-            paint: {
-              'text-field': ['get', 'treeSum'],
+            layout: {
+              'text-field': ['number-format', ["+", ['get', 'treeCount', ["properties"]]], { 'min-fraction-digits': 1, 'max-fraction-digits': 1 }
+            ],
               'text-size': 13,
+              'circle-stroke-width': 5,
+              'font-color':'#fff'
             },
           });
+
 
           map.addLayer({
             id: 'unclustered-point',
@@ -133,8 +140,8 @@
             filter: ['!', ['has', 'point_count']],
             paint: {
               'circle-color': '#fff030',
-              'circle-radius': 20,
-              'circle-stroke-width': 1,
+              'circle-radius': 10,
+              'circle-stroke-width': 4,
               'circle-stroke-color': '#fff'
             },
           });
@@ -143,13 +150,14 @@
               id: 'unclustered-point-label',
               type: 'symbol',
               source: 'trees',
-              filter: ['!', ['has', 'point_count']],
+              filter: ['!==', ['has', 'point_count']],
               layout: {
-                'text-field': ["number-format",
-                ['get', 'treeSum'],
-                {"max-fraction-digits": 1}
-              ],
-              'text-size': 12
+                'text-field': [
+                  'number-format',
+                  ['get', 'treeCount', ['properties']],
+                  { 'min-fraction-digits': 1, 'max-fraction-digits': 1 }
+                ],
+                'text-size': 12
             }
           });
         }
