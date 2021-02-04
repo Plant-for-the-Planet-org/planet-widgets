@@ -17,7 +17,7 @@
     export let theme = "light";
     export let community = "true";
     export let locale = "en";
-    
+
     let primaryColor = primarycolor;
     let counterBGColor = circlebgcolor
         ? circlebgcolor
@@ -66,6 +66,17 @@
         return await response.json();
     })();
 
+    //Add  to a geojson [There is a bug with type= gift in contribution where treeCount is not a number]
+    const contributionCollectionFile = "/contributions.json";
+
+//Todo: Convert the contributions to a Geojson object and load that geojson into the map.
+
+    // const contributionCollection = {
+    //   type: "FeatureCollection",
+    //   features: fetchContributionsData
+    // };
+
+
     // Function that gets called when the element is created.
     // https://svelte.dev/tutorial/actions
     // https://svelte.school/tutorials/introduction-to-actions
@@ -80,57 +91,126 @@
         });
 
         map.on("load", () => {
+          map.addSource('trees',{
+            type: 'geojson',
+            data: contributionCollectionFile,
+            cluster: true,
+            clusterMaxZoom: 18,
+            clusterRadius: 20,
+            clusterProperties: {
+            //  "treeSum": ["+", ["get", "treeCount", ["properties"]]],
+            "treeSum": ["+", ["get", "treeCount", ["properties"]]],
+            }
+          });
+
+          map.addLayer({
+            id: 'clusters',
+            type: 'circle',
+            source: 'trees',
+            filter: ['has', 'point_count'],
+            paint:{
+              'circle-color':'#61B030',
+              'circle-radius': 20
+            },
+          });
+
+//This block below is used to add number to the circle.
+          map.addLayer({
+            id: 'cluster-count',
+            type: 'symbol',
+            source: 'trees',
+            filter: ['has', 'point_count'],
+            paint: {
+              'text-field': ['get', 'treeSum'],
+              'text-size': 13,
+            },
+          });
+
+          map.addLayer({
+            id: 'unclustered-point',
+            type: 'circle',
+            source: 'trees',
+            filter: ['!', ['has', 'point_count']],
+            paint: {
+              'circle-color': '#fff030',
+              'circle-radius': 20,
+              'circle-stroke-width': 1,
+              'circle-stroke-color': '#fff'
+            },
+          });
+          try{
+            map.addLayer({
+              id: 'unclustered-point-label',
+              type: 'symbol',
+              source: 'trees',
+              filter: ['!', ['has', 'point_count']],
+              layout: {
+                'text-field': ["number-format",
+                ['get', 'treeSum'],
+                {"max-fraction-digits": 1}
+              ],
+              'text-size': 12
+            }
+          });
+        }
+        catch(e) {
+          console.log("Error:" ,e);
+        };
+
+
+
+
             fetchContributionsData.then((contributions) => {
-                if (contributions.length > 0) {
-                    contributions.map((contribution) => {
-                        if (contribution.geometry) {
-                            var el = document.createElement("div");
-                            var treeCount = document.createTextNode(
-                                contribution.properties.treeCount
-                            );
-
-                            el.appendChild(treeCount);
-
-                            var svgNS = "http://www.w3.org/2000/svg";
-                            var tree = document.createElementNS(svgNS, "svg");
-
-                            tree.setAttributeNS(null, "width", 10.5);
-                            tree.setAttributeNS(null, "height", 12.598);
-                            tree.setAttributeNS(
-                                null,
-                                "viewBox",
-                                "0 0 10.5 12.598"
-                            );
-
-                            var pathNS = "http://www.w3.org/2000/svg";
-                            var path = document.createElementNS(pathNS, "path");
-                            path.setAttributeNS(
-                                null,
-                                "d",
-                                "M9,15.1V12.235a2.9,2.9,0,0,1-1,.175,3.033,3.033,0,0,1-2.093-5.2,3.055,3.055,0,0,1-.24-1.19,3,3,0,0,1,5.5-1.68h.167a3.7,3.7,0,1,1-1,7.252v3.5Z"
-                            );
-                            path.setAttributeNS(
-                                null,
-                                "transform",
-                                "translate(-4.75 -2.75)"
-                            );
-                            path.setAttributeNS(null, "fill", primaryColor);
-                            path.setAttributeNS(null, "stroke", "#fff");
-                            path.setAttributeNS(null, "stroke-width", 0.5);
-                            tree.appendChild(path);
-                            el.appendChild(tree);
-
-                            el.className = "marker";
-
-                            // make a marker for each feature and add to the map
-                            new mapboxgl.Marker(el, {
-                                anchor: "bottom",
-                            })
-                                .setLngLat(contribution.geometry.coordinates)
-                                .addTo(map);
-                        }
-                    });
-                }
+                // if (contributions.length > 0) {
+                //     contributions.map((contribution) => {
+                //         if (contribution.geometry) {
+                //             var el = document.createElement("div");
+                //             var treeCount = document.createTextNode(
+                //                 contribution.properties.treeCount
+                //             );
+                //
+                //             el.appendChild(treeCount);
+                //
+                //             var svgNS = "http://www.w3.org/2000/svg";
+                //             var tree = document.createElementNS(svgNS, "svg");
+                //
+                //             tree.setAttributeNS(null, "width", 10.5);
+                //             tree.setAttributeNS(null, "height", 12.598);
+                //             tree.setAttributeNS(
+                //                 null,
+                //                 "viewBox",
+                //                 "0 0 10.5 12.598"
+                //             );
+                //
+                //             var pathNS = "http://www.w3.org/2000/svg";
+                //             var path = document.createElementNS(pathNS, "path");
+                //             path.setAttributeNS(
+                //                 null,
+                //                 "d",
+                //                 "M9,15.1V12.235a2.9,2.9,0,0,1-1,.175,3.033,3.033,0,0,1-2.093-5.2,3.055,3.055,0,0,1-.24-1.19,3,3,0,0,1,5.5-1.68h.167a3.7,3.7,0,1,1-1,7.252v3.5Z"
+                //             );
+                //             path.setAttributeNS(
+                //                 null,
+                //                 "transform",
+                //                 "translate(-4.75 -2.75)"
+                //             );
+                //             path.setAttributeNS(null, "fill", primaryColor);
+                //             path.setAttributeNS(null, "stroke", "#fff");
+                //             path.setAttributeNS(null, "stroke-width", 0.5);
+                //             tree.appendChild(path);
+                //             el.appendChild(tree);
+                //
+                //             el.className = "marker";
+                //
+                //             // make a marker for each feature and add to the map
+                //             new mapboxgl.Marker(el, {
+                //                 anchor: "bottom",
+                //             })
+                //                 .setLngLat(contribution.geometry.coordinates)
+                //                 .addTo(map);
+                //         }
+                //     });
+                // }
             });
         });
     };
