@@ -98,8 +98,7 @@
             clusterMaxZoom: 18,
             clusterRadius: 50,
             clusterProperties: {
-            //  "treeSum": ["+", ["get", "treeCount", ["properties"]]],
-              sum: ["+", ["get", "treeCount", ["properties"]]],
+              sum: ["+", ["to-number",["get", "treeCount", ["properties"]]]],
 
             }
           });
@@ -124,10 +123,11 @@
             source: 'trees',
             filter: ['has', 'point_count'],
             layout: {
-              'text-field': ['number-format', ["+", ['get', 'treeCount', ["properties"]]], { 'min-fraction-digits': 1, 'max-fraction-digits': 1 }
-            ],
-              'text-size': 13,
-              'circle-stroke-width': 5
+              'text-field': ['number-format', ['get', 'sum'], {"max-fraction-digits": 1}],
+
+//             Alternate way to sum up in the textfield.
+//            'text-field': ['number-format', ["+", ['get', 'treeCount', ["properties"]]], { 'min-fraction-digits': 1, 'max-fraction-digits': 1 }],
+              'text-size': 13
             },
           });
 
@@ -149,7 +149,7 @@
               id: 'unclustered-point-label',
               type: 'symbol',
               source: 'trees',
-              filter: ['!=', ['has', 'point_count']],
+              filter: ['!', ['has', 'point_count']],
               layout: {
                 'text-field': [
                   'number-format',
