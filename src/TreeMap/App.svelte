@@ -13,8 +13,8 @@
     // Props that can be passed
     export let user;
     export let primaryColor = "#68b030";
-    export let theme = "light";
     export let circleBGColor;
+    export let theme = "light";
     export let community = "true";
     export let locale = "en";
 
