@@ -107,7 +107,7 @@
             id: 'clusters',
             type: 'circle',
             source: 'trees',
-            filter: ['has', 'point_count'],
+            filter: ["==", "cluster", true],
             paint:{
               'circle-color':'#61B030',
               'circle-radius': 20,
@@ -121,7 +121,7 @@
             id: 'cluster-count',
             type: 'symbol',
             source: 'trees',
-            filter: ['has', 'point_count'],
+            filter: ["==", "cluster", true],
             layout: {
               'text-field': ['number-format', ['get', 'sum'], {"max-fraction-digits": 1}],
 
@@ -136,7 +136,7 @@
             id: 'unclustered-point',
             type: 'circle',
             source: 'trees',
-            filter: ['!', ['has', 'point_count']],
+            filter: ["!=", "cluster", true],
             paint: {
               'circle-color': '#fff030',
               'circle-radius': 10,
@@ -149,7 +149,7 @@
               id: 'unclustered-point-label',
               type: 'symbol',
               source: 'trees',
-              filter: ['!', ['has', 'point_count']],
+              filter: ["!=", "cluster", true],
               layout: {
                 'text-field': [
                   'number-format',
