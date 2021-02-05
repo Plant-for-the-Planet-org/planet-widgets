@@ -6,6 +6,7 @@
     import getImageUrl from "../../utils/getImageUrl";
     import enLocale from "./../../public/data/locales/en.json";
     import deLocale from "./../../public/data/locales/de.json";
+import { dataset_dev } from "svelte/internal";
     
     // Props that can be passed
     export let primaryColor = "#68b030";
@@ -97,6 +98,7 @@
                         size * 2
                     }px;position:absolute;`}
                 >
+                {#if goal > data.total}
                     <circle
                         cx={size}
                         cy={size}
@@ -106,12 +108,24 @@
                         stroke-width="16"
                         transform={`rotate(-90,${size},${size})`}
                         stroke-dasharray={circumference}
-                        stroke-dashoffset={circumference *
-                            (1 -
-                                (data.total) /
-                                   goal)}
+                        stroke-dashoffset= {circumference *
+                            (1 - (data.total) / goal )  }
                         fill="transparent"
                     />
+                    {:else if goal < data.total } <circle
+                    cx={size}
+                    cy={size}
+                    r={radius}
+                    stroke={primaryColor}
+                    stroke-linecap="round"
+                    stroke-width="16"
+                    transform={`rotate(-90,${size},${size})`}
+                    stroke-dasharray={circumference}
+                    stroke-dashoffset= {circumference *
+                        (1 == (data.total) / goal )  }
+                    fill="transparent"
+                />
+                    {/if}
                 </svg>
             </div>
         </div>
