@@ -25,6 +25,7 @@
     : theme === "light"
     ? "#23519b"
     : "#2f3336";
+  let contributionsClusterColor = theme === "light" ? counterBGColor : "#fff";
 
   let language;
 
@@ -106,10 +107,9 @@
             "circle-color": primaryColor,
             "circle-radius": ["step", ["get", "sum"], 20, 50, 30, 100, 40],
             "circle-stroke-width": 4,
-            "circle-stroke-color": "#fff",
+            "circle-stroke-color": contributionsClusterColor,
           },
         });
-
         map.addLayer({
           id: "contrib-cluster-label",
           type: "symbol",
