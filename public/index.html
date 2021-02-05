@@ -117,13 +117,17 @@
 			background: white;
 		}
 
-		.row-container{
+		.col-container{
 			display: flex;
-			flex-direction: row;
+			flex-direction: column;
 		}
 
 		label{
 			margin-right: 10px;
+		}
+		.row-container{
+			display: flex;
+			flex-direction: row;
 		}
 	</style>
 
@@ -133,7 +137,7 @@
 <!-- --------------------------------------------------------------- -- -->
 <!-- <section class="treeMap-container"> -->
 	<h2> TreeMap Default</h2>
-	<div class="row-container">
+	<div class="col-container">
 	<tree-map user='salesforce' theme="light" id="treeMap"> </tree-map>
 	<!--For Language-->
 	<div class = "radioContainer" style="display: flex; flex-direction: column; margin-left: 20px;">
@@ -182,31 +186,31 @@
 
 	<h2> Tree Counter Variant 1</h2>
 	<p> Default </p>
-	<div class="row-container">
+	<div class="col-container">
 	<tree-profile user='prf_h6smcMDN23Qet1CP7BEplM60' theme = "dark" id="treeProfile"></tree-profile>
 
 	<div class = "radioContainer" style="display: flex; flex-direction: column; margin-left: 20px;">
 		<h3>Select Language</h3>
 	<div class = "row-container">
 		<label class="container" >En
-		<input type="radio" checked="checked" name="Maplanguage" onclick="TreeProEng()">
+		<input type="radio" checked="checked" name="ProfileLanguage" onclick="TreeProEng()">
 		<span class="checkmark"></span>
 		</label>
 
 		<label class="container">De
-		<input type="radio" name="Maplanguage" onclick="TreeProDe()">
+		<input type="radio" name="ProfileLanguage" onclick="TreeProDe()">
 		<span class="checkmark"></span>
 		</label>
 	</div>
 		<h3>Community</h3>
 	<div class = "row-container">
 		<label class="container">True
-		<input type="radio" name="Mapcommunity" onclick="TreeProCommT()">
+		<input type="radio" name="Profilecommunity" onclick="TreeProCommT()">
 		<span class="checkmark"></span>
 		</label>
 
 		<label class="container">False
-		<input type="radio"name="Mapcommunity" onclick="TreeProCommF()">
+		<input type="radio"name="Profilecommunity" onclick="TreeProCommF()">
 		<span class="checkmark"></span>
 		</label>
 	</div>
@@ -226,31 +230,31 @@
 
 	<h2> Tenant Tree Counter Variant 1</h2>
 	<p> Dark mode, locale="de" and community=false</p>
-	<div class="row-container">
-	<tree-tenantcounter tenantKey="ten_I9TW3ncG" goal="1000000000" theme="light" locale="en" id="treeCounter"></tree-tenantcounter>
+	<div class="col-container">
+	<tree-tenantcounter tenantKey="ten_I9TW3ncG" goal="10000000000" theme="light" locale="en" id="treeCounter"></tree-tenantcounter>
 
 	<div class = "radioContainer" style="display: flex; flex-direction: column; margin-left: 20px;">
 		<h3>Select Language</h3>
 	<div class = "row-container">
 		<label class="container" >En
-		<input type="radio" checked="checked" name="Maplanguage" onclick="TreeCounterEng()">
+		<input type="radio" checked="checked" name="TenantTreelanguage" onclick="TreeCounterEng()">
 		<span class="checkmark"></span>
 		</label>
 
 		<label class="container">De
-		<input type="radio" name="Maplanguage" onclick="TreeCounterDe()">
+		<input type="radio" name="TenantTreelanguage" onclick="TreeCounterDe()">
 		<span class="checkmark"></span>
 		</label>
 	</div>
 		<h3>Community</h3>
 	<div class = "row-container">
 		<label class="container">True
-		<input type="radio" name="Mapcommunity" onclick="TreeCounterCommT()">
+		<input type="radio" name="TenantTreecommunity" onclick="TreeCounterCommT()">
 		<span class="checkmark"></span>
 		</label>
 
 		<label class="container">False
-		<input type="radio"name="Mapcommunity" onclick="TreeCounterCommF()">
+		<input type="radio"name="TenantTreecommunity" onclick="TreeCounterCommF()">
 		<span class="checkmark"></span>
 		</label>
 	</div>
@@ -268,7 +272,7 @@
 	<!-- --------------------------------------------------------------- -- -->
 
 	<h2> Tenant Leaderboard  Variant</h2>
-	<div class="row-container">
+	<div class="col-container">
 	<tree-tenantleaderboard tenantKey="ten_I9TW3ncG" theme = "light" locale = "en" id="tenantLeaderboard"></tree-tenantleaderboard>
 	
   <div class="dropdown" style="margin-left: 40px;">

@@ -9,14 +9,14 @@
 
     // Props that can be passed
     export let user;
-    export let primaryColor = "#68b030";
-    export let circleBGColor;
+    export let primarycolor = "#68b030";
+    export let circlebgcolor;
     export let theme = "light";
     export let community = "true";
     export let locale = "en";
 
-    $:counterBGColor = circleBGColor
-        ? circleBGColor
+    $:counterbgcolor = circlebgcolor
+        ? circlebgcolor
         : theme === "light"
         ? "#23519b"
         : "#2f3336";
@@ -49,8 +49,8 @@
 
 <div
     class="treecounter"
-    style="--primary-color: {primaryColor};
-    --counter-background-color: {counterBGColor};
+    style="--primary-color: {primarycolor};
+    --counter-background-color: {counterbgcolor};
     --background-color: {theme ===
     'light'
         ? '#fff'
@@ -106,7 +106,7 @@
                         cx={size}
                         cy={size}
                         r={radius}
-                        stroke={primaryColor}
+                        stroke={primarycolor}
                         stroke-linecap="round"
                         stroke-width="16"
                         transform={`rotate(-90,${size},${size})`}

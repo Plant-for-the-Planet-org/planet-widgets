@@ -12,14 +12,14 @@
 
     // Props that can be passed
     export let user;
-    export let primaryColor = "#68b030";
-    export let circleBGColor;
+    export let primarycolor = "#68b030";
+    export let circlebgcolor;
     export let theme = "light";
     export let community = "true";
     export let locale = "en";
 
-    $:counterBGColor = circleBGColor
-        ? circleBGColor
+    $:counterbgcolor = circlebgcolor
+        ? circlebgcolor
         : theme === "light"
         ? "#23519b"
         : "#2f3336";
@@ -113,7 +113,7 @@
                                 "transform",
                                 "translate(-4.75 -2.75)"
                             );
-                            path.setAttributeNS(null, "fill", primaryColor);
+                            path.setAttributeNS(null, "fill", primarycolor);
                             path.setAttributeNS(null, "stroke", "#fff");
                             path.setAttributeNS(null, "stroke-width", 0.5);
                             tree.appendChild(path);
@@ -137,7 +137,7 @@
 
 <div
     class="treemap"
-    style="--primary-color: {primaryColor};--counter-background-color: {counterBGColor}; --background-color: {theme ===
+    style="--primary-color: {primarycolor};--counter-background-color: {counterbgcolor}; --background-color: {theme ===
     'light'
         ? '#fff'
         : '#2f3336'}; --link-color: {theme === 'light' ? '#6daff0' : '#fff'}"
@@ -196,7 +196,7 @@
                             cx={size}
                             cy={size}
                             r={radius}
-                            stroke={primaryColor}
+                            stroke={primarycolor}
                             stroke-linecap="round"
                             stroke-width="16"
                             transform={`rotate(-90,${size},${size})`}

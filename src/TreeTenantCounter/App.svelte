@@ -9,8 +9,8 @@
 import { dataset_dev } from "svelte/internal";
     
     // Props that can be passed
-    export let primaryColor = "#68b030";
-    export let circleBGColor;
+    export let primarycolor = "#68b030";
+    export let circlebgcolor;
     export let theme = "light";
     export let locale = "en";
     export let goal;
@@ -18,8 +18,8 @@ import { dataset_dev } from "svelte/internal";
 
     goal = Number(goal);
 
-    $:counterBGColor = circleBGColor
-        ? circleBGColor
+    $:counterbgcolor = circlebgcolor
+        ? circlebgcolor
         : theme === "light"
         ? "#23519b"
         : "#2f3336";
@@ -53,8 +53,8 @@ import { dataset_dev } from "svelte/internal";
 
 <div
     class="treecounter"
-    style="--primary-color: {primaryColor};
-    --counter-background-color: {counterBGColor}; 
+    style="--primary-color: {primarycolor};
+    --counter-background-color: {counterbgcolor}; 
     --background-color: {theme ===
     'light'
         ? '#fff'
@@ -103,7 +103,7 @@ import { dataset_dev } from "svelte/internal";
                         cx={size}
                         cy={size}
                         r={radius}
-                        stroke={primaryColor}
+                        stroke={primarycolor}
                         stroke-linecap="round"
                         stroke-width="16"
                         transform={`rotate(-90,${size},${size})`}
@@ -116,7 +116,7 @@ import { dataset_dev } from "svelte/internal";
                     cx={size}
                     cy={size}
                     r={radius}
-                    stroke={primaryColor}
+                    stroke={primarycolor}
                     stroke-linecap="round"
                     stroke-width="16"
                     transform={`rotate(-90,${size},${size})`}
