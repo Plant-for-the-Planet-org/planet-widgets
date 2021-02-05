@@ -118,7 +118,7 @@
               ["get", "sum"],
               { "max-fraction-digits": 1 },
             ],
-            // "text-font": ["DIN Offc Pro Medium", "Arial Unicode MS Bold"],
+            "text-font": ["Ubuntu Regular"],
             "text-size": 12,
           },
         });
@@ -146,7 +146,7 @@
               ["to-number", ["get", "treeCount"]],
               { "max-fraction-digits": 1 },
             ],
-            //   "text-font": ["DIN Offc Pro Medium", "Arial Unicode MS Bold"],
+            "text-font": ["Ubuntu Regular"],
             "text-size": 12,
           },
         });
