@@ -103,7 +103,9 @@
           filter: ["has", "point_count"],
           paint: {
             "circle-color": "#68B030",
-            "circle-radius": 20,
+            "circle-radius": ["step", ["get", "sum"], 20, 50, 30, 100, 40],
+            "circle-stroke-width": 4,
+            "circle-stroke-color": "#fff",
           },
         });
 
@@ -118,8 +120,11 @@
               ["get", "sum"],
               { "max-fraction-digits": 1 },
             ],
-            "text-font": ["Ubuntu Regular"],
+            "text-font": ["Ubuntu Bold"],
             "text-size": 12,
+          },
+          paint: {
+            "text-color": "#fff",
           },
         });
 
@@ -129,9 +134,17 @@
           source: "contributions",
           filter: ["!", ["has", "point_count"]],
           paint: {
-            "circle-color": "#68B030",
-            "circle-radius": 20,
-            "circle-stroke-width": 1,
+            "circle-color": "#fff030",
+            "circle-radius": [
+              "step",
+              ["to-number", ["get", "treeCount"]],
+              15,
+              50,
+              20,
+              100,
+              30,
+            ],
+            "circle-stroke-width": 4,
             "circle-stroke-color": "#fff",
           },
         });
@@ -146,54 +159,27 @@
               ["to-number", ["get", "treeCount"]],
               { "max-fraction-digits": 1 },
             ],
-            "text-font": ["Ubuntu Regular"],
+            "text-font": ["Ubuntu Bold"],
             "text-size": 12,
           },
+          paint: {
+            "text-color": "#fff",
+          },
         });
-        // if (contributions.length > 0) {
-        //     contributions.map((contribution) => {
-        //         if (contribution.geometry) {
-        //             var el = document.createElement("div");
-        //             var treeCount = document.createTextNode(
-        //                 contribution.properties.treeCount
-        //             );
-        //             el.appendChild(treeCount);
-        //             var svgNS = "http://www.w3.org/2000/svg";
-        //             var tree = document.createElementNS(svgNS, "svg");
-        //             tree.setAttributeNS(null, "width", 10.5);
-        //             tree.setAttributeNS(null, "height", 12.598);
-        //             tree.setAttributeNS(
-        //                 null,
-        //                 "viewBox",
-        //                 "0 0 10.5 12.598"
-        //             );
-        //             var pathNS = "http://www.w3.org/2000/svg";
-        //             var path = document.createElementNS(pathNS, "path");
-        //             path.setAttributeNS(
-        //                 null,
-        //                 "d",
-        //                 "M9,15.1V12.235a2.9,2.9,0,0,1-1,.175,3.033,3.033,0,0,1-2.093-5.2,3.055,3.055,0,0,1-.24-1.19,3,3,0,0,1,5.5-1.68h.167a3.7,3.7,0,1,1-1,7.252v3.5Z"
-        //             );
-        //             path.setAttributeNS(
-        //                 null,
-        //                 "transform",
-        //                 "translate(-4.75 -2.75)"
-        //             );
-        //             path.setAttributeNS(null, "fill", primaryColor);
-        //             path.setAttributeNS(null, "stroke", "#fff");
-        //             path.setAttributeNS(null, "stroke-width", 0.5);
-        //             tree.appendChild(path);
-        //             el.appendChild(tree);
-        //             el.className = "marker";
-        //             // make a marker for each feature and add to the map
-        //             new mapboxgl.Marker(el, {
-        //                 anchor: "bottom",
-        //             })
-        //                 .setLngLat(contribution.geometry.coordinates)
-        //                 .addTo(map);
-        //         }
-        //     });
-        // }
+        // map.loadImage("/images/tree.png", function (error, image) {
+        //   if (error) throw error;
+        //   map.addImage("tree", image);
+        //   map.addLayer({
+        //     id: "points",
+        //     type: "symbol",
+        //     source: "contributions",
+        //     filter: ["!", ["has", "point_count"]],
+        //     layout: {
+        //       "icon-image": "tree",
+        //       "icon-size": 0.25,
+        //     },
+        //   });
+        // });
       });
     });
   };
