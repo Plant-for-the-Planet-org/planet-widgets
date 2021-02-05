@@ -103,7 +103,7 @@
           source: "contributions",
           filter: ["has", "point_count"],
           paint: {
-            "circle-color": counterBGColor,
+            "circle-color": primaryColor,
             "circle-radius": ["step", ["get", "sum"], 20, 50, 30, 100, 40],
             "circle-stroke-width": 4,
             "circle-stroke-color": "#fff",
@@ -134,7 +134,7 @@
           source: "contributions",
           filter: ["!", ["has", "point_count"]],
           paint: {
-            "circle-color": counterBGColor,
+            "circle-color": primaryColor,
             "circle-radius": [
               "step",
               ["to-number", ["get", "treeCount"]],
@@ -166,20 +166,6 @@
             "text-color": "#fff",
           },
         });
-        // map.loadImage("/images/tree.png", function (error, image) {
-        //   if (error) throw error;
-        //   map.addImage("tree", image);
-        //   map.addLayer({
-        //     id: "points",
-        //     type: "symbol",
-        //     source: "contributions",
-        //     filter: ["!", ["has", "point_count"]],
-        //     layout: {
-        //       "icon-image": "tree",
-        //       "icon-size": 0.25,
-        //     },
-        //   });
-        // });
       });
     });
   };
