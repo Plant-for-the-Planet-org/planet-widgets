@@ -25,7 +25,6 @@
     : theme === "light"
     ? "#23519b"
     : "#2f3336";
-  let contributionsClusterColor = theme === "light" ? counterBGColor : "#fff";
 
   let language;
 
@@ -104,10 +103,10 @@
           source: "contributions",
           filter: ["has", "point_count"],
           paint: {
-            "circle-color": primaryColor,
+            "circle-color": counterBGColor,
             "circle-radius": ["step", ["get", "sum"], 20, 50, 30, 100, 40],
             "circle-stroke-width": 4,
-            "circle-stroke-color": contributionsClusterColor,
+            "circle-stroke-color": "#fff",
           },
         });
         map.addLayer({
