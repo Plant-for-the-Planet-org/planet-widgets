@@ -14,7 +14,7 @@
     export let theme = "light";
     export let community = "true";
     export let locale = "en";
-
+    $:primarycolor = primarycolor;
     $:counterbgcolor = circlebgcolor
         ? circlebgcolor
         : theme === "light"

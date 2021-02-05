@@ -12,12 +12,12 @@
 
     // Props that can be passed
     export let user;
-    export let primarycolor = "#68b030";
+ export let primarycolor = "#68b030";
     export let circlebgcolor;
     export let theme = "light";
     export let community = "true";
     export let locale = "en";
-
+    $:primarycolor = primarycolor;
     $:counterbgcolor = circlebgcolor
         ? circlebgcolor
         : theme === "light"

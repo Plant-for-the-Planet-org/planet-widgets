@@ -17,7 +17,7 @@ import { dataset_dev } from "svelte/internal";
     export let tenantKey;
 
     goal = Number(goal);
-
+    $:primarycolor = primarycolor;
     $:counterbgcolor = circlebgcolor
         ? circlebgcolor
         : theme === "light"
