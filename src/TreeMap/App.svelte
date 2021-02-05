@@ -4,7 +4,8 @@
     import UserProfileLoader from "../../utils/contentLoaders/UserProfileLoader.svelte";
     import { getFormattedNumber } from "../../utils/formatNumber";
     import mapboxgl from "mapbox-gl";
-    import styleJson from "../../public/data/styles/root.json";
+    import mapStyleLight from "../../public/data/styles/light.json";
+    import mapStyleDark from "../../public/data/styles/dark.json";
     import { fetchTiles } from "../../utils/mapUtils";
     import getImageUrl from "../../utils/getImageUrl";
     import enLocale from "./../../public/data/locales/en.json";
@@ -17,7 +18,7 @@
     export let theme = "light";
     export let community = "true";
     export let locale = "en";
-    
+
     let primaryColor = primarycolor;
     let counterBGColor = circlebgcolor
         ? circlebgcolor
@@ -45,7 +46,9 @@
         const response = await fetch(`${__myapp.env.API_URL}/profiles/${user}`);
         userpofiledata = await response.json();
         fetchTiles(
-            styleJson,
+          theme === "light"
+          ? mapStyleLight
+          : mapStyleDark,
             "https://basemaps.arcgis.com/arcgis/rest/services/World_Basemap_v2/VectorTileServer"
         ).then((style) => {
             if (style) {
