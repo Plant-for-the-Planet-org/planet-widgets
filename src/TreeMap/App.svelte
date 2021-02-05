@@ -4,7 +4,8 @@
   import UserProfileLoader from "../../utils/contentLoaders/UserProfileLoader.svelte";
   import { getFormattedNumber } from "../../utils/formatNumber";
   import mapboxgl from "mapbox-gl";
-  import styleJson from "../../public/data/styles/root.json";
+  import mapStyleLight from "../../public/data/styles/light.json";
+  import mapStyleDark from "../../public/data/styles/dark.json";
   import { fetchTiles } from "../../utils/mapUtils";
   import getImageUrl from "../../utils/getImageUrl";
   import enLocale from "./../../public/data/locales/en.json";
@@ -45,7 +46,7 @@
     const response = await fetch(`${__myapp.env.API_URL}/profiles/${user}`);
     userpofiledata = await response.json();
     fetchTiles(
-      styleJson,
+      theme === "light" ? mapStyleLight : mapStyleDark,
       "https://basemaps.arcgis.com/arcgis/rest/services/World_Basemap_v2/VectorTileServer"
     ).then((style) => {
       if (style) {
@@ -102,7 +103,7 @@
           source: "contributions",
           filter: ["has", "point_count"],
           paint: {
-            "circle-color": "#68B030",
+            "circle-color": primaryColor,
             "circle-radius": ["step", ["get", "sum"], 20, 50, 30, 100, 40],
             "circle-stroke-width": 4,
             "circle-stroke-color": "#fff",
@@ -134,7 +135,7 @@
           source: "contributions",
           filter: ["!", ["has", "point_count"]],
           paint: {
-            "circle-color": "#fff030",
+            "circle-color": counterBGColor,
             "circle-radius": [
               "step",
               ["to-number", ["get", "treeCount"]],
