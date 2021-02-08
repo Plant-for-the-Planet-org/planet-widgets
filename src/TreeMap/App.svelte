@@ -82,181 +82,98 @@
 
     map.on("load", () => {
       fetchContributionsData.then((contributions) => {
+        let filteredContributions;
         if (community === "true") {
-          const filteredContributions = contributions;
-          const geojson = {
-            type: "FeatureCollection",
-            features: filteredContributions,
-          };
-          map.addSource("contributions", {
-            type: "geojson",
-            data: geojson,
-            cluster: true,
-            clusterMaxZoom: 14, // Max zoom to cluster points on
-            clusterRadius: 50, // Radius of each cluster when clustering points (defaults to 50)
-            clusterProperties: {
-              sum: ["+", ["to-number", ["get", "treeCount", ["properties"]]]],
-            },
-          });
-
-          map.addLayer({
-            id: "contrib-cluster",
-            type: "circle",
-            source: "contributions",
-            filter: ["has", "point_count"],
-            paint: {
-              "circle-color": primaryColor,
-              "circle-radius": ["step", ["get", "sum"], 20, 50, 30, 100, 40],
-              "circle-stroke-width": 4,
-              "circle-stroke-color": "#fff",
-            },
-          });
-          map.addLayer({
-            id: "contrib-cluster-label",
-            type: "symbol",
-            source: "contributions",
-            filter: ["has", "point_count"],
-            layout: {
-              "text-field": [
-                "number-format",
-                ["get", "sum"],
-                { "max-fraction-digits": 1 },
-              ],
-              "text-font": ["Ubuntu Bold"],
-              "text-size": 12,
-            },
-            paint: {
-              "text-color": "#fff",
-            },
-          });
-
-          map.addLayer({
-            id: "contrib",
-            type: "circle",
-            source: "contributions",
-            filter: ["!", ["has", "point_count"]],
-            paint: {
-              "circle-color": primaryColor,
-              "circle-radius": [
-                "step",
-                ["to-number", ["get", "treeCount"]],
-                15,
-                50,
-                20,
-                100,
-                30,
-              ],
-              "circle-stroke-width": 4,
-              "circle-stroke-color": "#fff",
-            },
-          });
-          map.addLayer({
-            id: "contrib-label",
-            type: "symbol",
-            source: "contributions",
-            filter: ["!", ["has", "point_count"]],
-            layout: {
-              "text-field": [
-                "number-format",
-                ["to-number", ["get", "treeCount"]],
-                { "max-fraction-digits": 1 },
-              ],
-              "text-font": ["Ubuntu Bold"],
-              "text-size": 12,
-            },
-            paint: {
-              "text-color": "#fff",
-            },
-          });
+          filteredContributions = contributions;
         } else {
-          const filteredContributions = contributions.filter((contrib) => {
+          filteredContributions = contributions.filter((contrib) => {
             return contrib.properties.type !== "gift";
           });
-          const geojson = {
-            type: "FeatureCollection",
-            features: filteredContributions,
-          };
-          map.addSource("contributions", {
-            type: "geojson",
-            data: geojson,
-            cluster: true,
-            clusterMaxZoom: 14, // Max zoom to cluster points on
-            clusterRadius: 50, // Radius of each cluster when clustering points (defaults to 50)
-            clusterProperties: {
-              sum: ["+", ["to-number", ["get", "treeCount", ["properties"]]]],
-            },
-          });
-
-          map.addLayer({
-            id: "contrib-cluster",
-            type: "circle",
-            source: "contributions",
-            filter: ["has", "point_count"],
-            paint: {
-              "circle-color": primaryColor,
-              "circle-radius": ["step", ["get", "sum"], 20, 50, 30, 100, 40],
-              "circle-stroke-width": 4,
-              "circle-stroke-color": "#fff",
-            },
-          });
-          map.addLayer({
-            id: "contrib-cluster-label",
-            type: "symbol",
-            source: "contributions",
-            filter: ["has", "point_count"],
-            layout: {
-              "text-field": [
-                "number-format",
-                ["get", "sum"],
-                { "max-fraction-digits": 1 },
-              ],
-              "text-font": ["Ubuntu Bold"],
-              "text-size": 12,
-            },
-            paint: {
-              "text-color": "#fff",
-            },
-          });
-
-          map.addLayer({
-            id: "contrib",
-            type: "circle",
-            source: "contributions",
-            filter: ["!", ["has", "point_count"]],
-            paint: {
-              "circle-color": primaryColor,
-              "circle-radius": [
-                "step",
-                ["to-number", ["get", "treeCount"]],
-                15,
-                50,
-                20,
-                100,
-                30,
-              ],
-              "circle-stroke-width": 4,
-              "circle-stroke-color": "#fff",
-            },
-          });
-          map.addLayer({
-            id: "contrib-label",
-            type: "symbol",
-            source: "contributions",
-            filter: ["!", ["has", "point_count"]],
-            layout: {
-              "text-field": [
-                "number-format",
-                ["to-number", ["get", "treeCount"]],
-                { "max-fraction-digits": 1 },
-              ],
-              "text-font": ["Ubuntu Bold"],
-              "text-size": 12,
-            },
-            paint: {
-              "text-color": "#fff",
-            },
-          });
         }
+        const geojson = {
+          type: "FeatureCollection",
+          features: filteredContributions,
+        };
+        map.addSource("contributions", {
+          type: "geojson",
+          data: geojson,
+          cluster: true,
+          clusterMaxZoom: 14, // Max zoom to cluster points on
+          clusterRadius: 50, // Radius of each cluster when clustering points (defaults to 50)
+          clusterProperties: {
+            sum: ["+", ["to-number", ["get", "treeCount", ["properties"]]]],
+          },
+        });
+
+        map.addLayer({
+          id: "contrib-cluster",
+          type: "circle",
+          source: "contributions",
+          filter: ["has", "point_count"],
+          paint: {
+            "circle-color": primaryColor,
+            "circle-radius": ["step", ["get", "sum"], 20, 50, 30, 100, 40],
+            "circle-stroke-width": 4,
+            "circle-stroke-color": "#fff",
+          },
+        });
+        map.addLayer({
+          id: "contrib-cluster-label",
+          type: "symbol",
+          source: "contributions",
+          filter: ["has", "point_count"],
+          layout: {
+            "text-field": [
+              "number-format",
+              ["get", "sum"],
+              { "max-fraction-digits": 1 },
+            ],
+            "text-font": ["Ubuntu Bold"],
+            "text-size": 12,
+          },
+          paint: {
+            "text-color": "#fff",
+          },
+        });
+
+        map.addLayer({
+          id: "contrib",
+          type: "circle",
+          source: "contributions",
+          filter: ["!", ["has", "point_count"]],
+          paint: {
+            "circle-color": primaryColor,
+            "circle-radius": [
+              "step",
+              ["to-number", ["get", "treeCount"]],
+              15,
+              50,
+              20,
+              100,
+              30,
+            ],
+            "circle-stroke-width": 4,
+            "circle-stroke-color": "#fff",
+          },
+        });
+        map.addLayer({
+          id: "contrib-label",
+          type: "symbol",
+          source: "contributions",
+          filter: ["!", ["has", "point_count"]],
+          layout: {
+            "text-field": [
+              "number-format",
+              ["to-number", ["get", "treeCount"]],
+              { "max-fraction-digits": 1 },
+            ],
+            "text-font": ["Ubuntu Bold"],
+            "text-size": 12,
+          },
+          paint: {
+            "text-color": "#fff",
+          },
+        });
       });
     });
   };
