@@ -82,9 +82,17 @@
 
     map.on("load", () => {
       fetchContributionsData.then((contributions) => {
+        let filteredContributions;
+        if (community === "true") {
+          filteredContributions = contributions;
+        } else {
+          filteredContributions = contributions.filter((contrib) => {
+            return contrib.properties.type !== "gift";
+          });
+        }
         const geojson = {
           type: "FeatureCollection",
-          features: contributions,
+          features: filteredContributions,
         };
         map.addSource("contributions", {
           type: "geojson",
