@@ -1,3 +1,5 @@
+<!-- svelte-ignore non-top-level-reactive-declaration -->
+<!-- svelte-ignore non-top-level-reactive-declaration -->
 <svelte:options tag="tree-profile" immutable={true} />
 
 <script>
@@ -6,6 +8,7 @@
     import getImageUrl from "../../utils/getImageUrl";
     import enLocale from "./../../public/data/locales/en.json";
     import deLocale from "./../../public/data/locales/de.json";
+    import { onMount } from 'svelte';
 
     // Props that can be passed
     export let user;
@@ -37,15 +40,24 @@
     }
 
     let userpofiledata;
-    const fetchProfileData = (async () => {
+    async function fetchData(){
         const response = await fetch(`${__myapp.env.API_URL}/profiles/${user}`);
         userpofiledata = await response.json();
         return userpofiledata;
-    })();
+    }
 
+    let promise = fetchData();
     let radius = 140;
     let size = 154;
     let circumference = 2 * Math.PI * radius;
+
+    onMount(() => {
+		 const interval = setInterval(() => {
+			fetchData();
+		}, 10000);
+		//If a function is returned from onMount, it will be called when the component is unmounted.
+		return () => clearInterval(interval);
+	});
 </script>
 
 <div
@@ -58,7 +70,7 @@
         : '#2f3336'};
     --link-color: {theme === 'light' ? '#6daff0' : '#fff'}"
 >
-    {#await fetchProfileData}
+    {#await promise}
         <UserProfileLoader />
     {:then data}
         <div class="treeCounterContainer">
