@@ -3,10 +3,8 @@
 <script>
     import UserProfileLoader from "../../utils/contentLoaders/UserProfileLoader.svelte";
     import {  localizedAbbreviatedNumber } from "../../utils/formatNumber";
-    import getImageUrl from "../../utils/getImageUrl";
     import enLocale from "./../../public/data/locales/en.json";
     import deLocale from "./../../public/data/locales/de.json";
-import { dataset_dev } from "svelte/internal";
     
     // Props that can be passed
     export let primarycolor = "#68b030";
@@ -215,7 +213,7 @@ import { dataset_dev } from "svelte/internal";
 
     @media screen and (min-width: 940px) {
         .treeCounterContainer {
-            max-width: 420px;
+            width: 420px;
         }
     }
     .planted {

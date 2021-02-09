@@ -2,8 +2,6 @@
 
 <script>
     import {getFormattedNumber} from '../../utils/formatNumber';
-    import enLocale from "./../../public/data/locales/en.json";
-    import deLocale from "./../../public/data/locales/de.json";
     export let theme = "light";
     let selectedTab = "recent";
     export let locale = "en";
@@ -23,8 +21,6 @@
         return leaderboardData;
     })();
 
-    
-    
 </script>
 
 {#await fetchProfileData then leaderboardData}

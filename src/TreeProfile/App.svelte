@@ -361,7 +361,7 @@
 
     @media screen and (min-width: 940px) {
         .treeCounterContainer {
-            max-width: 420px;
+            width: 420px;
         }
     }
 

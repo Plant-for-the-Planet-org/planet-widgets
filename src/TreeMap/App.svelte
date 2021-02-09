@@ -494,16 +494,13 @@
 
     @media screen and (min-width: 940px) {
         .treemap {
-            max-width: 940px;
-        }
-        .treeCounterContainer {
-            max-width: 420px;
+            width: 940px;
         }
         .mapContainer {
-            max-width: 520px;
+            width: 520px;
         }
         .view {
-            max-width: 520px;
+            width: 520px;
         }
     }
 
