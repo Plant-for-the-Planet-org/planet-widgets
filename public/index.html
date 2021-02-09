@@ -289,8 +289,8 @@
 						<div class="dropdown">
 							<button class="dropbtn">Select Theme</button>
 							<div class="dropdown-content">
-								<button onclick="LightTreeMap()">Light</button>
-								<button onclick="DarkTreeMap()">Dark</button>
+								<button onclick="changeAttribute('treeMap','light', 'theme')">Light</button>
+							<button onclick="changeAttribute('treeMap','dark', 'theme')">Dark</button>
 							</div>
 						</div>
 	
@@ -355,8 +355,8 @@
 						<div class="dropdown">
 							<button class="dropbtn">Select Theme</button>
 							<div class="dropdown-content">
-								<button onclick="LightTreePro()">Light</button>
-								<button onclick="DarkTreePro()">Dark</button>
+								<button onclick="changeAttribute('treeProfile','light', 'theme')">Light</button>
+								<button onclick="changeAttribute('treeProfile','dark', 'theme')">Dark</button>
 							</div>
 						</div>
 	
@@ -421,8 +421,8 @@
 						<div class="dropdown">
 							<button class="dropbtn">Select Theme</button>
 							<div class="dropdown-content">
-								<button onclick="LightTreeCounter()">Light</button>
-								<button onclick="DarkTreeCounter()">Dark</button>
+								<button onclick="changeAttribute('treeCounter','light', 'theme')">Light</button>
+								<button onclick="changeAttribute('treeCounter','dark', 'theme')">Dark</button>
 							</div>
 						</div>
 	
@@ -450,8 +450,8 @@
 					<div class="dropdown" style="margin-left: 40px;">
 						<button class="dropbtn">Select Theme</button>
 						<div class="dropdown-content">
-							<button onclick="LightLeaderboard()">Light</button>
-							<button onclick="DarkLeaderboard()">Dark</button>
+							<button onclick="changeAttribute('tenantLeaderboard','light', 'theme')">Light</button>
+							<button onclick="changeAttribute('tenantLeaderboard','Dark', 'theme')">Dark</button>
 						</div>
 					</div>
 				</div>
@@ -472,15 +472,6 @@
 			document.getElementById(id).setAttribute(attribute, locale)
 		}
 
-
-		//for Tree-Map Theme
-		function LightTreeMap() {
-			document.getElementById("treeMap").setAttribute("theme", "light");
-		}
-		function DarkTreeMap() {
-			document.getElementById("treeMap").setAttribute("theme", "dark");
-		}
-
 		//for Tree-Map Color Picker
 
 		function PrimaryColorSelector() {
@@ -493,14 +484,6 @@
 			document.getElementById("treeMap").setAttribute("circlebgcolor", setColor);
 		}
 
-
-		//for Tree-Profile Theme
-		function LightTreePro() {
-			document.getElementById("treeProfile").setAttribute("theme", "light");
-		}
-		function DarkTreePro() {
-			document.getElementById("treeProfile").setAttribute("theme", "dark");
-		}
 		// for Tree-Profile Color Picker
 		function PriColorSelProfile() {
 			var setColor = document.getElementById("primaryColorPro").value;
@@ -512,14 +495,6 @@
 			document.getElementById("treeProfile").setAttribute("circlebgcolor", setColor);
 		}
 
-
-		//for Tree-Counter Theme
-		function LightTreeCounter() {
-			document.getElementById("treeCounter").setAttribute("theme", "light");
-		}
-		function DarkTreeCounter() {
-			document.getElementById("treeCounter").setAttribute("theme", "dark");
-		}
 		// for Tree-Counter color picker
 		function PriColorSelCounter() {
 			var setColor = document.getElementById("primaryColorCounter").value;
@@ -530,13 +505,7 @@
 			var setColor = document.getElementById("bgColorCounter").value;
 			document.getElementById("treeCounter").setAttribute("circlebgcolor", setColor);
 		}
-		//for Leaderboard
-		function LightLeaderboard() {
-			document.getElementById("tenantLeaderboard").setAttribute("theme", "light");
-		}
-		function DarkLeaderboard() {
-			document.getElementById("tenantLeaderboard").setAttribute("theme", "dark");
-		}
+		
 
 
 
