@@ -10,51 +10,57 @@
 	<script defer src='/build/tree-profile.js'></script>
 	<script defer src='/build/tenantCounter.js'></script>
 	<script defer src='/build/tenantLeaderboard.js'></script>
-<style>
-	.dropbtn {
-		background-color: #4CAF50;
-		color: white;
-		padding: 16px;
-		font-size: 16px;
-		border: none;
-		cursor: pointer;
-	  }
-	  
-	  .dropdown {
-		position: relative;
-		display: inline-block;
-		margin-left: 10px;
-		margin-top: 20px;
-	  }
-	  
-	  .dropdown-content {
-		display: none;
-		position: absolute;
-		background-color: #f9f9f9;
-		box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-		z-index: 1;
-		width: 130px;
-	  }
-	  
-	  .dropdown-content button {
-		color: black;
-		padding: 12px 16px;
-		text-decoration: none;
-		display: block;
-		width: 130px;
-	  }
-	  
-	  .dropdown-content a:hover {background-color: #f1f1f1}
-	  
-	  .dropdown:hover .dropdown-content {
-		display: block;
-	  }
-	  
-	  .dropdown:hover .dropbtn {
-		background-color: #3e8e41;
-	  }
 
-	  /* The container */
+	<!-- Bootstrap -->
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
+		integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+	<style>
+		.dropbtn {
+			background-color: #4CAF50;
+			color: white;
+			padding: 16px;
+			font-size: 16px;
+			border: none;
+			cursor: pointer;
+		}
+
+		.dropdown {
+			position: relative;
+			display: inline-block;
+			margin-left: 10px;
+			margin-top: 20px;
+		}
+
+		.dropdown-content {
+			display: none;
+			position: absolute;
+			background-color: #f9f9f9;
+			box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+			z-index: 1;
+			width: 130px;
+		}
+
+		.dropdown-content button {
+			color: black;
+			padding: 12px 16px;
+			text-decoration: none;
+			display: block;
+			width: 130px;
+		}
+
+		.dropdown-content a:hover {
+			background-color: #f1f1f1
+		}
+
+		.dropdown:hover .dropdown-content {
+			display: block;
+		}
+
+		.dropdown:hover .dropbtn {
+			background-color: #3e8e41;
+		}
+
+		/* The container */
 		.container {
 			display: block;
 			position: relative;
@@ -66,7 +72,7 @@
 			-moz-user-select: none;
 			-ms-user-select: none;
 			user-select: none;
-		
+
 		}
 
 		/* Hide the browser's default radio button */
@@ -88,12 +94,12 @@
 		}
 
 		/* On mouse-over, add a grey background color */
-		.container:hover input ~ .checkmark {
+		.container:hover input~.checkmark {
 			background-color: #ccc;
 		}
 
 		/* When the radio button is checked, add a blue background */
-		.container input:checked ~ .checkmark {
+		.container input:checked~.checkmark {
 			background-color: #2196F3;
 		}
 
@@ -105,8 +111,8 @@
 		}
 
 		/* Show the indicator (dot/circle) when checked */
-		.container input:checked ~ .checkmark:after {
-		display: block;
+		.container input:checked~.checkmark:after {
+			display: block;
 		}
 
 		/* Style the indicator (dot/circle) */
@@ -119,25 +125,26 @@
 			background: white;
 		}
 
-		.col-container{
+		.col-container {
 			display: flex;
 			flex-direction: column;
 		}
 
-		label{
+		label {
 			margin-right: 10px;
 		}
-		.row-container{
+
+		.row-container {
 			display: flex;
 			flex-direction: row;
 		}
 
-		.radio-container{
+		.radio-container {
 			display: flex;
 			flex-direction: row;
 		}
 
-		.lang-container{
+		.lang-container {
 			min-width: 200px;
 			display: flex;
 			flex-direction: column;
@@ -145,7 +152,7 @@
 			align-items: center;
 		}
 
-		.community-container{
+		.community-container {
 			min-width: 200px;
 			display: flex;
 			flex-direction: column;
@@ -154,7 +161,7 @@
 			margin-left: 10px;
 		}
 
-		.primaryColor-container{
+		.primaryColor-container {
 			min-width: 200px;
 			display: flex;
 			flex-direction: column;
@@ -163,11 +170,12 @@
 			margin-left: 10px;
 			margin-top: 20px;
 		}
-		.primaryColor-container input{
+
+		.primaryColor-container input {
 			margin-top: 5px;
 		}
 
-		.bgColor-container{
+		.bgColor-container {
 			min-width: 200px;
 			display: flex;
 			flex-direction: column;
@@ -177,347 +185,360 @@
 			margin-top: 20px;
 		}
 
-		.bgColor-container input{
+		.bgColor-container input {
 			margin-top: 5px;
 		}
 	</style>
 
 </head>
 
-<body>
-<!-- --------------------------------------------------------------- -- -->
-	<h2> TreeMap Default</h2>
-	<div class="col-container">
-	<tree-map user='sagar-aryal' theme="light" id="treeMap" primarycolor="" circlebgcolor=""> </tree-map>
-	<!--For Language-->
-	<div class = "radioContainer" style="display: flex; margin-left: 20px;">
-	<div class="lang-container">
-		<h3>Select Language</h3>
-		<div class = "row-container">
-			<label class="container" >En
-			<input type="radio" checked="checked" name="Maplanguage" onclick="TreeMapEng()">
-			<span class="checkmark"></span>
-			</label>
-			<label class="container">De
-			<input type="radio" name="Maplanguage" onclick="TreeMapDe()">
-			<span class="checkmark"></span>
-			</label>
-		</div>
-	</div>
-	<!--for community-->
-	<div class="community-container">
-		<h3>Community</h3>
-		<div class = "row-container">
-			<label class="container">True
-			<input type="radio" name="Mapcommunity" onclick="TreeMapCommT()">
-			<span class="checkmark"></span>
-			</label>
+<body style="margin-top:100px">
 
-			<label class="container">False
-			<input type="radio"name="Mapcommunity" onclick="TreeMapCommF()">
-			<span class="checkmark"></span>
-			</label>
-		</div>
-	</div>
-
-
-	<!--Theme-->
-		<div class="dropdown">
-			<button class="dropbtn">Select Theme</button>
-			<div class="dropdown-content">
-			<button onclick="LightTreeMap()">Light</button>
-			<button onclick="DarkTreeMap()">Dark</button>
+	<!-- Navbar starts -->
+	<nav class="navbar fixed-top navbar-expand-lg navbar-dark bg-dark">
+		<div class="container-fluid">
+			<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo01"
+				aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
+				<span class="navbar-toggler-icon"></span>
+			</button>
+			<div class="collapse navbar-collapse" id="navbarTogglerDemo01">
+				<a class="navbar-brand" href="#">
+					<img height="64" width="64" src="https://cdn.plant-for-the-planet.org/logo/svg/planetDark.svg" />
+				</a>
+				<ul class="navbar-nav me-auto mb-2 mb-lg-0">
+					<li class="nav-item">
+						<a class="nav-link active" aria-current="page" href="#">Home</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" href="#">Link</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
+					</li>
+				</ul>
+				<div class="d-flex">
+					<a class="text-white text-decoration-none fw-bold"
+						href="https://github.com/Plant-for-the-Planet-org/planet-widgets/" target="_blank">
+						Github
+					</a>
+				</div>
 			</div>
 		</div>
-	
-	
-	
-	<!-- Color Selector -->
-	<div class="primaryColor-container" >
-		<label for="favcolor">Select your Primary color:</label>
-		<input type="color" id="primaryColor" name="primaryColor" value="#ff0000" onchange="PrimaryColorSelector()"><br>
-	</div>
+	</nav>
 
-	<div class="bgColor-container">
-		<label for="favcolor">Select your Theme color:</label>
-		<input type="color" id="bgColor" name="bgColor" value="#ff0000" onchange="BGColorSelector()"><br>
-	</div>
-</div>
-</div>
-</div>
+	<!-- Navbar ends -->
 
 
-<!-- --------------------------------------------------------------- -- -->
-
-
-	<h2> Tree Counter Variant 1</h2>
-	<p> Default </p>
-	<div class="col-container">
-	<tree-profile user='prf_h6smcMDN23Qet1CP7BEplM60' theme = "dark" id="treeProfile"></tree-profile>
-
-	<div class = "radioContainer" style="display: flex; margin-left: 20px;">
-		<div class="lang-container">
-			<h3>Select Language</h3>
-			<div class = "row-container">
-			<label class="container" >En
-			<input type="radio" checked="checked" name="ProfileLanguage" onclick="TreeProEng()">
-			<span class="checkmark"></span>
-			</label>
-
-			<label class="container">De
-			<input type="radio" name="ProfileLanguage" onclick="TreeProDe()">
-			<span class="checkmark"></span>
-			</label>
-		</div>
-	</div>
-
-	<div class="community-container">
-		<h3>Community</h3>
-	<div class = "row-container">
-		<label class="container">True
-		<input type="radio" name="Profilecommunity" onclick="TreeProCommT()">
-		<span class="checkmark"></span>
-		</label>
-
-		<label class="container">False
-		<input type="radio"name="Profilecommunity" onclick="TreeProCommF()">
-		<span class="checkmark"></span>
-		</label>
-	</div>
-</div>
-
-	<!--Theme-->
-	<div class="dropdown">
-		<button class="dropbtn">Select Theme</button>
-		<div class="dropdown-content">
-		<button onclick="LightTreePro()">Light</button>
-		<button onclick="DarkTreePro()">Dark</button>
-		</div>
-	  </div>
-	
-
-<!-- Color Selector -->
-<div class="primaryColor-container" >
-	<label>Select your Primary color:</label>
-	<input type="color" id="primaryColorPro" name="primaryColorPro" value="#ff0000" onchange="PriColorSelProfile()"><br><br>
-</div>
-
-<div class="bgColor-container">
-	<label>Select your Theme color:</label>
-	<input type="color" id="bgColorPro" name="bgColorPro" value="#ff0000" onchange="BGColorSelProfile()"><br><br>
-</div>
-</div>
-</div>
-</div>
-<!-- --------------------------------------------------------------- -- -->
-
-
-	<h2> Tenant Tree Counter Variant 1</h2>
-	<p> Dark mode, locale="de" and community=false</p>
-	<div class="col-container">
-	<tree-tenantcounter tenantkey="ten_I9TW3ncG" goal="10000000000" theme="light" locale="en" id="treeCounter"></tree-tenantcounter>
-
-	<div class = "radioContainer" style="display: flex; margin-left: 20px;">
-		<div class="lang-container">
-		<h3>Select Language</h3>
-		<div class = "row-container">
-			<label class="container" >En
-			<input type="radio" checked="checked" name="TenantTreelanguage" onclick="TreeCounterEng()">
-			<span class="checkmark"></span>
-			</label>
-
-			<label class="container">De
-			<input type="radio" name="TenantTreelanguage" onclick="TreeCounterDe()">
-			<span class="checkmark"></span>
-			</label>
-		</div>
-	</div>
-
-	<div class="community-container">
-		<h3>Community</h3>
-		<div class = "row-container">
-			<label class="container">True
-			<input type="radio" name="TenantTreecommunity" onclick="TreeCounterCommT()">
-			<span class="checkmark"></span>
-			</label>
-
-			<label class="container">False
-			<input type="radio"name="TenantTreecommunity" onclick="TreeCounterCommF()">
-			<span class="checkmark"></span>
-			</label>
-		</div>
-	</div>
-
-	<!--Theme-->
-	<div class="dropdown">
-		<button class="dropbtn">Select Theme</button>
-		<div class="dropdown-content">
-		<button onclick="LightTreeCounter()">Light</button>
-		<button onclick="DarkTreeCounter()">Dark</button>
-		</div>
-	  </div>
-	
-
-<!-- Color Selector -->
-<div class="primaryColor-container" >
-	<label>Select your Primary color:</label>
-	<input type="color" id="primaryColorCounter" name="primaryColorCounter" value="#ff0000" onchange="PriColorSelCounter()"><br><br>
-</div>
-
-<div class="bgColor-container">
-	<label for="favcolor">Select your Theme color:</label>
-	<input type="color" id="bgColorCounter" name="bgColorCounter" value="#ff0000" onchange="BGColorSelCounter()"><br><br>
-</div>
-</div>
-</div>
-</div>
 	<!-- --------------------------------------------------------------- -- -->
 
-	<h2> Tenant Leaderboard Variant</h2>
-	<div class="col-container">
-	<tree-tenantleaderboard tenantKey="ten_I9TW3ncG" theme = "light" locale = "en" id="tenantLeaderboard"></tree-tenantleaderboard>
-	
-  <div class="dropdown" style="margin-left: 40px;">
-	<button class="dropbtn">Select Theme</button>
-	<div class="dropdown-content">
-	<button onclick="LightLeaderboard()">Light</button>
-	<button onclick="DarkLeaderboard()">Dark</button>
+	<ul class="nav nav-tabs" id="widgetsTab" role="tablist">
+		<li class="nav-item" role="presentation">
+			<a class="nav-link active" id="tree-map-widget" data-bs-toggle="tab" href="#treemap-widget" role="tab"
+				aria-controls="treemap" aria-selected="true">Tree Map</a>
+		</li>
+		<li class="nav-item" role="presentation">
+			<a class="nav-link" id="tree-profile-widget" data-bs-toggle="tab" href="#treeprofile" role="tab"
+				aria-controls="treeprofile" aria-selected="false">Tree Profile</a>
+		</li>
+		<li class="nav-item" role="presentation">
+			<a class="nav-link" id="tenant-counter-widget" data-bs-toggle="tab" href="#tenantcounter" role="tab"
+				aria-controls="tenantcounter" aria-selected="false">tenantcounter</a>
+		</li>
+		<li class="nav-item" role="presentation">
+			<a class="nav-link" id="tenant-leaderboard-widget" data-bs-toggle="tab" href="#tenantleaderboard" role="tab"
+				aria-controls="tenantleaderboard" aria-selected="false">tenantleaderboard</a>
+		</li>
+	</ul>
+	<div class="tab-content" id="myTabContent">
+		<div class="tab-pane fade show active" id="treemap-widget" role="tabpanel" aria-labelledby="tree-map-widget">
+			<h2> TreeMap Default</h2>
+			<div class="col-container">
+				<tree-map user='sagar-aryal' theme="light" id="treeMap" primarycolor="" circlebgcolor=""> </tree-map>
+				<!--For Language-->
+				<div class="radioContainer" style="display: flex; margin-left: 20px;">
+					<div class="lang-container">
+						<h3>Select Language</h3>
+						<div class="row-container">
+							<label class="container">En
+								<input type="radio" checked="checked" name="Maplanguage" onclick="changeAttribute('treeMap','en','locale')">
+								<span class="checkmark"></span>
+							</label>
+							<label class="container">De
+								<input type="radio" name="Maplanguage" onclick="changeAttribute('treeMap','de','locale')">
+								<span class="checkmark"></span>
+							</label>
+						</div>
+					</div>
+					<!--for community-->
+					<div class="community-container">
+						<h3>Community</h3>
+						<div class="row-container">
+							<label class="container">True
+								<input type="radio" name="Mapcommunity" onclick="changeAttribute('treeMap',true,'community')">
+								<span class="checkmark"></span>
+							</label>
+
+							<label class="container">False
+								<input type="radio" name="Mapcommunity" onclick="changeAttribute('treeMap',false,'community')">
+								<span class="checkmark"></span>
+							</label>
+						</div>
+					</div>
+
+
+					<!--Theme-->
+					<div class="dropdown">
+						<button class="dropbtn">Select Theme</button>
+						<div class="dropdown-content">
+							<button onclick="LightTreeMap()">Light</button>
+							<button onclick="DarkTreeMap()">Dark</button>
+						</div>
+					</div>
+
+
+
+					<!-- Color Selector -->
+					<div class="primaryColor-container">
+						<label for="favcolor">Select your Primary color:</label>
+						<input type="color" id="primaryColor" name="primaryColor" value="#ff0000"
+							onchange="PrimaryColorSelector()"><br>
+					</div>
+
+					<div class="bgColor-container">
+						<label for="favcolor">Select your Theme color:</label>
+						<input type="color" id="bgColor" name="bgColor" value="#ff0000"
+							onchange="BGColorSelector()"><br>
+					</div>
+				</div>
+			</div>
+		</div>
 	</div>
-  </div>
-</div>
+	<div class="tab-pane fade" id="treeprofile" role="tabpanel" aria-labelledby="tree-profile-widget">
+		<h2> Tree Counter Variant 1</h2>
+		<p> Default </p>
+		<div class="col-container">
+			<tree-profile user='prf_h6smcMDN23Qet1CP7BEplM60' theme="dark" id="treeProfile"></tree-profile>
+
+			<div class="radioContainer" style="display: flex; margin-left: 20px;">
+				<div class="lang-container">
+					<h3>Select Language</h3>
+					<div class="row-container">
+						<label class="container">En
+							<input type="radio" checked="checked" name="ProfileLanguage" onclick="changeAttribute('treeProfile','en','locale')">
+							<span class="checkmark"></span>
+						</label>
+
+						<label class="container">De
+							<input type="radio" name="ProfileLanguage" onclick="changeAttribute('treeProfile','de','locale')">
+							<span class="checkmark"></span>
+						</label>
+					</div>
+				</div>
+
+				<div class="community-container">
+					<h3>Community</h3>
+					<div class="row-container">
+						<label class="container">True
+							<input type="radio" name="Profilecommunity" onclick="changeAttribute('treeProfile',true,'community')">
+							<span class="checkmark"></span>
+						</label>
+
+						<label class="container">False
+							<input type="radio" name="Profilecommunity" onclick="changeAttribute('treeProfile',false,'community')">
+							<span class="checkmark"></span>
+						</label>
+					</div>
+				</div>
+
+				<!--Theme-->
+				<div class="dropdown">
+					<button class="dropbtn">Select Theme</button>
+					<div class="dropdown-content">
+						<button onclick="LightTreePro()">Light</button>
+						<button onclick="DarkTreePro()">Dark</button>
+					</div>
+				</div>
+
+
+				<!-- Color Selector -->
+				<div class="primaryColor-container">
+					<label>Select your Primary color:</label>
+					<input type="color" id="primaryColorPro" name="primaryColorPro" value="#ff0000"
+						onchange="PriColorSelProfile()"><br><br>
+				</div>
+
+				<div class="bgColor-container">
+					<label>Select your Theme color:</label>
+					<input type="color" id="bgColorPro" name="bgColorPro" value="#ff0000"
+						onchange="BGColorSelProfile()"><br><br>
+				</div>
+			</div>
+		</div>
+	</div>
+	</div>
+	<div class="tab-pane fade" id="tenantcounter" role="tabpanel" aria-labelledby="tenant-counter-widget">
+		<h2> Tenant Tree Counter Variant 1</h2>
+		<p> Dark mode, locale="de" and community=false</p>
+		<div class="col-container">
+			<tree-tenantcounter tenantkey="ten_I9TW3ncG" goal="10000000000" theme="light" locale="en" id="treeCounter">
+			</tree-tenantcounter>
+
+			<div class="radioContainer" style="display: flex; margin-left: 20px;">
+				<div class="lang-container">
+					<h3>Select Language</h3>
+					<div class="row-container">
+						<label class="container">En
+							<input type="radio" checked="checked" name="TenantTreelanguage" onclick="changeAttribute('treeCounter','en','locale')">
+							<span class="checkmark"></span>
+						</label>
+
+						<label class="container">De
+							<input type="radio" name="TenantTreelanguage" onclick="changeAttribute('treeCounter','de','locale')">
+							<span class="checkmark"></span>
+						</label>
+					</div>
+				</div>
+
+				<div class="community-container">
+					<h3>Community</h3>
+					<div class="row-container">
+						<label class="container">True
+							<input type="radio" name="TenantTreecommunity" onclick="changeAttribute('treeProfile',true,'community')">
+							<span class="checkmark"></span>
+						</label>
+
+						<label class="container">False
+							<input type="radio" name="TenantTreecommunity" onclick="changeAttribute('treeProfile',false,'community')">
+							<span class="checkmark"></span>
+						</label>
+					</div>
+				</div>
+
+				<!--Theme-->
+				<div class="dropdown">
+					<button class="dropbtn">Select Theme</button>
+					<div class="dropdown-content">
+						<button onclick="LightTreeCounter()">Light</button>
+						<button onclick="DarkTreeCounter()">Dark</button>
+					</div>
+				</div>
+
+
+				<!-- Color Selector -->
+				<div class="primaryColor-container">
+					<label>Select your Primary color:</label>
+					<input type="color" id="primaryColorCounter" name="primaryColorCounter" value="#ff0000"
+						onchange="PriColorSelCounter()"><br><br>
+				</div>
+
+				<div class="bgColor-container">
+					<label for="favcolor">Select your Theme color:</label>
+					<input type="color" id="bgColorCounter" name="bgColorCounter" value="#ff0000"
+						onchange="BGColorSelCounter()"><br><br>
+				</div>
+			</div>
+		</div>
+	</div>
+	</div>
+	<div class="tab-pane fade" id="tenantleaderboard" role="tabpanel" aria-labelledby="tenant-leaderboard-widget">
+		<h2> Tenant Leaderboard Variant</h2>
+		<div class="col-container">
+			<tree-tenantleaderboard tenantKey="ten_I9TW3ncG" theme="light" locale="en" id="tenantLeaderboard">
+			</tree-tenantleaderboard>
+
+			<div class="dropdown" style="margin-left: 40px;">
+				<button class="dropbtn">Select Theme</button>
+				<div class="dropdown-content">
+					<button onclick="LightLeaderboard()">Light</button>
+					<button onclick="DarkLeaderboard()">Dark</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	</div>
 
 
 
-  
-
-
-<!-- --------------------------------------------------------------- -- -->	  
-	
+	<!-- --------------------------------------------------------------- -- -->
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js"
+		integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW"
+		crossorigin="anonymous"></script>
 	<script>
 
-		//for Tree-Map Language
+		function changeAttribute(id,locale,attribute){
+			document.getElementById(id).setAttribute(attribute,locale)
+		}
 
-	function TreeMapEng() {
-		document.getElementById("treeMap").setAttribute("locale", "en"); 
-	}
 
-	function TreeMapDe() {
-		document.getElementById("treeMap").setAttribute("locale", "de"); 
-	}
-
-		//for Tree-Map Community
-
-	function TreeMapCommT() {
-		document.getElementById("treeMap").setAttribute("community", "true"); 
-	}
-
-	function TreeMapCommF() {
-		document.getElementById("treeMap").setAttribute("community", "false"); 
-	}
 		//for Tree-Map Theme
 		function LightTreeMap() {
-	  document.getElementById("treeMap").setAttribute("theme", "light"); 
-	}
-	function DarkTreeMap() {
-	  document.getElementById("treeMap").setAttribute("theme", "dark"); 
-	}
+			document.getElementById("treeMap").setAttribute("theme", "light");
+		}
+		function DarkTreeMap() {
+			document.getElementById("treeMap").setAttribute("theme", "dark");
+		}
 
 		//for Tree-Map Color Picker
 
-		function PrimaryColorSelector(){
-		var setColor = document.getElementById("primaryColor").value;
-			document.getElementById("treeMap").setAttribute("primarycolor", setColor );
+		function PrimaryColorSelector() {
+			var setColor = document.getElementById("primaryColor").value;
+			document.getElementById("treeMap").setAttribute("primarycolor", setColor);
 		}
 
-		function BGColorSelector(){
-		var setColor = document.getElementById("bgColor").value;
-			document.getElementById("treeMap").setAttribute("circlebgcolor", setColor );
+		function BGColorSelector() {
+			var setColor = document.getElementById("bgColor").value;
+			document.getElementById("treeMap").setAttribute("circlebgcolor", setColor);
 		}
-	//for Tree-Profile Language
 
-	function TreeProEng() {
-		document.getElementById("treeProfile").setAttribute("locale", "en"); 
-	}
 
-	function TreeProDe() {
-		document.getElementById("treeProfile").setAttribute("locale", "de"); 
-	}
-
-	//for Tree-Profile Community
-
-	function TreeProCommT() {
-		document.getElementById("treeProfile").setAttribute("community", "true"); 
-	}
-
-	function TreeProCommF() {
-		document.getElementById("treeProfile").setAttribute("community", "false"); 
-	}
-
-	//for Tree-Profile Theme
-	function LightTreePro() {
-	  document.getElementById("treeProfile").setAttribute("theme", "light"); 
-	}
-	function DarkTreePro() {
-	  document.getElementById("treeProfile").setAttribute("theme", "dark"); 
-	}
+		//for Tree-Profile Theme
+		function LightTreePro() {
+			document.getElementById("treeProfile").setAttribute("theme", "light");
+		}
+		function DarkTreePro() {
+			document.getElementById("treeProfile").setAttribute("theme", "dark");
+		}
 		// for Tree-Profile Color Picker
-		function PriColorSelProfile(){
-		var setColor = document.getElementById("primaryColorPro").value;
-			document.getElementById("treeProfile").setAttribute("primarycolor", setColor );
+		function PriColorSelProfile() {
+			var setColor = document.getElementById("primaryColorPro").value;
+			document.getElementById("treeProfile").setAttribute("primarycolor", setColor);
 		}
 
-		function BGColorSelProfile(){
-		var setColor = document.getElementById("bgColorPro").value;
-			document.getElementById("treeProfile").setAttribute("circlebgcolor", setColor );
-		}
-	//for Tree-Counter Language
-
-	function TreeCounterpEng() {
-		document.getElementById("treeCounter").setAttribute("locale", "en"); 
-	}
-
-	function TreeCounterDe() {
-		document.getElementById("treeCounter").setAttribute("locale", "de"); 
-	}
-
-	//for Tree-Counter Community
-
-	function TreeCounterCommT() {
-		document.getElementById("treeCounter").setAttribute("community", "true"); 
-	}
-
-	function TreeCounterCommF() {
-		document.getElementById("treeCounter").setAttribute("community", "false"); 
-	}
-
-	//for Tree-Counter Theme
-	function LightTreeCounter() {
-	  document.getElementById("treeCounter").setAttribute("theme", "light"); 
-	}
-	function DarkTreeCounter() {
-	  document.getElementById("treeCounter").setAttribute("theme", "dark"); 
-	}
-	// for Tree-Counter color picker
-	function PriColorSelCounter(){
-		var setColor = document.getElementById("primaryColorCounter").value;
-			document.getElementById("treeCounter").setAttribute("primarycolor", setColor );
+		function BGColorSelProfile() {
+			var setColor = document.getElementById("bgColorPro").value;
+			document.getElementById("treeProfile").setAttribute("circlebgcolor", setColor);
 		}
 
-		function BGColorSelCounter(){
-		var setColor = document.getElementById("bgColorCounter").value;
-			document.getElementById("treeCounter").setAttribute("circlebgcolor", setColor );
+
+		//for Tree-Counter Theme
+		function LightTreeCounter() {
+			document.getElementById("treeCounter").setAttribute("theme", "light");
+		}
+		function DarkTreeCounter() {
+			document.getElementById("treeCounter").setAttribute("theme", "dark");
+		}
+		// for Tree-Counter color picker
+		function PriColorSelCounter() {
+			var setColor = document.getElementById("primaryColorCounter").value;
+			document.getElementById("treeCounter").setAttribute("primarycolor", setColor);
+		}
+
+		function BGColorSelCounter() {
+			var setColor = document.getElementById("bgColorCounter").value;
+			document.getElementById("treeCounter").setAttribute("circlebgcolor", setColor);
 		}
 		//for Leaderboard
-	function LightLeaderboard() {
-	  document.getElementById("tenantLeaderboard").setAttribute("theme", "light"); 
-	}
-	function DarkLeaderboard() {
-	  document.getElementById("tenantLeaderboard").setAttribute("theme", "dark"); 
-	}
+		function LightLeaderboard() {
+			document.getElementById("tenantLeaderboard").setAttribute("theme", "light");
+		}
+		function DarkLeaderboard() {
+			document.getElementById("tenantLeaderboard").setAttribute("theme", "dark");
+		}
 
-	
+
 
 	</script>
 
 </body>
+
 </html>
