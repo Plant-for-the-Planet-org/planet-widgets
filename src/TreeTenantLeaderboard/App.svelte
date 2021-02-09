@@ -7,7 +7,7 @@
     export let theme = "light";
     let selectedTab = "recent";
     export let locale = "en";
-    export let tenantKey;
+    export let tenantkey;
     function setSelectedTab(tab) {
         selectedTab = tab;
     }
@@ -16,7 +16,7 @@
     const fetchProfileData = (async () => {
         const response = await fetch(`${__myapp.env.API_URL}/leaderboard`, {
             headers: {
-                "tenant-key": "ten_I9TW3ncG",
+                "tenant-key": tenantkey,
             },
         });
         leaderboardData = await response.json();

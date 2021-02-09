@@ -14,7 +14,7 @@ import { dataset_dev } from "svelte/internal";
     export let theme = "light";
     export let locale = "en";
     export let goal;
-    export let tenantKey;
+    export let tenantkey;
 
     goal = Number(goal);
     $:primarycolor = primarycolor;
@@ -41,7 +41,7 @@ import { dataset_dev } from "svelte/internal";
     let userpofiledata;
     const fetchProfileData = (async () => {
         const response = await fetch(`${__myapp.env.API_URL}/tenantScore`,{headers: {
-        'tenant-key': 'ten_I9TW3ncG'}});
+        'tenant-key': tenantkey}});
         userpofiledata = await response.json();
         return userpofiledata;
     })();
