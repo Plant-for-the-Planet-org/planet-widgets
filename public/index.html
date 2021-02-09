@@ -15,114 +15,15 @@
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
 		integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
 	<style>
-		.dropbtn {
-			background-color: #4CAF50;
-			color: white;
-			padding: 16px;
-			font-size: 16px;
-			border: none;
-			cursor: pointer;
-		}
-
-		.dropdown {
-			position: relative;
-			display: inline-block;
-			margin-left: 10px;
-			margin-top: 20px;
-		}
-
-		.dropdown-content {
-			display: none;
-			position: absolute;
-			background-color: #f9f9f9;
-			box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
-			z-index: 1;
-			width: 130px;
-		}
-
-		.dropdown-content button {
-			color: black;
-			padding: 12px 16px;
-			text-decoration: none;
-			display: block;
-			width: 130px;
-		}
-
-		.dropdown-content a:hover {
-			background-color: #f1f1f1
-		}
-
-		.dropdown:hover .dropdown-content {
-			display: block;
-		}
-
-		.dropdown:hover .dropbtn {
-			background-color: #3e8e41;
-		}
-
-		/* The container */
-		.container {
-			display: block;
-			position: relative;
-			padding-left: 35px;
-			margin-bottom: 12px;
-			cursor: pointer;
-			font-size: 22px;
-			-webkit-user-select: none;
-			-moz-user-select: none;
-			-ms-user-select: none;
-			user-select: none;
-
-		}
-
-		/* Hide the browser's default radio button */
-		.container input {
-			position: absolute;
-			opacity: 0;
-			cursor: pointer;
-		}
-
-		/* Create a custom radio button */
-		.checkmark {
-			position: absolute;
-			top: 0;
-			left: 0;
-			height: 25px;
-			width: 25px;
-			background-color: #eee;
-			border-radius: 50%;
-		}
-
-		/* On mouse-over, add a grey background color */
-		.container:hover input~.checkmark {
-			background-color: #ccc;
-		}
-
-		/* When the radio button is checked, add a blue background */
-		.container input:checked~.checkmark {
-			background-color: #2196F3;
-		}
-
-		/* Create the indicator (the dot/circle - hidden when not checked) */
-		.checkmark:after {
-			content: "";
-			position: absolute;
-			display: none;
-		}
-
-		/* Show the indicator (dot/circle) when checked */
-		.container input:checked~.checkmark:after {
-			display: block;
-		}
-
-		/* Style the indicator (dot/circle) */
-		.container .checkmark:after {
-			top: 9px;
-			left: 9px;
-			width: 8px;
-			height: 8px;
-			border-radius: 50%;
-			background: white;
+		.customisation-container {
+			display: flex;
+			flex-direction: column;
+			width: 320px;
+			align-items: flex-start;
+			align-self: flex-start;
+			margin-top: 60px;
+			gap: 20px;
+			margin-bottom: 80px;
 		}
 
 		.col-container {
@@ -133,61 +34,6 @@
 
 		label {
 			margin-right: 10px;
-		}
-
-		.row-container {
-			display: flex;
-			flex-direction: row;
-		}
-
-		.radio-container {
-			display: flex;
-			flex-direction: row;
-		}
-
-		.lang-container {
-			min-width: 200px;
-			display: flex;
-			flex-direction: column;
-			justify-content: center;
-			align-items: center;
-		}
-
-		.community-container {
-			min-width: 200px;
-			display: flex;
-			flex-direction: column;
-			justify-content: center;
-			align-items: center;
-			margin-left: 10px;
-		}
-
-		.primaryColor-container {
-			min-width: 200px;
-			display: flex;
-			flex-direction: column;
-			justify-content: center;
-			align-items: center;
-			margin-left: 10px;
-			margin-top: 20px;
-		}
-
-		.primaryColor-container input {
-			margin-top: 5px;
-		}
-
-		.bgColor-container {
-			min-width: 200px;
-			display: flex;
-			flex-direction: column;
-			justify-content: center;
-			align-items: center;
-			margin-left: 10px;
-			margin-top: 20px;
-		}
-
-		.bgColor-container input {
-			margin-top: 5px;
 		}
 	</style>
 
@@ -223,10 +69,7 @@
 
 	<!-- Navbar ends -->
 
-
-	<!-- --------------------------------------------------------------- -- -->
-
-	<div class="d-flex flex-column justify-content-center align-items-center">
+	<div class="d-flex flex-column justify-content-center align-items-center mt-4 mb-4">
 		<ul class="nav nav-tabs" id="widgetsTab" role="tablist">
 			<li class="nav-item" role="presentation">
 				<a class="nav-link active" id="tree-map-widget" data-bs-toggle="tab" href="#treemap-widget" role="tab"
@@ -241,138 +84,105 @@
 					aria-controls="tenantcounter" aria-selected="false">Tenant Counter</a>
 			</li>
 			<li class="nav-item" role="presentation">
-				<a class="nav-link" id="tenant-leaderboard-widget" data-bs-toggle="tab" href="#tenantleaderboard" role="tab"
-					aria-controls="tenantleaderboard" aria-selected="false">Tenant Leaderboard</a>
+				<a class="nav-link" id="tenant-leaderboard-widget" data-bs-toggle="tab" href="#tenantleaderboard"
+					role="tab" aria-controls="tenantleaderboard" aria-selected="false">Tenant Leaderboard</a>
 			</li>
 		</ul>
 		<div class="tab-content" id="myTabContent">
-			<div class="tab-pane fade show active" id="treemap-widget" role="tabpanel" aria-labelledby="tree-map-widget">
+			<div class="tab-pane fade show active" id="treemap-widget" role="tabpanel"
+				aria-labelledby="tree-map-widget">
 				<div class="col-container">
-					<tree-map user='sagar-aryal' theme="light" id="treeMap" primarycolor="" circlebgcolor=""> </tree-map>
-					<!--For Language-->
-					<div class="radioContainer" style="display: flex; margin-left: 20px;">
-						<div class="lang-container">
-							<h3>Select Language</h3>
-							<div class="row-container">
-								<label class="container">En
-									<input type="radio" checked="checked" name="Maplanguage"
-										onclick="changeAttribute('treeMap','en','locale')">
-									<span class="checkmark"></span>
-								</label>
-								<label class="container">De
-									<input type="radio" name="Maplanguage"
-										onclick="changeAttribute('treeMap','de','locale')">
-									<span class="checkmark"></span>
-								</label>
-							</div>
-						</div>
+					<tree-map user='sagar-aryal' theme="light" id="treeMap" primarycolor="" circlebgcolor="">
+					</tree-map>
+
+					<div class="customisation-container">
+						<h2 class="fw-bold">Customise your widget:</h2>
+						<!--For Language-->
+						<select class="form-select" onchange="changeAttribute('treeMap',this.value,'locale')"
+							aria-label="Default select example">
+							<option value="en" selected>Select Language</option>
+							<option value="en">En</option>
+							<option value="de">De</option>
+						</select>
+
 						<!--for community-->
-						<div class="community-container">
-							<h3>Community</h3>
-							<div class="row-container">
-								<label class="container">True
-									<input type="radio" name="Mapcommunity"
-										onclick="changeAttribute('treeMap',true,'community')">
-									<span class="checkmark"></span>
-								</label>
-	
-								<label class="container">False
-									<input type="radio" name="Mapcommunity"
-										onclick="changeAttribute('treeMap',false,'community')">
-									<span class="checkmark"></span>
-								</label>
-							</div>
+						<div class="form-check form-switch">
+							<input class="form-check-input"
+								onclick="changeAttribute('treeMap',this.checked,'community')" type="checkbox"
+								id="treeMap-community-switch" checked>
+							<label class="form-check-label" for="treeMap-community-switch">Show community</label>
 						</div>
-	
-	
+
+
 						<!--Theme-->
-						<div class="dropdown">
-							<button class="dropbtn">Select Theme</button>
-							<div class="dropdown-content">
-								<button onclick="changeAttribute('treeMap','light', 'theme')">Light</button>
-							<button onclick="changeAttribute('treeMap','dark', 'theme')">Dark</button>
-							</div>
-						</div>
-	
-	
-	
+						<select class="form-select" onchange="changeAttribute('treeMap',this.value,'theme')"
+							aria-label="Default select example">
+							<option value="light" selected>Select Theme</option>
+							<option value="light">Light</option>
+							<option value="dark">Dark</option>
+						</select>
+
 						<!-- Color Selector -->
-						<div class="primaryColor-container">
+						<div class="input-group">
 							<label for="favcolor">Select your Primary color:</label>
 							<input type="color" id="primaryColor" name="primaryColor" value="#ff0000"
-								onchange="PrimaryColorSelector()"><br>
+								onchange="changeAttribute('treeMap',this.value,'primarycolor')">
 						</div>
-	
-						<div class="bgColor-container">
+
+						<div class="input-group">
 							<label for="favcolor">Select your Theme color:</label>
 							<input type="color" id="bgColor" name="bgColor" value="#ff0000"
-								onchange="BGColorSelector()"><br>
+								onchange="changeAttribute('treeMap',this.value,'circlebgcolor')">
 						</div>
+
 					</div>
+
 				</div>
 			</div>
-	
+
 			<div class="tab-pane fade" id="treeprofile" role="tabpanel" aria-labelledby="tree-profile-widget">
 				<div class="col-container">
 					<tree-profile user='prf_h6smcMDN23Qet1CP7BEplM60' theme="dark" id="treeProfile"></tree-profile>
-	
-					<div class="radioContainer" style="display: flex; margin-left: 20px;">
-						<div class="lang-container">
-							<h3>Select Language</h3>
-							<div class="row-container">
-								<label class="container">En
-									<input type="radio" checked="checked" name="ProfileLanguage"
-										onclick="changeAttribute('treeProfile','en','locale')">
-									<span class="checkmark"></span>
-								</label>
-	
-								<label class="container">De
-									<input type="radio" name="ProfileLanguage"
-										onclick="changeAttribute('treeProfile','de','locale')">
-									<span class="checkmark"></span>
-								</label>
-							</div>
+
+					<div class="customisation-container">
+						<h2 class="fw-bold">Customise your widget:</h2>
+						<select class="form-select" onchange="changeAttribute('treeProfile',this.value,'locale')"
+							aria-label="Default select example">
+							<option value="en" selected>Select Language</option>
+							<option value="en">En</option>
+							<option value="de">De</option>
+						</select>
+
+						<div class="form-check form-switch">
+							<input class="form-check-input"
+								onclick="changeAttribute('treeProfile',this.checked,'community')" type="checkbox"
+								id="treeProfile-community-switch" checked>
+							<label class="form-check-label" for="treeProfile-community-switch">Show
+								community</label>
 						</div>
-	
-						<div class="community-container">
-							<h3>Community</h3>
-							<div class="row-container">
-								<label class="container">True
-									<input type="radio" name="Profilecommunity"
-										onclick="changeAttribute('treeProfile',true,'community')">
-									<span class="checkmark"></span>
-								</label>
-	
-								<label class="container">False
-									<input type="radio" name="Profilecommunity"
-										onclick="changeAttribute('treeProfile',false,'community')">
-									<span class="checkmark"></span>
-								</label>
-							</div>
-						</div>
-	
+
 						<!--Theme-->
-						<div class="dropdown">
-							<button class="dropbtn">Select Theme</button>
-							<div class="dropdown-content">
-								<button onclick="changeAttribute('treeProfile','light', 'theme')">Light</button>
-								<button onclick="changeAttribute('treeProfile','dark', 'theme')">Dark</button>
-							</div>
-						</div>
-	
-	
+						<select class="form-select" onchange="changeAttribute('treeProfile',this.value,'theme')"
+							aria-label="Default select example">
+							<option value="light" selected>Select Theme</option>
+							<option value="light">Light</option>
+							<option value="dark">Dark</option>
+						</select>
+
+
 						<!-- Color Selector -->
-						<div class="primaryColor-container">
+						<div class="input-group">
 							<label>Select your Primary color:</label>
 							<input type="color" id="primaryColorPro" name="primaryColorPro" value="#ff0000"
-								onchange="PriColorSelProfile()"><br><br>
+								onchange="changeAttribute('treeProfile',this.value,'primarycolor')">
 						</div>
-	
-						<div class="bgColor-container">
+
+						<div class="input-group">
 							<label>Select your Theme color:</label>
 							<input type="color" id="bgColorPro" name="bgColorPro" value="#ff0000"
-								onchange="BGColorSelProfile()"><br><br>
+								onchange="changeAttribute('treeProfile',this.value,'circlebgcolor')">
 						</div>
+
 					</div>
 				</div>
 			</div>
@@ -381,133 +191,76 @@
 					<tree-tenantcounter tenantkey="ten_I9TW3ncG" goal="10000000000" theme="light" locale="en"
 						id="treeCounter">
 					</tree-tenantcounter>
-	
-					<div class="radioContainer" style="display: flex; margin-left: 20px;">
-						<div class="lang-container">
-							<h3>Select Language</h3>
-							<div class="row-container">
-								<label class="container">En
-									<input type="radio" checked="checked" name="TenantTreelanguage"
-										onclick="changeAttribute('treeCounter','en','locale')">
-									<span class="checkmark"></span>
-								</label>
-	
-								<label class="container">De
-									<input type="radio" name="TenantTreelanguage"
-										onclick="changeAttribute('treeCounter','de','locale')">
-									<span class="checkmark"></span>
-								</label>
-							</div>
+
+					<div class="customisation-container">
+						<h2 class="fw-bold">Customise your widget:</h2>
+						<select class="form-select" onchange="changeAttribute('treeCounter',this.value,'locale')"
+							aria-label="Default select example">
+							<option value="en" selected>Select Language</option>
+							<option value="en">En</option>
+							<option value="de">De</option>
+						</select>
+
+						<div class="form-check form-switch">
+							<input class="form-check-input"
+								onclick="changeAttribute('treeCounter',this.checked,'community')" type="checkbox"
+								id="treeCounter-community-switch" checked>
+							<label class="form-check-label" for="treeCounter-community-switch">Show
+								community</label>
 						</div>
-	
-						<div class="community-container">
-							<h3>Community</h3>
-							<div class="row-container">
-								<label class="container">True
-									<input type="radio" name="TenantTreecommunity"
-										onclick="changeAttribute('treeProfile',true,'community')">
-									<span class="checkmark"></span>
-								</label>
-	
-								<label class="container">False
-									<input type="radio" name="TenantTreecommunity"
-										onclick="changeAttribute('treeProfile',false,'community')">
-									<span class="checkmark"></span>
-								</label>
-							</div>
-						</div>
-	
+
 						<!--Theme-->
-						<div class="dropdown">
-							<button class="dropbtn">Select Theme</button>
-							<div class="dropdown-content">
-								<button onclick="changeAttribute('treeCounter','light', 'theme')">Light</button>
-								<button onclick="changeAttribute('treeCounter','dark', 'theme')">Dark</button>
-							</div>
-						</div>
-	
-	
+						<select class="form-select" onchange="changeAttribute('treeCounter',this.value,'theme')"
+							aria-label="Default select example">
+							<option value="light" selected>Select Theme</option>
+							<option value="light">Light</option>
+							<option value="dark">Dark</option>
+						</select>
+
+
 						<!-- Color Selector -->
-						<div class="primaryColor-container">
+						<div class="input-group">
 							<label>Select your Primary color:</label>
 							<input type="color" id="primaryColorCounter" name="primaryColorCounter" value="#ff0000"
-								onchange="PriColorSelCounter()"><br><br>
+								onchange="changeAttribute('treeCounter',this.value,'primarycolor')">
 						</div>
-	
-						<div class="bgColor-container">
+						<div class="input-group">
 							<label for="favcolor">Select your Theme color:</label>
 							<input type="color" id="bgColorCounter" name="bgColorCounter" value="#ff0000"
-								onchange="BGColorSelCounter()"><br><br>
+								onchange="changeAttribute('treeCounter',this.value,'circlebgcolor')">
 						</div>
+
 					</div>
 				</div>
 			</div>
-			<div class="tab-pane fade" id="tenantleaderboard" role="tabpanel" aria-labelledby="tenant-leaderboard-widget">
+			<div class="tab-pane fade" id="tenantleaderboard" role="tabpanel"
+				aria-labelledby="tenant-leaderboard-widget">
 				<div class="col-container">
 					<tree-tenantleaderboard tenantKey="ten_I9TW3ncG" theme="light" locale="en" id="tenantLeaderboard">
 					</tree-tenantleaderboard>
-	
-					<div class="dropdown" style="margin-left: 40px;">
-						<button class="dropbtn">Select Theme</button>
-						<div class="dropdown-content">
-							<button onclick="changeAttribute('tenantLeaderboard','light', 'theme')">Light</button>
-							<button onclick="changeAttribute('tenantLeaderboard','Dark', 'theme')">Dark</button>
-						</div>
+					<div class="customisation-container">
+						<h2 class="fw-bold">Customise your widget:</h2>
+						<select class="form-select" onchange="changeAttribute('tenantLeaderboard',this.value,'theme')"
+							aria-label="Default select example">
+							<option value="light" selected>Select Theme</option>
+							<option value="light">Light</option>
+							<option value="dark">Dark</option>
+						</select>
 					</div>
+
 				</div>
 			</div>
 		</div>
 	</div>
-	
 
-
-
-	<!-- --------------------------------------------------------------- -- -->
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js"
 		integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW"
 		crossorigin="anonymous"></script>
 	<script>
 
-		function changeAttribute(id, locale, attribute) {
-			document.getElementById(id).setAttribute(attribute, locale)
+		function changeAttribute(id, value, attribute) {
+			document.getElementById(id).setAttribute(attribute, value)
 		}
-
-		//for Tree-Map Color Picker
-
-		function PrimaryColorSelector() {
-			var setColor = document.getElementById("primaryColor").value;
-			document.getElementById("treeMap").setAttribute("primarycolor", setColor);
-		}
-
-		function BGColorSelector() {
-			var setColor = document.getElementById("bgColor").value;
-			document.getElementById("treeMap").setAttribute("circlebgcolor", setColor);
-		}
-
-		// for Tree-Profile Color Picker
-		function PriColorSelProfile() {
-			var setColor = document.getElementById("primaryColorPro").value;
-			document.getElementById("treeProfile").setAttribute("primarycolor", setColor);
-		}
-
-		function BGColorSelProfile() {
-			var setColor = document.getElementById("bgColorPro").value;
-			document.getElementById("treeProfile").setAttribute("circlebgcolor", setColor);
-		}
-
-		// for Tree-Counter color picker
-		function PriColorSelCounter() {
-			var setColor = document.getElementById("primaryColorCounter").value;
-			document.getElementById("treeCounter").setAttribute("primarycolor", setColor);
-		}
-
-		function BGColorSelCounter() {
-			var setColor = document.getElementById("bgColorCounter").value;
-			document.getElementById("treeCounter").setAttribute("circlebgcolor", setColor);
-		}
-		
-
-
 
 	</script>
 
