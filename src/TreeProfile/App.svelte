@@ -26,19 +26,9 @@
         ? "#23519b"
         : "#2f3336";
 
-    let language;
-
-    switch (locale) {
-        case "en":
-            language = enLocale;
-            break;
-        case "de":
-            language = deLocale;
-            break;
-        default:
-            language = enLocale;
-            break;
-    }
+    let language = [];
+    language['en'] = enLocale;
+    language['de'] = deLocale;
 
     let userpofiledata;
     async function fetchData(){
@@ -53,21 +43,19 @@
     let circumference = 2 * Math.PI * radius;
 
     onMount(() => {
-    if (refresh === "slow"){
-   const slow = setInterval(() => {
-			fetchData();
-    }, 10000);
-    return () => clearInterval(slow);
-  }
-  else if (refresh === "fast"){
-    const fast = setInterval(() => {
-			fetchData();
-    }, 5000);
-    return () => clearInterval(fast);
-  }
-  else (refresh === "none")
-   return;
-});
+      if (refresh === "slow") {
+        const slow = setInterval(() => {
+          fetchData();
+        }, 10000);
+        return () => clearInterval(slow);
+      } else if (refresh === "fast") {
+        const fast = setInterval(() => {
+          fetchData();
+        }, 5000);
+        return () => clearInterval(fast);
+      } else(refresh === "none")
+      return;
+    });
 </script>
 
 <div
@@ -107,7 +95,7 @@
                                 theme === "dark" ? "planted" : ""
                             }`}
                         >
-                            {language.treesPlanted}
+                            {language[locale].treesPlanted}
                         </p>
                     </div>
                     {#if data.score.target != 0}
@@ -115,7 +103,7 @@
                             <p class="treecount">
                                 {localizedAbbreviatedNumber(locale, Number(data.score.target), 1)}
                             </p>
-                            <p class="treecountLabel">{language.target}</p>
+                            <p class="treecountLabel">{language[locale].target}</p>
                         </div>
                     {/if}
                 </div>
@@ -146,7 +134,7 @@
                 href={`${__myapp.env.APP_URL}/s/${data.slug}`}
                 class="primaryButton"
                 on:click
-                target="_blank">{language.plantTrees}</a
+                target="_blank">{language[locale].plantTrees}</a
             >
 
             <div class="imageHeader">
@@ -183,13 +171,13 @@
                     href={`https://www1.plant-for-the-planet.org/t/${data.slug}`}
                     target="_blank"
                     class="footerLink"
-                    >{language.viewProfile}
+                    >{language[locale].viewProfile}
                 </a>
                 <a
                     class="footerLinkBold"
                     href={`https://www1.plant-for-the-planet.org/`}
                     target="_blank"
-                    >| {language.poweredBy}
+                    >| {language[locale].poweredBy}
                 </a>
                 {#if community === "true"}
                     <div
@@ -209,13 +197,13 @@
                         </svg>
                         <p class="infoText ">
                             {localizedAbbreviatedNumber(locale, Number(data.score.personal), 1)}
-                            {language.treesPlantedBy}
+                            {language[locale].treesPlantedBy}
                             {data.displayName}
                             {community === "true"
-                                ? `${language.and} ${localizedAbbreviatedNumber(locale,
+                                ? `${language[locale].and} ${localizedAbbreviatedNumber(locale,
                                       Number(data.score.received),
                                       1
-                                  )} ${language.treesPlantedByComm}`
+                                  )} ${language[locale].treesPlantedByComm}`
                                 : ""}
                         </p>
                     </div>

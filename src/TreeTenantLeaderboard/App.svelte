@@ -2,6 +2,9 @@
 
 <script>
     import {getFormattedNumber} from '../../utils/formatNumber';
+    import enLocale from "./../../public/data/locales/en.json";
+    import deLocale from "./../../public/data/locales/de.json";
+
     export let theme = "light";
     let selectedTab = "recent";
     export let locale = "en";
@@ -10,6 +13,9 @@
         selectedTab = tab;
     }
 
+    let language = [];
+    language['en'] = enLocale;
+    language['de'] = deLocale;
     let leaderboardData;
     const fetchProfileData = (async () => {
         const response = await fetch(`${__myapp.env.API_URL}/leaderboard`, {
@@ -27,19 +33,19 @@
     <div class="leaderboardSection" 
     style = "--background-color: {theme ==='light' ? '#fff'
     : '#2f3336'}; --text-color: {theme === 'light' ? '#2f3336' : '#fff'};">
-        <h2 class="leaderboardTitle">Forest Frontrunners</h2>
+        <h2 class="leaderboardTitle">{language[locale].forestfrontrunners}</h2>
         <div class="headerButtons">
             <button
                 class={`tabButton ${(selectedTab === "recent"
                     ? "tabButtonActive"
                     : "")}`}
-                on:click={() => setSelectedTab("recent")}>MOST RECENT</button
+                on:click={() => setSelectedTab("recent")}>{language[locale].mostrecent}</button
             >
             <button
                 class={`tabButton ${(selectedTab === "highest"
                     ? "tabButtonActive"
                     : "")}`}
-                on:click={() => setSelectedTab("highest")}>MOST TREES</button
+                on:click={() => setSelectedTab("highest")}>{language[locale].mosttrees}</button
             >
         </div>
 
@@ -49,7 +55,7 @@
                     <li class="row">
                         <p class="user">{item.donorName}</p>
                         <p class="treeCount">
-                            {getFormattedNumber(item.treeCount, locale)} {" "}Trees</p>
+                            {getFormattedNumber(item.treeCount, locale)} {" "}{language[locale].trees}</p>
                         </li>
                 {/each}
             {:else if selectedTab === "highest"}
@@ -57,7 +63,7 @@
                     <div class="row">
                         <p class="user">{item.donorName}</p>
                         <p class="treeCount">
-                        {getFormattedNumber(item.treeCount, locale)} {" "}Trees</p>
+                        {getFormattedNumber(item.treeCount, locale)} {" "}{language[locale].trees}</p>
                     </div>
                 {/each}
             {/if}

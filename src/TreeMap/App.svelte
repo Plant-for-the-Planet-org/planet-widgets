@@ -11,8 +11,7 @@
   import getImageUrl from "../../utils/getImageUrl";
   import enLocale from "./../../public/data/locales/en.json";
   import deLocale from "./../../public/data/locales/de.json";
-import { onMount } from "svelte";
-
+  import { onMount } from "svelte";
 
   // Props that can be passed
   export let user;
@@ -25,24 +24,15 @@ import { onMount } from "svelte";
   
   $: primarycolor = primarycolor;
   $: counterbgcolor = circlebgcolor
-
     ? circlebgcolor
     : theme === "light"
     ? "#23519b"
     : "#2f3336";
 
-  let language;
-  switch (locale) {
-    case "en":
-      language = enLocale;
-      break;
-    case "de":
-      language = deLocale;
-      break;
-    default:
-      language = enLocale;
-      break;
-  }
+  let language = [];
+  language['en'] = enLocale;
+  language['de'] = deLocale;
+
   let promise = fetchData();
   let mapStyle;
   let userpofiledata;
@@ -60,24 +50,20 @@ import { onMount } from "svelte";
     return userpofiledata;
   }
 
-
   onMount(() => {
-    if (refresh === "slow"){
-   const slow = setInterval(() => {
-			fetchData();
-    }, 10000);
-    return () => clearInterval(slow);
-  }
-  else if (refresh === "fast"){
-    const fast = setInterval(() => {
-			fetchData();
-    }, 5000);
-    return () => clearInterval(fast);
-  }
-  else (refresh === "none")
-   return;
-});
-
+    if (refresh === "slow") {
+      const slow = setInterval(() => {
+        fetchData();
+      }, 10000);
+      return () => clearInterval(slow);
+    } else if (refresh === "fast") {
+      const fast = setInterval(() => {
+        fetchData();
+      }, 5000);
+      return () => clearInterval(fast);
+    } else(refresh === "none")
+    return;
+  });
 
   let radius = 140;
   let size = 154;
@@ -227,7 +213,7 @@ import { onMount } from "svelte";
                   : localizedAbbreviatedNumber(locale, data.score.personal, 1)}
               </p>
               <p class={`treecountLabel ${theme === "dark" ? "planted" : ""}`}>
-                {language.treesPlanted}
+                {language[locale].treesPlanted}
               </p>
             </div>
             {#if data.score.target != 0}
@@ -235,7 +221,7 @@ import { onMount } from "svelte";
                 <p class="treecount">
                   {localizedAbbreviatedNumber(locale, data.score.target, 1)}
                 </p>
-                <p class="treecountLabel">{language.target}</p>
+                <p class="treecountLabel">{language[locale].target}</p>
               </div>
             {/if}
           </div>
@@ -266,25 +252,29 @@ import { onMount } from "svelte";
           href={`${__myapp.env.APP_URL}/s/${data.slug}`}
           class="primaryButton"
           on:click
-          target="_blank">{language.plantTrees}</a
+          target="_blank">{language[locale].plantTrees}</a
         >
       </div>
     </div>
     <div class="mapContainer">
       {#if mapStyle}
-        <div id="map" class="view" use:createMap />
+        {#if community === "true"}
+          <div id="map" class="view" use:createMap />
+        {:else}
+          <div id="map" class="view" use:createMap />
+        {/if}
         <div class="footer">
           <a
             href={`https://www1.plant-for-the-planet.org/t/${data.slug}`}
             target="_blank"
             class="footerLink"
-            >{language.viewProfile}
+            >{language[locale].viewProfile}
           </a>
           <a
             class="footerLinkBold"
             href={`https://www1.plant-for-the-planet.org/`}
             target="_blank"
-            >| {language.poweredBy}
+            >| {language[locale].poweredBy}
           </a>
           {#if community === "true"}
             <div
@@ -308,14 +298,14 @@ import { onMount } from "svelte";
                   Number(data.score.personal),
                   1
                 )}
-                {language.treesPlantedBy}
+                {language[locale].treesPlantedBy}
                 {data.displayName}
                 {community === "true"
-                  ? `${language.and} ${localizedAbbreviatedNumber(
+                  ? `${language[locale].and} ${localizedAbbreviatedNumber(
                       locale,
                       Number(data.score.received),
                       1
-                    )} ${language.treesPlantedByComm}`
+                    )} ${language[locale].treesPlantedByComm}`
                   : ""}
               </p>
             </div>

@@ -113,7 +113,6 @@
 							<label class="form-check-label" for="treeMap-community-switch">Show community</label>
 						</div>
 
-
 						<!--Theme-->
 						<select class="form-select" onchange="changeAttribute('treeMap',this.value,'theme')"
 							aria-label="Default select example">
@@ -146,6 +145,7 @@
 
 					<div class="customisation-container">
 						<h2 class="fw-bold">Customise your widget:</h2>
+						<!--For Language-->
 						<select class="form-select" onchange="changeAttribute('treeProfile',this.value,'locale')"
 							aria-label="Default select example">
 							<option value="en" selected>Select Language</option>
@@ -153,6 +153,7 @@
 							<option value="de">De</option>
 						</select>
 
+						<!--for community-->
 						<div class="form-check form-switch">
 							<input class="form-check-input"
 								onclick="changeAttribute('treeProfile',this.checked,'community')" type="checkbox"
@@ -168,7 +169,6 @@
 							<option value="light">Light</option>
 							<option value="dark">Dark</option>
 						</select>
-
 
 						<!-- Color Selector -->
 						<div class="input-group">
@@ -194,6 +194,7 @@
 
 					<div class="customisation-container">
 						<h2 class="fw-bold">Customise your widget:</h2>
+						<!--For Language-->
 						<select class="form-select" onchange="changeAttribute('treeCounter',this.value,'locale')"
 							aria-label="Default select example">
 							<option value="en" selected>Select Language</option>
@@ -201,6 +202,7 @@
 							<option value="de">De</option>
 						</select>
 
+						<!--for community-->
 						<div class="form-check form-switch">
 							<input class="form-check-input"
 								onclick="changeAttribute('treeCounter',this.checked,'community')" type="checkbox"
@@ -216,7 +218,6 @@
 							<option value="light">Light</option>
 							<option value="dark">Dark</option>
 						</select>
-
 
 						<!-- Color Selector -->
 						<div class="input-group">
@@ -240,6 +241,15 @@
 					</tree-tenantleaderboard>
 					<div class="customisation-container">
 						<h2 class="fw-bold">Customise your widget:</h2>
+						<!--For Language-->
+						<select class="form-select" onchange="changeAttribute('tenantLeaderboard',this.value,'locale')"
+							aria-label="Default select example">
+							<option value="en" selected>Select Language</option>
+							<option value="en">En</option>
+							<option value="de">De</option>
+						</select>
+
+						<!--Theme-->
 						<select class="form-select" onchange="changeAttribute('tenantLeaderboard',this.value,'theme')"
 							aria-label="Default select example">
 							<option value="light" selected>Select Theme</option>
