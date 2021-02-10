@@ -10,6 +10,8 @@
   import getImageUrl from "../../utils/getImageUrl";
   import enLocale from "./../../public/data/locales/en.json";
   import deLocale from "./../../public/data/locales/de.json";
+import { onMount } from "svelte";
+  
 
   // Props that can be passed
   export let user;
@@ -18,6 +20,7 @@
   export let theme = "light";
   export let community = "true";
   export let locale = "en";
+  export let refresh;
 
   let primaryColor = primarycolor;
   let counterBGColor = circlebgcolor
@@ -27,7 +30,6 @@
     : "#2f3336";
 
   let language;
-
   switch (locale) {
     case "en":
       language = enLocale;
@@ -39,10 +41,10 @@
       language = enLocale;
       break;
   }
-
+  let promise = fetchData();
   let mapStyle;
   let userpofiledata;
-  const fetchProfileData = (async () => {
+  async function fetchData(){
     const response = await fetch(`${__myapp.env.API_URL}/profiles/${user}`);
     userpofiledata = await response.json();
     fetchTiles(
@@ -54,7 +56,26 @@
       }
     });
     return userpofiledata;
-  })();
+  }
+
+
+  onMount(() => { 
+    if (refresh === "slow"){
+   const slow = setInterval(() => {
+			fetchData();
+    }, 10000);
+    return () => clearInterval(slow); 
+  }
+  else if (refresh === "fast"){
+    const fast = setInterval(() => {
+			fetchData();
+    }, 5000);
+    return () => clearInterval(fast); 
+  }
+  else (refresh === "none")
+   return;
+});
+
 
   let radius = 140;
   let size = 154;
@@ -186,7 +207,7 @@
     ? '#fff'
     : '#2f3336'}; --link-color: {theme === 'light' ? '#6daff0' : '#fff'}"
 >
-  {#await fetchProfileData}
+  {#await promise}
     <UserProfileLoader />
   {:then data}
     <div class="treeCounterContainer">

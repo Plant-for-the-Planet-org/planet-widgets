@@ -17,6 +17,7 @@
     export let theme = "light";
     export let community = "true";
     export let locale = "en";
+    export let refresh;
 
     let primaryColor = primarycolor;
     let counterBGColor = circlebgcolor
@@ -50,14 +51,23 @@
     let radius = 140;
     let size = 154;
     let circumference = 2 * Math.PI * radius;
-
-    onMount(() => {
-		 const interval = setInterval(() => {
+    
+    onMount(() => { 
+    if (refresh === "slow"){
+   const slow = setInterval(() => {
 			fetchData();
-		}, 10000);
-		//If a function is returned from onMount, it will be called when the component is unmounted.
-		return () => clearInterval(interval);
-	});
+    }, 10000);
+    return () => clearInterval(slow); 
+  }
+  else if (refresh === "fast"){
+    const fast = setInterval(() => {
+			fetchData();
+    }, 5000);
+    return () => clearInterval(fast); 
+  }
+  else (refresh === "none")
+   return;
+});
 </script>
 
 <div
