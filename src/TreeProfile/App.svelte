@@ -1,3 +1,5 @@
+<!-- svelte-ignore non-top-level-reactive-declaration -->
+<!-- svelte-ignore non-top-level-reactive-declaration -->
 <svelte:options tag="tree-profile" immutable={true} />
 
 <script>
@@ -6,6 +8,7 @@
     import getImageUrl from "../../utils/getImageUrl";
     import enLocale from "./../../public/data/locales/en.json";
     import deLocale from "./../../public/data/locales/de.json";
+    import { onMount } from 'svelte';
 
     // Props that can be passed
     export let user;
@@ -14,6 +17,8 @@
     export let theme = "light";
     export let community = "true";
     export let locale = "en";
+    export let refresh = "slow";
+
     $:primarycolor = primarycolor;
     $:counterbgcolor = circlebgcolor
         ? circlebgcolor
@@ -36,15 +41,33 @@
     }
 
     let userpofiledata;
-    const fetchProfileData = (async () => {
+    async function fetchData(){
         const response = await fetch(`${__myapp.env.API_URL}/profiles/${user}`);
         userpofiledata = await response.json();
         return userpofiledata;
-    })();
+    }
 
+    let promise = fetchData();
     let radius = 140;
     let size = 154;
     let circumference = 2 * Math.PI * radius;
+
+    onMount(() => {
+    if (refresh === "slow"){
+   const slow = setInterval(() => {
+			fetchData();
+    }, 10000);
+    return () => clearInterval(slow);
+  }
+  else if (refresh === "fast"){
+    const fast = setInterval(() => {
+			fetchData();
+    }, 5000);
+    return () => clearInterval(fast);
+  }
+  else (refresh === "none")
+   return;
+});
 </script>
 
 <div
@@ -57,7 +80,7 @@
         : '#2f3336'};
     --link-color: {theme === 'light' ? '#6daff0' : '#fff'}"
 >
-    {#await fetchProfileData}
+    {#await promise}
         <UserProfileLoader />
     {:then data}
         <div class="treeCounterContainer">
