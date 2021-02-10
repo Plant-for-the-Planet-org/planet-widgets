@@ -22,19 +22,9 @@
         ? "#23519b"
         : "#2f3336";
 
-    let language;
-
-    switch (locale) {
-        case "en":
-            language = enLocale;
-            break;
-        case "de":
-            language = deLocale;
-            break;
-        default:
-            language = enLocale;
-            break;
-    }
+    let language = [];
+    language['en'] = enLocale;
+    language['de'] = deLocale;
 
     let userpofiledata;
     const fetchProfileData = (async () => {
@@ -78,7 +68,7 @@
                                 theme === "dark" ? "planted" : ""
                             }`}
                         >
-                            {language.treesPlanted}
+                            {language[locale].treesPlanted}
                         </p>
                     </div>
                     {#if goal !== 0}
@@ -86,7 +76,7 @@
                             <p class="treecount">
                                 {localizedAbbreviatedNumber(locale, Number(goal),1)}
                             </p>
-                            <p class="treecountLabel">{language.target}</p>
+                            <p class="treecountLabel">{language[locale].target}</p>
                         </div>
                     {/if}
                 </div>

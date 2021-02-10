@@ -11,8 +11,7 @@
   import getImageUrl from "../../utils/getImageUrl";
   import enLocale from "./../../public/data/locales/en.json";
   import deLocale from "./../../public/data/locales/de.json";
-import { onMount } from "svelte";
-
+  import { onMount } from "svelte";
 
   // Props that can be passed
   export let user;
@@ -25,59 +24,38 @@ import { onMount } from "svelte";
   
   $: primarycolor = primarycolor;
   $: counterbgcolor = circlebgcolor
-
     ? circlebgcolor
     : theme === "light"
     ? "#23519b"
     : "#2f3336";
 
-  let language;
-  switch (locale) {
-    case "en":
-      language = enLocale;
-      break;
-    case "de":
-      language = deLocale;
-      break;
-    default:
-      language = enLocale;
-      break;
-  }
+  let language = [];
+  language['en'] = enLocale;
+  language['de'] = deLocale;
+
   let promise = fetchData();
   let mapStyle;
   let userpofiledata;
   async function fetchData(){
     const response = await fetch(`${__myapp.env.API_URL}/profiles/${user}`);
     userpofiledata = await response.json();
-    fetchTiles(
-      theme === "light" ? mapStyleLight : mapStyleDark,
-      "https://basemaps.arcgis.com/arcgis/rest/services/World_Basemap_v2/VectorTileServer"
-    ).then((style) => {
-      if (style) {
-        mapStyle = style;
-      }
-    });
     return userpofiledata;
   }
 
-
   onMount(() => {
-    if (refresh === "slow"){
-   const slow = setInterval(() => {
-			fetchData();
-    }, 10000);
-    return () => clearInterval(slow);
-  }
-  else if (refresh === "fast"){
-    const fast = setInterval(() => {
-			fetchData();
-    }, 5000);
-    return () => clearInterval(fast);
-  }
-  else (refresh === "none")
-   return;
-});
-
+    if (refresh === "slow") {
+      const slow = setInterval(() => {
+        fetchData();
+      }, 10000);
+      return () => clearInterval(slow);
+    } else if (refresh === "fast") {
+      const fast = setInterval(() => {
+        fetchData();
+      }, 5000);
+      return () => clearInterval(fast);
+    } else(refresh === "none")
+    return;
+  });
 
   let radius = 140;
   let size = 154;
@@ -94,108 +72,115 @@ import { onMount } from "svelte";
   // https://svelte.dev/tutorial/actions
   // https://svelte.school/tutorials/introduction-to-actions
   const createMap = async (domNode) => {
-    const map = new mapboxgl.Map({
-      container: domNode,
-      style: mapStyle, // stylesheet location
-      center: [-28.5, 36.96], // starting position [lng, lat]
-      zoom: 1, // starting zoom
-      height: "100%",
-      width: "100%",
-    });
-
-    map.on("load", () => {
-      fetchContributionsData.then((contributions) => {
-        let filteredContributions;
-        if (community === "true") {
-          filteredContributions = contributions;
-        } else {
-          filteredContributions = contributions.filter((contrib) => {
-            return contrib.properties.type !== "gift";
+    fetchTiles(
+      theme === "light" ? mapStyleLight : mapStyleDark,
+      "https://basemaps.arcgis.com/arcgis/rest/services/World_Basemap_v2/VectorTileServer"
+    ).then((style) => {
+      if (style) {
+        mapStyle = style;
+      }
+      const map = new mapboxgl.Map({
+        container: domNode,
+        style: mapStyle, // stylesheet location
+        center: [-28.5, 36.96], // starting position [lng, lat]
+        zoom: 1, // starting zoom
+        height: "100%",
+        width: "100%",
+      });
+      map.on("load", () => {
+        fetchContributionsData.then((contributions) => {
+          let filteredContributions;
+          if (community === "true") {
+            filteredContributions = contributions;
+          } else {
+            filteredContributions = contributions.filter((contrib) => {
+              return contrib.properties.type !== "gift";
+            });
+          }
+          const geojson = {
+            type: "FeatureCollection",
+            features: filteredContributions,
+          };
+          map.addSource("contributions", {
+            type: "geojson",
+            data: geojson,
+            cluster: true,
+            clusterMaxZoom: 14, // Max zoom to cluster points on
+            clusterRadius: 50, // Radius of each cluster when clustering points (defaults to 50)
+            clusterProperties: {
+              sum: ["+", ["to-number", ["get", "treeCount", ["properties"]]]],
+            },
           });
-        }
-        const geojson = {
-          type: "FeatureCollection",
-          features: filteredContributions,
-        };
-        map.addSource("contributions", {
-          type: "geojson",
-          data: geojson,
-          cluster: true,
-          clusterMaxZoom: 14, // Max zoom to cluster points on
-          clusterRadius: 50, // Radius of each cluster when clustering points (defaults to 50)
-          clusterProperties: {
-            sum: ["+", ["to-number", ["get", "treeCount", ["properties"]]]],
-          },
-        });
 
-        map.addLayer({
-          id: "contrib-cluster",
-          type: "circle",
-          source: "contributions",
-          filter: ["has", "point_count"],
-          paint: {
-            "circle-color": primarycolor,
-            "circle-radius": ["step", ["get", "sum"], 20, 50, 30, 100, 40],
-            "circle-stroke-width": 4,
-            "circle-stroke-color": "#fff",
-          },
-        });
-        map.addLayer({
-          id: "contrib-cluster-label",
-          type: "symbol",
-          source: "contributions",
-          filter: ["has", "point_count"],
-          layout: {
-            "text-field": [
-              "number-format",
-              ["get", "sum"],
-              { "max-fraction-digits": 1 },
-            ],
-            "text-font": ["Ubuntu Bold"],
-            "text-size": 12,
-          },
-          paint: {
-            "text-color": "#fff",
-          },
-        });
+          map.addLayer({
+            id: "contrib-cluster",
+            type: "circle",
+            source: "contributions",
+            filter: ["has", "point_count"],
+            paint: {
+              "circle-color": primarycolor,
+              "circle-radius": ["step", ["get", "sum"], 20, 50, 30, 100, 40],
+              "circle-stroke-width": 4,
+              "circle-stroke-color": "#fff",
+            },
+          });
+          map.addLayer({
+            id: "contrib-cluster-label",
+            type: "symbol",
+            source: "contributions",
+            filter: ["has", "point_count"],
+            layout: {
+              "text-field": [
+                "number-format",
+                ["get", "sum"],
+                { "max-fraction-digits": 1 },
+              ],
+              "text-font": ["Ubuntu Bold"],
+              "text-size": 12,
+            },
+            paint: {
+              "text-color": "#fff",
+            },
+          });
 
-        map.addLayer({
-          id: "contrib",
-          type: "circle",
-          source: "contributions",
-          filter: ["!", ["has", "point_count"]],
-          paint: {
-            "circle-color": primarycolor,
-            "circle-radius": [
-              "step",
-              ["to-number", ["get", "treeCount"]],
-              15,
-              50,
-              20,
-              100,
-              30,
-            ],
-            "circle-stroke-width": 4,
-            "circle-stroke-color": "#fff",
-          },
-        });
-        map.addLayer({
-          id: "contrib-label",
-          type: "symbol",
-          source: "contributions",
-          filter: ["!", ["has", "point_count"]],
-          layout: {
-            "text-field": [
-              "number-format",
-              ["to-number", ["get", "treeCount"]],
-              { "max-fraction-digits": 1 },
-            ],
-            "text-font": ["Ubuntu Bold"],
-            "text-size": 12,
-          },
-          paint: {
-            "text-color": "#fff",
-          },
+          map.addLayer({
+            id: "contrib",
+            type: "circle",
+            source: "contributions",
+            filter: ["!", ["has", "point_count"]],
+            paint: {
+              "circle-color": primarycolor,
+              "circle-radius": [
+                "step",
+                ["to-number", ["get", "treeCount"]],
+                15,
+                50,
+                20,
+                100,
+                30,
+              ],
+              "circle-stroke-width": 4,
+              "circle-stroke-color": "#fff",
+            },
+          });
+          map.addLayer({
+            id: "contrib-label",
+            type: "symbol",
+            source: "contributions",
+            filter: ["!", ["has", "point_count"]],
+            layout: {
+              "text-field": [
+                "number-format",
+                ["to-number", ["get", "treeCount"]],
+                { "max-fraction-digits": 1 },
+              ],
+              "text-font": ["Ubuntu Bold"],
+              "text-size": 12,
+            },
+            paint: {
+              "text-color": "#fff",
+            },
+          });
         });
       });
     });
@@ -227,7 +212,7 @@ import { onMount } from "svelte";
                   : localizedAbbreviatedNumber(locale, data.score.personal, 1)}
               </p>
               <p class={`treecountLabel ${theme === "dark" ? "planted" : ""}`}>
-                {language.treesPlanted}
+                {language[locale].treesPlanted}
               </p>
             </div>
             {#if data.score.target != 0}
@@ -235,7 +220,7 @@ import { onMount } from "svelte";
                 <p class="treecount">
                   {localizedAbbreviatedNumber(locale, data.score.target, 1)}
                 </p>
-                <p class="treecountLabel">{language.target}</p>
+                <p class="treecountLabel">{language[locale].target}</p>
               </div>
             {/if}
           </div>
@@ -266,25 +251,36 @@ import { onMount } from "svelte";
           href={`${__myapp.env.APP_URL}/s/${data.slug}`}
           class="primaryButton"
           on:click
-          target="_blank">{language.plantTrees}</a
+          target="_blank">{language[locale].plantTrees}</a
         >
       </div>
     </div>
     <div class="mapContainer">
-      {#if mapStyle}
-        <div id="map" class="view" use:createMap />
+        {#if community === "true"}
+           {#if theme === "light"}
+            <div id="map" class="view" use:createMap />
+           {:else}
+             <div id="map" class="view" use:createMap />
+           {/if}
+        {:else}
+          {#if theme === "light"}
+           <div id="map" class="view" use:createMap />
+          {:else}
+            <div id="map" class="view" use:createMap />
+          {/if}
+        {/if}
         <div class="footer">
           <a
             href={`https://www1.plant-for-the-planet.org/t/${data.slug}`}
             target="_blank"
             class="footerLink"
-            >{language.viewProfile}
+            >{language[locale].viewProfile}
           </a>
           <a
             class="footerLinkBold"
             href={`https://www1.plant-for-the-planet.org/`}
             target="_blank"
-            >| {language.poweredBy}
+            >| {language[locale].poweredBy}
           </a>
           {#if community === "true"}
             <div
@@ -308,14 +304,14 @@ import { onMount } from "svelte";
                   Number(data.score.personal),
                   1
                 )}
-                {language.treesPlantedBy}
+                {language[locale].treesPlantedBy}
                 {data.displayName}
                 {community === "true"
-                  ? `${language.and} ${localizedAbbreviatedNumber(
+                  ? `${language[locale].and} ${localizedAbbreviatedNumber(
                       locale,
                       Number(data.score.received),
                       1
-                    )} ${language.treesPlantedByComm}`
+                    )} ${language[locale].treesPlantedByComm}`
                   : ""}
               </p>
             </div>
@@ -353,7 +349,6 @@ import { onMount } from "svelte";
             </div>
           {/if}
         </div>
-      {/if}
     </div>
   {:catch error}
     <p>An error occurred!</p>

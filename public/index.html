@@ -113,7 +113,6 @@
 							<label class="form-check-label" for="treeMap-community-switch">Show community</label>
 						</div>
 
-
 						<!--Theme-->
 						<select class="form-select" onchange="changeAttribute('treeMap',this.value,'theme')"
 							aria-label="Default select example">
@@ -125,13 +124,13 @@
 						<!-- Color Selector -->
 						<div class="input-group">
 							<label for="favcolor">Select your Primary color:</label>
-							<input type="color" id="primaryColor" name="primaryColor" value="#ff0000"
+							<input type="color" id="primaryColor" name="primaryColor" value="#68b030"
 								onchange="changeAttribute('treeMap',this.value,'primarycolor')">
 						</div>
 
 						<div class="input-group">
 							<label for="favcolor">Select your Theme color:</label>
-							<input type="color" id="bgColor" name="bgColor" value="#ff0000"
+							<input type="color" id="bgColor" name="bgColor" value="#23519b"
 								onchange="changeAttribute('treeMap',this.value,'circlebgcolor')">
 						</div>
 
@@ -146,6 +145,7 @@
 
 					<div class="customisation-container">
 						<h2 class="fw-bold">Customise your widget:</h2>
+						<!--For Language-->
 						<select class="form-select" onchange="changeAttribute('treeProfile',this.value,'locale')"
 							aria-label="Default select example">
 							<option value="en" selected>Select Language</option>
@@ -153,6 +153,7 @@
 							<option value="de">De</option>
 						</select>
 
+						<!--for community-->
 						<div class="form-check form-switch">
 							<input class="form-check-input"
 								onclick="changeAttribute('treeProfile',this.checked,'community')" type="checkbox"
@@ -169,17 +170,16 @@
 							<option value="dark">Dark</option>
 						</select>
 
-
 						<!-- Color Selector -->
 						<div class="input-group">
 							<label>Select your Primary color:</label>
-							<input type="color" id="primaryColorPro" name="primaryColorPro" value="#ff0000"
+							<input type="color" id="primaryColorPro" name="primaryColorPro" value="#68b030"
 								onchange="changeAttribute('treeProfile',this.value,'primarycolor')">
 						</div>
 
 						<div class="input-group">
 							<label>Select your Theme color:</label>
-							<input type="color" id="bgColorPro" name="bgColorPro" value="#ff0000"
+							<input type="color" id="bgColorPro" name="bgColorPro" value="#2f3336"
 								onchange="changeAttribute('treeProfile',this.value,'circlebgcolor')">
 						</div>
 
@@ -194,6 +194,7 @@
 
 					<div class="customisation-container">
 						<h2 class="fw-bold">Customise your widget:</h2>
+						<!--For Language-->
 						<select class="form-select" onchange="changeAttribute('treeCounter',this.value,'locale')"
 							aria-label="Default select example">
 							<option value="en" selected>Select Language</option>
@@ -201,6 +202,7 @@
 							<option value="de">De</option>
 						</select>
 
+						<!--for community-->
 						<div class="form-check form-switch">
 							<input class="form-check-input"
 								onclick="changeAttribute('treeCounter',this.checked,'community')" type="checkbox"
@@ -217,16 +219,15 @@
 							<option value="dark">Dark</option>
 						</select>
 
-
 						<!-- Color Selector -->
 						<div class="input-group">
 							<label>Select your Primary color:</label>
-							<input type="color" id="primaryColorCounter" name="primaryColorCounter" value="#ff0000"
+							<input type="color" id="primaryColorCounter" name="primaryColorCounter" value="#68b030"
 								onchange="changeAttribute('treeCounter',this.value,'primarycolor')">
 						</div>
 						<div class="input-group">
 							<label for="favcolor">Select your Theme color:</label>
-							<input type="color" id="bgColorCounter" name="bgColorCounter" value="#ff0000"
+							<input type="color" id="bgColorCounter" name="bgColorCounter" value="#23519b"
 								onchange="changeAttribute('treeCounter',this.value,'circlebgcolor')">
 						</div>
 
@@ -240,6 +241,15 @@
 					</tree-tenantleaderboard>
 					<div class="customisation-container">
 						<h2 class="fw-bold">Customise your widget:</h2>
+						<!--For Language-->
+						<select class="form-select" onchange="changeAttribute('tenantLeaderboard',this.value,'locale')"
+							aria-label="Default select example">
+							<option value="en" selected>Select Language</option>
+							<option value="en">En</option>
+							<option value="de">De</option>
+						</select>
+
+						<!--Theme-->
 						<select class="form-select" onchange="changeAttribute('tenantLeaderboard',this.value,'theme')"
 							aria-label="Default select example">
 							<option value="light" selected>Select Theme</option>
