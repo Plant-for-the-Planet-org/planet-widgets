@@ -6,36 +6,264 @@
 	<meta name='viewport' content='width=device-width,initial-scale=1'>
 
 	<title>Planet Widgets</title>
-
 	<script defer src='/build/tree-map.js'></script>
 	<script defer src='/build/tree-profile.js'></script>
+	<script defer src='/build/tenantCounter.js'></script>
+	<script defer src='/build/tenantLeaderboard.js'></script>
+
+	<!-- Bootstrap -->
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
+		integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+	<style>
+		.customisation-container {
+			display: flex;
+			flex-direction: column;
+			width: 320px;
+			align-items: flex-start;
+			align-self: flex-start;
+			margin-top: 60px;
+			gap: 20px;
+			margin-bottom: 80px;
+		}
+
+		.col-container {
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+		}
+
+		label {
+			margin-right: 10px;
+		}
+	</style>
 
 </head>
 
-<body>
-	<h2> TreeMap Default</h2>
-	<p>Default behavior is theme=light, community=true, primarycolor="#68b030", locale="en", circlebgcolor="#23519b" </p>
-	<tree-map user='salesforce'> </tree-map>
+<body style="margin-top:100px">
 
-	<h2> TreeMap for Partners</h2>
-	<p>Default behavior is theme=light, community=true, primarycolor="#68b030", locale="en", circlebgcolor="#23519b" </p>
-	<tree-map user='prf_h6smcMDN23Qet1CP7BEplM60'></tree-map>
+	<!-- Navbar starts -->
+	<nav class="navbar fixed-top navbar-expand-lg navbar-dark bg-dark">
+		<div class="container-fluid">
+			<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo01"
+				aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
+				<span class="navbar-toggler-icon"></span>
+			</button>
+			<div class="collapse navbar-collapse" id="navbarTogglerDemo01">
+				<a class="navbar-brand" href="https://plant-for-the-planet.org/">
+					<img height="64" width="64" src="https://cdn.plant-for-the-planet.org/logo/svg/planetDark.svg" />
+				</a>
+				<ul class="navbar-nav me-auto mb-2 mb-lg-0">
+					<li class="nav-item">
+						<h2 class="text-white fw-bold">Plant for the Planet widgets</h2>
+					</li>
+				</ul>
+				<div class="d-flex">
+					<a class="text-white text-decoration-none fw-bold"
+						href="https://github.com/Plant-for-the-Planet-org/planet-widgets/" target="_blank">
+						Github
+					</a>
+				</div>
+			</div>
+		</div>
+	</nav>
 
-	<h2> TreeMap Variant 3</h2>
-	<p> Partner, theme="dark", community="false", locale="de" </p>
-	<tree-map user='prf_h6smcMDN23Qet1CP7BEplM60' theme="dark" community="false" locale="de"></tree-map>
+	<!-- Navbar ends -->
 
-	<h2> TreeMap Variant 4</h2>
-	<p> local de theme=dark</p>
-	<tree-map user='prf_h6smcMDN23Qet1CP7BEplM60' locale="de" theme="dark"></tree-map>
+	<div class="d-flex flex-column justify-content-center align-items-center mt-4 mb-4">
+		<ul class="nav nav-tabs" id="widgetsTab" role="tablist">
+			<li class="nav-item" role="presentation">
+				<a class="nav-link active" id="tree-map-widget" data-bs-toggle="tab" href="#treemap-widget" role="tab"
+					aria-controls="treemap" aria-selected="true">Tree Map</a>
+			</li>
+			<li class="nav-item" role="presentation">
+				<a class="nav-link" id="tree-profile-widget" data-bs-toggle="tab" href="#treeprofile" role="tab"
+					aria-controls="treeprofile" aria-selected="false">Tree Profile</a>
+			</li>
+			<li class="nav-item" role="presentation">
+				<a class="nav-link" id="tenant-counter-widget" data-bs-toggle="tab" href="#tenantcounter" role="tab"
+					aria-controls="tenantcounter" aria-selected="false">Tenant Counter</a>
+			</li>
+			<li class="nav-item" role="presentation">
+				<a class="nav-link" id="tenant-leaderboard-widget" data-bs-toggle="tab" href="#tenantleaderboard"
+					role="tab" aria-controls="tenantleaderboard" aria-selected="false">Tenant Leaderboard</a>
+			</li>
+		</ul>
+		<div class="tab-content" id="myTabContent">
+			<div class="tab-pane fade show active" id="treemap-widget" role="tabpanel"
+				aria-labelledby="tree-map-widget">
+				<div class="col-container">
+					<tree-map user='prf_h6smcMDN23Qet1CP7BEplM60' theme="light" id="treeMap" circlebgcolor="">
+					</tree-map>
 
-	<h2> Tree Counter Variant 1</h2>
-	<p> Default </p>
-	<tree-profile user='prf_h6smcMDN23Qet1CP7BEplM60'></tree-profile>
+					<div class="customisation-container">
+						<h2 class="fw-bold">Customise your widget:</h2>
+						<!--For Language-->
+						<select class="form-select" onchange="changeAttribute('treeMap',this.value,'locale')"
+							aria-label="Default select example">
+							<option value="en" selected>Select Language</option>
+							<option value="en">En</option>
+							<option value="de">De</option>
+						</select>
 
-	<h2> Tree Counter Variant 2</h2>
-	<p> Dark mode, locale="de" and community=false, primarycolor="#007a49", locale="de", circlebgcolor="#000000"</p>
-	<tree-profile user='prf_h6smcMDN23Qet1CP7BEplM60' theme="dark" community="false" primarycolor="#007a49" locale="de" circlebgcolor="#000000"></tree-profile>
+						<!--for community-->
+						<div class="form-check form-switch">
+							<input class="form-check-input"
+								onclick="changeAttribute('treeMap',this.checked,'community')" type="checkbox"
+								id="treeMap-community-switch" checked>
+							<label class="form-check-label" for="treeMap-community-switch">Show community</label>
+						</div>
+
+
+						<!--Theme-->
+						<select class="form-select" onchange="changeAttribute('treeMap',this.value,'theme')"
+							aria-label="Default select example">
+							<option value="light" selected>Select Theme</option>
+							<option value="light">Light</option>
+							<option value="dark">Dark</option>
+						</select>
+
+						<!-- Color Selector -->
+						<div class="input-group">
+							<label for="favcolor">Select your Primary color:</label>
+							<input type="color" id="primaryColor" name="primaryColor" value="#ff0000"
+								onchange="changeAttribute('treeMap',this.value,'primarycolor')">
+						</div>
+
+						<div class="input-group">
+							<label for="favcolor">Select your Theme color:</label>
+							<input type="color" id="bgColor" name="bgColor" value="#ff0000"
+								onchange="changeAttribute('treeMap',this.value,'circlebgcolor')">
+						</div>
+
+					</div>
+
+				</div>
+			</div>
+
+			<div class="tab-pane fade" id="treeprofile" role="tabpanel" aria-labelledby="tree-profile-widget">
+				<div class="col-container">
+					<tree-profile user='prf_h6smcMDN23Qet1CP7BEplM60' theme="dark" id="treeProfile"></tree-profile>
+
+					<div class="customisation-container">
+						<h2 class="fw-bold">Customise your widget:</h2>
+						<select class="form-select" onchange="changeAttribute('treeProfile',this.value,'locale')"
+							aria-label="Default select example">
+							<option value="en" selected>Select Language</option>
+							<option value="en">En</option>
+							<option value="de">De</option>
+						</select>
+
+						<div class="form-check form-switch">
+							<input class="form-check-input"
+								onclick="changeAttribute('treeProfile',this.checked,'community')" type="checkbox"
+								id="treeProfile-community-switch" checked>
+							<label class="form-check-label" for="treeProfile-community-switch">Show
+								community</label>
+						</div>
+
+						<!--Theme-->
+						<select class="form-select" onchange="changeAttribute('treeProfile',this.value,'theme')"
+							aria-label="Default select example">
+							<option value="light" selected>Select Theme</option>
+							<option value="light">Light</option>
+							<option value="dark">Dark</option>
+						</select>
+
+
+						<!-- Color Selector -->
+						<div class="input-group">
+							<label>Select your Primary color:</label>
+							<input type="color" id="primaryColorPro" name="primaryColorPro" value="#ff0000"
+								onchange="changeAttribute('treeProfile',this.value,'primarycolor')">
+						</div>
+
+						<div class="input-group">
+							<label>Select your Theme color:</label>
+							<input type="color" id="bgColorPro" name="bgColorPro" value="#ff0000"
+								onchange="changeAttribute('treeProfile',this.value,'circlebgcolor')">
+						</div>
+
+					</div>
+				</div>
+			</div>
+			<div class="tab-pane fade" id="tenantcounter" role="tabpanel" aria-labelledby="tenant-counter-widget">
+				<div class="col-container">
+					<tree-tenantcounter tenantkey="ten_I9TW3ncG" goal="10000000000" theme="light" locale="en"
+						id="treeCounter">
+					</tree-tenantcounter>
+
+					<div class="customisation-container">
+						<h2 class="fw-bold">Customise your widget:</h2>
+						<select class="form-select" onchange="changeAttribute('treeCounter',this.value,'locale')"
+							aria-label="Default select example">
+							<option value="en" selected>Select Language</option>
+							<option value="en">En</option>
+							<option value="de">De</option>
+						</select>
+
+						<div class="form-check form-switch">
+							<input class="form-check-input"
+								onclick="changeAttribute('treeCounter',this.checked,'community')" type="checkbox"
+								id="treeCounter-community-switch" checked>
+							<label class="form-check-label" for="treeCounter-community-switch">Show
+								community</label>
+						</div>
+
+						<!--Theme-->
+						<select class="form-select" onchange="changeAttribute('treeCounter',this.value,'theme')"
+							aria-label="Default select example">
+							<option value="light" selected>Select Theme</option>
+							<option value="light">Light</option>
+							<option value="dark">Dark</option>
+						</select>
+
+
+						<!-- Color Selector -->
+						<div class="input-group">
+							<label>Select your Primary color:</label>
+							<input type="color" id="primaryColorCounter" name="primaryColorCounter" value="#ff0000"
+								onchange="changeAttribute('treeCounter',this.value,'primarycolor')">
+						</div>
+						<div class="input-group">
+							<label for="favcolor">Select your Theme color:</label>
+							<input type="color" id="bgColorCounter" name="bgColorCounter" value="#ff0000"
+								onchange="changeAttribute('treeCounter',this.value,'circlebgcolor')">
+						</div>
+
+					</div>
+				</div>
+			</div>
+			<div class="tab-pane fade" id="tenantleaderboard" role="tabpanel"
+				aria-labelledby="tenant-leaderboard-widget">
+				<div class="col-container">
+					<tree-tenantleaderboard tenantKey="ten_I9TW3ncG" theme="light" locale="en" id="tenantLeaderboard">
+					</tree-tenantleaderboard>
+					<div class="customisation-container">
+						<h2 class="fw-bold">Customise your widget:</h2>
+						<select class="form-select" onchange="changeAttribute('tenantLeaderboard',this.value,'theme')"
+							aria-label="Default select example">
+							<option value="light" selected>Select Theme</option>
+							<option value="light">Light</option>
+							<option value="dark">Dark</option>
+						</select>
+					</div>
+
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js"
+		integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW"
+		crossorigin="anonymous"></script>
+	<script>
+
+		function changeAttribute(id, value, attribute) {
+			document.getElementById(id).setAttribute(attribute, value)
+		}
+
+	</script>
+
 </body>
 
 </html>
