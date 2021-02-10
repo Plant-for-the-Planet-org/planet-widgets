@@ -19,12 +19,12 @@
   export let community = "true";
   export let locale = "en";
 
-  $:primarycolor = primarycolor;
-  $:counterbgcolor = circlebgcolor
-        ? circlebgcolor
-        : theme === "light"
-        ? "#23519b"
-        : "#2f3336";
+  $: primarycolor = primarycolor;
+  $: counterbgcolor = circlebgcolor
+    ? circlebgcolor
+    : theme === "light"
+    ? "#23519b"
+    : "#2f3336";
 
   let language;
 
@@ -111,7 +111,7 @@
           source: "contributions",
           filter: ["has", "point_count"],
           paint: {
-            "circle-color": primaryColor,
+            "circle-color": primarycolor,
             "circle-radius": ["step", ["get", "sum"], 20, 50, 30, 100, 40],
             "circle-stroke-width": 4,
             "circle-stroke-color": "#fff",
@@ -142,7 +142,7 @@
           source: "contributions",
           filter: ["!", ["has", "point_count"]],
           paint: {
-            "circle-color": primaryColor,
+            "circle-color": primarycolor,
             "circle-radius": [
               "step",
               ["to-number", ["get", "treeCount"]],
@@ -180,177 +180,158 @@
 </script>
 
 <div
-    class="treemap"
-    style="--primary-color: {primarycolor};--counter-background-color: {counterbgcolor}; --background-color: {theme ===
-    'light'
-        ? '#fff'
-        : '#2f3336'}; --link-color: {theme === 'light' ? '#6daff0' : '#fff'}"
+  class="treemap"
+  style="--primary-color: {primarycolor};--counter-background-color: {counterbgcolor}; --background-color: {theme ===
+  'light'
+    ? '#fff'
+    : '#2f3336'}; --link-color: {theme === 'light' ? '#6daff0' : '#fff'}"
 >
-    {#await fetchProfileData}
-        <UserProfileLoader />
-    {:then data}
-        <div class="treeCounterContainer">
-            <div class="mainContainer">
-                <div class="treeCounterComponent">
-                    <div class="treeCounter">
-                        <div class="textContainer">
-                            <p
-                                class={`treecount ${
-                                    theme === "dark" ? "planted" : ""
-                                }`}
-                            >
-                                {community === "true"
-                                    ? localizedAbbreviatedNumber(locale,
-                                          data.score.personal +
-                                              data.score.received,
-                                          1
-                                      )
-                                    : localizedAbbreviatedNumber(locale,
-                                          data.score.personal,
-                                          1
-                                      )}
-                            </p>
-                            <p
-                                class={`treecountLabel ${
-                                    theme === "dark" ? "planted" : ""
-                                }`}
-                            >
-                                {language.treesPlanted}
-                            </p>
-                        </div>
-                        {#if data.score.target != 0}
-                            <div class="textContainer">
-                                <p class="treecount">
-                                    {localizedAbbreviatedNumber(locale,
-                                        data.score.target,
-                                        1
-                                    )}
-                                </p>
-                                <p class="treecountLabel">{language.target}</p>
-                            </div>
-                        {/if}
-                    </div>
-
-                    <svg
-                        style={`width:${size * 2}px; height:${
-                            size * 2
-                        }px;position:absolute;`}
-                    >
-                        <circle
-                            cx={size}
-                            cy={size}
-                            r={radius}
-                            stroke={primarycolor}
-                            stroke-linecap="round"
-                            stroke-width="16"
-                            transform={`rotate(-90,${size},${size})`}
-                            stroke-dasharray={circumference}
-                            stroke-dashoffset={circumference *
-                                (1 -
-                                    (data.score.personal +
-                                        data.score.received) /
-                                        data.score.target)}
-                            fill="transparent"
-                        />
-                    </svg>
-                </div>
-                <a
-                    href={`${__myapp.env.APP_URL}/s/${data.slug}`}
-                    class="primaryButton"
-                    on:click
-                    target="_blank">{language.plantTrees}</a
-                >
+  {#await fetchProfileData}
+    <UserProfileLoader />
+  {:then data}
+    <div class="treeCounterContainer">
+      <div class="mainContainer">
+        <div class="treeCounterComponent">
+          <div class="treeCounter">
+            <div class="textContainer">
+              <p class={`treecount ${theme === "dark" ? "planted" : ""}`}>
+                {community === "true"
+                  ? localizedAbbreviatedNumber(
+                      locale,
+                      data.score.personal + data.score.received,
+                      1
+                    )
+                  : localizedAbbreviatedNumber(locale, data.score.personal, 1)}
+              </p>
+              <p class={`treecountLabel ${theme === "dark" ? "planted" : ""}`}>
+                {language.treesPlanted}
+              </p>
             </div>
-        </div>
-        <div class="mapContainer">
-            {#if mapStyle}
-                <div id="map" class="view" use:createMap />
-                <div class="footer">
-                    <a
-                        href={`https://www1.plant-for-the-planet.org/t/${data.slug}`}
-                        target="_blank"
-                        class="footerLink"
-                        >{language.viewProfile}
-                    </a>
-                    <a
-                        class="footerLinkBold"
-                        href={`https://www1.plant-for-the-planet.org/`}
-                        target="_blank"
-                        >| {language.poweredBy}
-                    </a>
-                    {#if community === "true"}
-                        <div
-                            class="infoIcon"
-                            style={`color: ${
-                                theme === "dark" ? "#fff" : "#000"
-                            }`}
-                        >
-                            <svg
-                                xmlns="http://www.w3.org/2000/svg"
-                                height="14"
-                                width="14"
-                                viewBox="0 0 512 512"
-                            >
-                                <path
-                                    fill={`${
-                                        theme === "light" ? "#6daff0" : "#fff"
-                                    }`}
-                                    d="M256 40c118.621 0 216 96.075 216 216 0 119.291-96.61 216-216 216-119.244 0-216-96.562-216-216 0-119.203 96.602-216 216-216m0-32C119.043 8 8 119.083 8 256c0 136.997 111.043 248 248 248s248-111.003 248-248C504 119.083 392.957 8 256 8zm-36 344h12V232h-12c-6.627 0-12-5.373-12-12v-8c0-6.627 5.373-12 12-12h48c6.627 0 12 5.373 12 12v140h12c6.627 0 12 5.373 12 12v8c0 6.627-5.373 12-12 12h-72c-6.627 0-12-5.373-12-12v-8c0-6.627 5.373-12 12-12zm36-240c-17.673 0-32 14.327-32 32s14.327 32 32 32 32-14.327 32-32-14.327-32-32-32z"
-                                />
-                            </svg>
-                            <p class="infoText ">
-                                {localizedAbbreviatedNumber(locale,
-                                    Number(data.score.personal),
-                                    1
-                                )}
-                                {language.treesPlantedBy}
-                                {data.displayName}
-                                {community === "true"
-                                    ? `${language.and} ${localizedAbbreviatedNumber(locale,
-                                          Number(data.score.received),
-                                          1
-                                      )} ${language.treesPlantedByComm}`
-                                    : ""}
-                            </p>
-                        </div>
-                    {/if}
-                </div>
-                <div class="imageHeader">
-                    {#if data.image}
-                        <a
-                            href={`https://www1.plant-for-the-planet.org/t/${data.slug}`}
-                            target="_blank"
-                        >
-                            <img
-                                class="logo"
-                                src={getImageUrl(
-                                    "profile",
-                                    "thumb",
-                                    data.image
-                                )}
-                                alt={data.displayName}
-                            />
-                        </a>
-                    {/if}
-                    {#if data.hasLogoLicense}
-                        <div class="logoPlanet" style={`background-color:${theme === 'dark' ? "#2f3336" : ""}`}>
-                            {#if theme === "dark"}
-                                <img
-                                    src={`${__myapp.env.CDN_URL}/logo/svg/planetDark.svg`}
-                                    alt="Plant-for-the-Planet Logo"
-                                />
-                            {:else}
-                                <img
-                                    src={`${__myapp.env.CDN_URL}/logo/svg/planet.svg`}
-                                    alt="Plant-for-the-Planet Logo"
-                                />
-                            {/if}
-                        </div>
-                    {/if}
-                </div>
+            {#if data.score.target != 0}
+              <div class="textContainer">
+                <p class="treecount">
+                  {localizedAbbreviatedNumber(locale, data.score.target, 1)}
+                </p>
+                <p class="treecountLabel">{language.target}</p>
+              </div>
             {/if}
           </div>
 
+          <svg
+            style={`width:${size * 2}px; height:${
+              size * 2
+            }px;position:absolute;`}
+          >
+            <circle
+              cx={size}
+              cy={size}
+              r={radius}
+              stroke={primarycolor}
+              stroke-linecap="round"
+              stroke-width="16"
+              transform={`rotate(-90,${size},${size})`}
+              stroke-dasharray={circumference}
+              stroke-dashoffset={circumference *
+                (1 -
+                  (data.score.personal + data.score.received) /
+                    data.score.target)}
+              fill="transparent"
+            />
+          </svg>
+        </div>
+        <a
+          href={`${__myapp.env.APP_URL}/s/${data.slug}`}
+          class="primaryButton"
+          on:click
+          target="_blank">{language.plantTrees}</a
+        >
+      </div>
+    </div>
+    <div class="mapContainer">
+      {#if mapStyle}
+        <div id="map" class="view" use:createMap />
+        <div class="footer">
+          <a
+            href={`https://www1.plant-for-the-planet.org/t/${data.slug}`}
+            target="_blank"
+            class="footerLink"
+            >{language.viewProfile}
+          </a>
+          <a
+            class="footerLinkBold"
+            href={`https://www1.plant-for-the-planet.org/`}
+            target="_blank"
+            >| {language.poweredBy}
+          </a>
+          {#if community === "true"}
+            <div
+              class="infoIcon"
+              style={`color: ${theme === "dark" ? "#fff" : "#000"}`}
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                height="14"
+                width="14"
+                viewBox="0 0 512 512"
+              >
+                <path
+                  fill={`${theme === "light" ? "#6daff0" : "#fff"}`}
+                  d="M256 40c118.621 0 216 96.075 216 216 0 119.291-96.61 216-216 216-119.244 0-216-96.562-216-216 0-119.203 96.602-216 216-216m0-32C119.043 8 8 119.083 8 256c0 136.997 111.043 248 248 248s248-111.003 248-248C504 119.083 392.957 8 256 8zm-36 344h12V232h-12c-6.627 0-12-5.373-12-12v-8c0-6.627 5.373-12 12-12h48c6.627 0 12 5.373 12 12v140h12c6.627 0 12 5.373 12 12v8c0 6.627-5.373 12-12 12h-72c-6.627 0-12-5.373-12-12v-8c0-6.627 5.373-12 12-12zm36-240c-17.673 0-32 14.327-32 32s14.327 32 32 32 32-14.327 32-32-14.327-32-32-32z"
+                />
+              </svg>
+              <p class="infoText ">
+                {localizedAbbreviatedNumber(
+                  locale,
+                  Number(data.score.personal),
+                  1
+                )}
+                {language.treesPlantedBy}
+                {data.displayName}
+                {community === "true"
+                  ? `${language.and} ${localizedAbbreviatedNumber(
+                      locale,
+                      Number(data.score.received),
+                      1
+                    )} ${language.treesPlantedByComm}`
+                  : ""}
+              </p>
+            </div>
+          {/if}
+        </div>
+        <div class="imageHeader">
+          {#if data.image}
+            <a
+              href={`https://www1.plant-for-the-planet.org/t/${data.slug}`}
+              target="_blank"
+            >
+              <img
+                class="logo"
+                src={getImageUrl("profile", "thumb", data.image)}
+                alt={data.displayName}
+              />
+            </a>
+          {/if}
+          {#if data.hasLogoLicense}
+            <div
+              class="logoPlanet"
+              style={`background-color:${theme === "dark" ? "#2f3336" : ""}`}
+            >
+              {#if theme === "dark"}
+                <img
+                  src={`${__myapp.env.CDN_URL}/logo/svg/planetDark.svg`}
+                  alt="Plant-for-the-Planet Logo"
+                />
+              {:else}
+                <img
+                  src={`${__myapp.env.CDN_URL}/logo/svg/planet.svg`}
+                  alt="Plant-for-the-Planet Logo"
+                />
+              {/if}
+            </div>
+          {/if}
+        </div>
+      {/if}
+    </div>
   {:catch error}
     <p>An error occurred!</p>
   {/await}
@@ -537,47 +518,46 @@
     }
   }
 
-
-    @media screen and (min-width: 940px) {
-        .treemap {
-            width: 940px;
-        }
-        .mapContainer {
-            width: 520px;
-        }
-        .view {
-            width: 520px;
-        }
+  @media screen and (min-width: 940px) {
+    .treemap {
+      width: 940px;
     }
-
-    .marker {
-        height: 30px;
-        min-width: 60px;
-        padding: 6px 8px;
-        background-color: var(--background-color);
-        border-radius: 7px;
-        box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px;
-        display: flex;
-        flex-direction: row;
-        align-items: center;
-        justify-content: center;
-        color: var(--primary-color);
-        font-weight: bold;
-        font-size: 18px;
+    .mapContainer {
+      width: 520px;
     }
-
-    .marker::after {
-        content: "";
-        position: absolute;
-        left: 36%;
-        top: 100%;
-        width: 0;
-        height: 0;
-        border-left: 10px solid transparent;
-        border-right: 10px solid transparent;
-        border-top: 10px solid var(--background-color);
-        clear: both;
+    .view {
+      width: 520px;
     }
+  }
+
+  .marker {
+    height: 30px;
+    min-width: 60px;
+    padding: 6px 8px;
+    background-color: var(--background-color);
+    border-radius: 7px;
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    color: var(--primary-color);
+    font-weight: bold;
+    font-size: 18px;
+  }
+
+  .marker::after {
+    content: "";
+    position: absolute;
+    left: 36%;
+    top: 100%;
+    width: 0;
+    height: 0;
+    border-left: 10px solid transparent;
+    border-right: 10px solid transparent;
+    border-top: 10px solid var(--background-color);
+    clear: both;
+  }
 
   .marker > svg {
     margin-left: 3px;
