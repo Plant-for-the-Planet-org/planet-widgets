@@ -27,7 +27,6 @@
     <div class="leaderboardSection" 
     style = "--background-color: {theme ==='light' ? '#fff'
     : '#2f3336'}; --text-color: {theme === 'light' ? '#2f3336' : '#fff'};">
-        <h2 class="leaderboardTitle">Forest Frontrunners</h2>
         <div class="headerButtons">
             <button
                 class={`tabButton ${(selectedTab === "recent"

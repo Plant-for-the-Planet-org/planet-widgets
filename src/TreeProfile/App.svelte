@@ -185,11 +185,12 @@
                     class="footerLink"
                     >{language.viewProfile}
                 </a>
+                <div class="block">
                 <a
                     class="footerLinkBold"
                     href={`https://www1.plant-for-the-planet.org/`}
                     target="_blank"
-                    >| {language.poweredBy}
+                    > {language.poweredBy}
                 </a>
                 {#if community === "true"}
                     <div
@@ -220,6 +221,7 @@
                         </p>
                     </div>
                 {/if}
+            </div>
             </div>
         </div>
     {:catch error}
@@ -321,15 +323,23 @@
         transform: translateY(-7px);
         cursor: pointer;
     }
-    .footer {
+    .block{
         display: flex;
         flex-direction: row;
+    }
+    .footer {
+        display: flex;
+        flex-direction: column;
         font-size: 14px;
         margin-bottom: 12px;
     }
     .footerLink {
         color: var(--link-color);
         text-decoration: none;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
     }
     .footerLinkBold {
         color: var(--link-color);
@@ -337,7 +347,6 @@
         margin-left: 4px;
         text-decoration: none;
     }
-
     .imageHeader {
         position: absolute;
         top: 12px;
@@ -393,7 +402,7 @@
     }
 
     .infoIcon {
-        margin-left: 4px;
+        margin-left: 8px;
         position: relative;
     }
 

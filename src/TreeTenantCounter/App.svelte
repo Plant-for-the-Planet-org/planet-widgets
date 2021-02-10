@@ -142,7 +142,6 @@
         display: flex;
         flex-direction: column;
         align-items: center;
-        border: 1px solid #d5d5d5;
         vertical-align: baseline;
         font-family: "Raleway", sans-serif;
         text-decoration: none;
@@ -151,19 +150,18 @@
     }
 
     .treeCounterContainer {
-        min-height: 420px;
         width: 100%;
         display: flex;
         flex-direction: column;
         align-items: center;
         justify-content: center;
-        border-radius: 10px;
-        max-width: 420px;
         display: flex;
         flex-direction: column;
         justify-content: center;
         align-items: center;
         position: relative;
+        padding: 30px;
+
     }
     .treeCounterComponent {
         height: 295px;
@@ -174,6 +172,7 @@
         justify-content: center;
         align-items: center;
         position: relative;
+        margin: 20px;
     }
     .treeCounter {
         height: 266px;
