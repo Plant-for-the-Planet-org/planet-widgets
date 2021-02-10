@@ -2,7 +2,8 @@
 
 <script>
   import UserProfileLoader from "../../utils/contentLoaders/UserProfileLoader.svelte";
-  import { getFormattedNumber } from "../../utils/formatNumber";
+  import { localizedAbbreviatedNumber } from "../../utils/formatNumber";
+
   import mapboxgl from "mapbox-gl";
   import mapStyleLight from "../../public/data/styles/light.json";
   import mapStyleDark from "../../public/data/styles/dark.json";
@@ -11,7 +12,7 @@
   import enLocale from "./../../public/data/locales/en.json";
   import deLocale from "./../../public/data/locales/de.json";
 import { onMount } from "svelte";
-  
+
 
   // Props that can be passed
   export let user;
@@ -21,9 +22,10 @@ import { onMount } from "svelte";
   export let community = "true";
   export let locale = "en";
   export let refresh;
+  
+  $: primarycolor = primarycolor;
+  $: counterbgcolor = circlebgcolor
 
-  let primaryColor = primarycolor;
-  let counterBGColor = circlebgcolor
     ? circlebgcolor
     : theme === "light"
     ? "#23519b"
@@ -59,18 +61,18 @@ import { onMount } from "svelte";
   }
 
 
-  onMount(() => { 
+  onMount(() => {
     if (refresh === "slow"){
    const slow = setInterval(() => {
 			fetchData();
     }, 10000);
-    return () => clearInterval(slow); 
+    return () => clearInterval(slow);
   }
   else if (refresh === "fast"){
     const fast = setInterval(() => {
 			fetchData();
     }, 5000);
-    return () => clearInterval(fast); 
+    return () => clearInterval(fast);
   }
   else (refresh === "none")
    return;
@@ -132,7 +134,7 @@ import { onMount } from "svelte";
           source: "contributions",
           filter: ["has", "point_count"],
           paint: {
-            "circle-color": primaryColor,
+            "circle-color": primarycolor,
             "circle-radius": ["step", ["get", "sum"], 20, 50, 30, 100, 40],
             "circle-stroke-width": 4,
             "circle-stroke-color": "#fff",
@@ -163,7 +165,7 @@ import { onMount } from "svelte";
           source: "contributions",
           filter: ["!", ["has", "point_count"]],
           paint: {
-            "circle-color": primaryColor,
+            "circle-color": primarycolor,
             "circle-radius": [
               "step",
               ["to-number", ["get", "treeCount"]],
@@ -202,7 +204,7 @@ import { onMount } from "svelte";
 
 <div
   class="treemap"
-  style="--primary-color: {primaryColor};--counter-background-color: {counterBGColor}; --background-color: {theme ===
+  style="--primary-color: {primarycolor};--counter-background-color: {counterbgcolor}; --background-color: {theme ===
   'light'
     ? '#fff'
     : '#2f3336'}; --link-color: {theme === 'light' ? '#6daff0' : '#fff'}"
@@ -217,11 +219,12 @@ import { onMount } from "svelte";
             <div class="textContainer">
               <p class={`treecount ${theme === "dark" ? "planted" : ""}`}>
                 {community === "true"
-                  ? getFormattedNumber(
+                  ? localizedAbbreviatedNumber(
+                      locale,
                       data.score.personal + data.score.received,
-                      locale
+                      1
                     )
-                  : getFormattedNumber(data.score.personal, locale)}
+                  : localizedAbbreviatedNumber(locale, data.score.personal, 1)}
               </p>
               <p class={`treecountLabel ${theme === "dark" ? "planted" : ""}`}>
                 {language.treesPlanted}
@@ -230,7 +233,7 @@ import { onMount } from "svelte";
             {#if data.score.target != 0}
               <div class="textContainer">
                 <p class="treecount">
-                  {getFormattedNumber(data.score.target, locale)}
+                  {localizedAbbreviatedNumber(locale, data.score.target, 1)}
                 </p>
                 <p class="treecountLabel">{language.target}</p>
               </div>
@@ -246,7 +249,7 @@ import { onMount } from "svelte";
               cx={size}
               cy={size}
               r={radius}
-              stroke={primaryColor}
+              stroke={primarycolor}
               stroke-linecap="round"
               stroke-width="16"
               transform={`rotate(-90,${size},${size})`}
@@ -300,13 +303,18 @@ import { onMount } from "svelte";
                 />
               </svg>
               <p class="infoText ">
-                {getFormattedNumber(data.score.personal, locale)}
+                {localizedAbbreviatedNumber(
+                  locale,
+                  Number(data.score.personal),
+                  1
+                )}
                 {language.treesPlantedBy}
                 {data.displayName}
                 {community === "true"
-                  ? `${language.and} ${getFormattedNumber(
-                      data.score.received,
-                      locale
+                  ? `${language.and} ${localizedAbbreviatedNumber(
+                      locale,
+                      Number(data.score.received),
+                      1
                     )} ${language.treesPlantedByComm}`
                   : ""}
               </p>
@@ -535,16 +543,13 @@ import { onMount } from "svelte";
 
   @media screen and (min-width: 940px) {
     .treemap {
-      max-width: 940px;
-    }
-    .treeCounterContainer {
-      max-width: 420px;
+      width: 940px;
     }
     .mapContainer {
-      max-width: 520px;
+      width: 520px;
     }
     .view {
-      max-width: 520px;
+      width: 520px;
     }
   }
 
