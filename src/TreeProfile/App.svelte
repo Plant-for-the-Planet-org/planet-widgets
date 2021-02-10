@@ -184,7 +184,7 @@
                     target="_blank"
                     class="footerLink"
                     >{language.viewProfile}
-                </a>
+                </a> 
                 <div class="block">
                 <a
                     class="footerLinkBold"
@@ -222,7 +222,7 @@
                     </div>
                 {/if}
             </div>
-            </div>
+        </div>
         </div>
     {:catch error}
         <p>An error occurred!</p>
@@ -323,13 +323,9 @@
         transform: translateY(-7px);
         cursor: pointer;
     }
-    .block{
-        display: flex;
-        flex-direction: row;
-    }
     .footer {
         display: flex;
-        flex-direction: column;
+        flex-direction: row;
         font-size: 14px;
         margin-bottom: 12px;
     }
@@ -383,11 +379,36 @@
         border-radius: 50%;
     }
 
-    @media screen and (min-width: 640px) {
+    @media screen and (min-width: 320px) {
         .treeCounterContainer {
             border-top-right-radius: 0px;
             border-top-left-radius: 10px;
             border-bottom-left-radius: 10px;
+            padding: 12px;
+        }
+        .block{
+            display: flex;
+            flex-direction: row;
+        }
+        .footer {
+            display: flex;
+            flex-direction: column;
+            font-size: 14px;
+            margin-bottom: 12px;
+        }
+        .footerLink {
+            color: var(--link-color);
+            text-decoration: none;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+        .footerLinkBold {
+            color: var(--link-color);
+            font-weight: bold;
+            margin-left: 4px;
+            text-decoration: none;
         }
     }
 

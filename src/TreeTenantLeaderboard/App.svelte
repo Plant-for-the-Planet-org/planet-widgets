@@ -70,7 +70,7 @@
     @import "https://fonts.googleapis.com/css2?family=Raleway:wght@400;700&display=swap";
 
     .leaderboardSection {
-        width: 320px;
+        min-width: 580px;
         padding: 16px;
         font-family: "Raleway", sans-serif;
         text-align: center;
@@ -78,30 +78,27 @@
         display: flex;
         flex-direction: column;
         align-items: center;
-        background-color: var(--background-color);
+        /* background-color: var(--background-color); */
         color: var(--text-color);
         border-radius: 10px;
     }
-
-    .leaderboardTitle {
-        font-style: normal;
-        font-weight: 600;
-        font-size: 36px;
-        letter-spacing: -0.4px;
-        /* color: #080707; */
-    }
     .row-container {
-        width: 100%;
+        min-width: 580px ;
         height: auto;
         margin: 0px;
         padding: 0px;
     }
-    @media screen and (min-width: 320px) {
+    @media screen and (min-width: 320px) and (max-width: 600px) {
         .leaderboardSection {
-            width: 100%;
-            max-width: 528px;
-            
+            min-width: 280px;
         }
+
+        .row-container {
+        min-width: 280px;
+        height: auto;
+        margin: 0px;
+        padding: 8px;
+    }
     }
 
     .row {
@@ -112,7 +109,9 @@
     }
 
     .row > .user {
+        display: block;
         font-weight: 600;
+        text-align: left;
     }
 
     .row > .treeCount {
