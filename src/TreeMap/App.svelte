@@ -3,6 +3,7 @@
 <script>
   import UserProfileLoader from "../../utils/contentLoaders/UserProfileLoader.svelte";
   import { localizedAbbreviatedNumber } from "../../utils/formatNumber";
+
   import mapboxgl from "mapbox-gl";
   import mapStyleLight from "../../public/data/styles/light.json";
   import mapStyleDark from "../../public/data/styles/dark.json";
@@ -18,9 +19,9 @@
   export let theme = "light";
   export let community = "true";
   export let locale = "en";
-
   $: primarycolor = primarycolor;
   $: counterbgcolor = circlebgcolor
+
     ? circlebgcolor
     : theme === "light"
     ? "#23519b"
