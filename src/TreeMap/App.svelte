@@ -39,14 +39,6 @@
   async function fetchData(){
     const response = await fetch(`${__myapp.env.API_URL}/profiles/${user}`);
     userpofiledata = await response.json();
-    fetchTiles(
-      theme === "light" ? mapStyleLight : mapStyleDark,
-      "https://basemaps.arcgis.com/arcgis/rest/services/World_Basemap_v2/VectorTileServer"
-    ).then((style) => {
-      if (style) {
-        mapStyle = style;
-      }
-    });
     return userpofiledata;
   }
 
@@ -80,108 +72,115 @@
   // https://svelte.dev/tutorial/actions
   // https://svelte.school/tutorials/introduction-to-actions
   const createMap = async (domNode) => {
-    const map = new mapboxgl.Map({
-      container: domNode,
-      style: mapStyle, // stylesheet location
-      center: [-28.5, 36.96], // starting position [lng, lat]
-      zoom: 1, // starting zoom
-      height: "100%",
-      width: "100%",
-    });
-
-    map.on("load", () => {
-      fetchContributionsData.then((contributions) => {
-        let filteredContributions;
-        if (community === "true") {
-          filteredContributions = contributions;
-        } else {
-          filteredContributions = contributions.filter((contrib) => {
-            return contrib.properties.type !== "gift";
+    fetchTiles(
+      theme === "light" ? mapStyleLight : mapStyleDark,
+      "https://basemaps.arcgis.com/arcgis/rest/services/World_Basemap_v2/VectorTileServer"
+    ).then((style) => {
+      if (style) {
+        mapStyle = style;
+      }
+      const map = new mapboxgl.Map({
+        container: domNode,
+        style: mapStyle, // stylesheet location
+        center: [-28.5, 36.96], // starting position [lng, lat]
+        zoom: 1, // starting zoom
+        height: "100%",
+        width: "100%",
+      });
+      map.on("load", () => {
+        fetchContributionsData.then((contributions) => {
+          let filteredContributions;
+          if (community === "true") {
+            filteredContributions = contributions;
+          } else {
+            filteredContributions = contributions.filter((contrib) => {
+              return contrib.properties.type !== "gift";
+            });
+          }
+          const geojson = {
+            type: "FeatureCollection",
+            features: filteredContributions,
+          };
+          map.addSource("contributions", {
+            type: "geojson",
+            data: geojson,
+            cluster: true,
+            clusterMaxZoom: 14, // Max zoom to cluster points on
+            clusterRadius: 50, // Radius of each cluster when clustering points (defaults to 50)
+            clusterProperties: {
+              sum: ["+", ["to-number", ["get", "treeCount", ["properties"]]]],
+            },
           });
-        }
-        const geojson = {
-          type: "FeatureCollection",
-          features: filteredContributions,
-        };
-        map.addSource("contributions", {
-          type: "geojson",
-          data: geojson,
-          cluster: true,
-          clusterMaxZoom: 14, // Max zoom to cluster points on
-          clusterRadius: 50, // Radius of each cluster when clustering points (defaults to 50)
-          clusterProperties: {
-            sum: ["+", ["to-number", ["get", "treeCount", ["properties"]]]],
-          },
-        });
 
-        map.addLayer({
-          id: "contrib-cluster",
-          type: "circle",
-          source: "contributions",
-          filter: ["has", "point_count"],
-          paint: {
-            "circle-color": primarycolor,
-            "circle-radius": ["step", ["get", "sum"], 20, 50, 30, 100, 40],
-            "circle-stroke-width": 4,
-            "circle-stroke-color": "#fff",
-          },
-        });
-        map.addLayer({
-          id: "contrib-cluster-label",
-          type: "symbol",
-          source: "contributions",
-          filter: ["has", "point_count"],
-          layout: {
-            "text-field": [
-              "number-format",
-              ["get", "sum"],
-              { "max-fraction-digits": 1 },
-            ],
-            "text-font": ["Ubuntu Bold"],
-            "text-size": 12,
-          },
-          paint: {
-            "text-color": "#fff",
-          },
-        });
+          map.addLayer({
+            id: "contrib-cluster",
+            type: "circle",
+            source: "contributions",
+            filter: ["has", "point_count"],
+            paint: {
+              "circle-color": primarycolor,
+              "circle-radius": ["step", ["get", "sum"], 20, 50, 30, 100, 40],
+              "circle-stroke-width": 4,
+              "circle-stroke-color": "#fff",
+            },
+          });
+          map.addLayer({
+            id: "contrib-cluster-label",
+            type: "symbol",
+            source: "contributions",
+            filter: ["has", "point_count"],
+            layout: {
+              "text-field": [
+                "number-format",
+                ["get", "sum"],
+                { "max-fraction-digits": 1 },
+              ],
+              "text-font": ["Ubuntu Bold"],
+              "text-size": 12,
+            },
+            paint: {
+              "text-color": "#fff",
+            },
+          });
 
-        map.addLayer({
-          id: "contrib",
-          type: "circle",
-          source: "contributions",
-          filter: ["!", ["has", "point_count"]],
-          paint: {
-            "circle-color": primarycolor,
-            "circle-radius": [
-              "step",
-              ["to-number", ["get", "treeCount"]],
-              15,
-              50,
-              20,
-              100,
-              30,
-            ],
-            "circle-stroke-width": 4,
-            "circle-stroke-color": "#fff",
-          },
-        });
-        map.addLayer({
-          id: "contrib-label",
-          type: "symbol",
-          source: "contributions",
-          filter: ["!", ["has", "point_count"]],
-          layout: {
-            "text-field": [
-              "number-format",
-              ["to-number", ["get", "treeCount"]],
-              { "max-fraction-digits": 1 },
-            ],
-            "text-font": ["Ubuntu Bold"],
-            "text-size": 12,
-          },
-          paint: {
-            "text-color": "#fff",
-          },
+          map.addLayer({
+            id: "contrib",
+            type: "circle",
+            source: "contributions",
+            filter: ["!", ["has", "point_count"]],
+            paint: {
+              "circle-color": primarycolor,
+              "circle-radius": [
+                "step",
+                ["to-number", ["get", "treeCount"]],
+                15,
+                50,
+                20,
+                100,
+                30,
+              ],
+              "circle-stroke-width": 4,
+              "circle-stroke-color": "#fff",
+            },
+          });
+          map.addLayer({
+            id: "contrib-label",
+            type: "symbol",
+            source: "contributions",
+            filter: ["!", ["has", "point_count"]],
+            layout: {
+              "text-field": [
+                "number-format",
+                ["to-number", ["get", "treeCount"]],
+                { "max-fraction-digits": 1 },
+              ],
+              "text-font": ["Ubuntu Bold"],
+              "text-size": 12,
+            },
+            paint: {
+              "text-color": "#fff",
+            },
+          });
         });
       });
     });
@@ -257,11 +256,18 @@
       </div>
     </div>
     <div class="mapContainer">
-      {#if mapStyle}
         {#if community === "true"}
-          <div id="map" class="view" use:createMap />
+           {#if theme === "light"}
+            <div id="map" class="view" use:createMap />
+           {:else}
+             <div id="map" class="view" use:createMap />
+           {/if}
         {:else}
-          <div id="map" class="view" use:createMap />
+          {#if theme === "light"}
+           <div id="map" class="view" use:createMap />
+          {:else}
+            <div id="map" class="view" use:createMap />
+          {/if}
         {/if}
         <div class="footer">
           <a
@@ -343,7 +349,6 @@
             </div>
           {/if}
         </div>
-      {/if}
     </div>
   {:catch error}
     <p>An error occurred!</p>
