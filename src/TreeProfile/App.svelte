@@ -17,7 +17,7 @@
     export let theme = "light";
     export let community = "true";
     export let locale = "en";
-    export let refresh;
+    export let refresh = "slow";
 
     let primaryColor = primarycolor;
     let counterBGColor = circlebgcolor
@@ -51,19 +51,19 @@
     let radius = 140;
     let size = 154;
     let circumference = 2 * Math.PI * radius;
-    
-    onMount(() => { 
+
+    onMount(() => {
     if (refresh === "slow"){
    const slow = setInterval(() => {
 			fetchData();
     }, 10000);
-    return () => clearInterval(slow); 
+    return () => clearInterval(slow);
   }
   else if (refresh === "fast"){
     const fast = setInterval(() => {
 			fetchData();
     }, 5000);
-    return () => clearInterval(fast); 
+    return () => clearInterval(fast);
   }
   else (refresh === "none")
    return;
