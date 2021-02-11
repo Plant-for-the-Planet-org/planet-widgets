@@ -88,13 +88,28 @@
         margin: 0px;
         padding: 0px;
     }
-    @media screen and (min-width: 320px) and (max-width: 600px) {
+    @media screen and (min-width: 320px) and (max-width: 480px) {
         .leaderboardSection {
-            min-width: 280px;
+            min-width: 300px;
+            max-width: 300px;
         }
 
         .row-container {
-        min-width: 280px;
+        min-width: 300px;
+        height: auto;
+        margin: 0px;
+        padding: 8px;
+    }
+    }
+
+    @media screen and (min-width: 481px) and (max-width: 768px) {
+        .leaderboardSection {
+            min-width: 450px;
+            max-width: 450px;
+        }
+
+        .row-container {
+        min-width: 450px;
         height: auto;
         margin: 0px;
         padding: 8px;
