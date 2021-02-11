@@ -280,6 +280,7 @@ import { onMount } from "svelte";
             class="footerLink"
             >{language.viewProfile}
           </a>
+          <div class="power-icon-block">
           <a
             class="footerLinkBold"
             href={`https://www1.plant-for-the-planet.org/`}
@@ -321,6 +322,7 @@ import { onMount } from "svelte";
             </div>
           {/if}
         </div>
+      </div>
         <div class="imageHeader">
           {#if data.image}
             <a
@@ -473,7 +475,7 @@ import { onMount } from "svelte";
     display: flex;
     flex-direction: row;
     font-size: 14px;
-    position: absolute;
+    position:absolute;
     bottom: 12px;
     right: 12px;
   }
@@ -524,6 +526,40 @@ import { onMount } from "svelte";
     border-radius: 50%;
   }
 
+  .power-icon-block{
+      display: flex;
+      flex-direction: row;
+    }
+@media screen and  (min-width: 320px) and (max-width: 620px ){
+  .treemap {
+      flex-direction: column;
+    }
+
+    .power-icon-block{
+      display: flex;
+      flex-direction: row;
+    }
+    .footer {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    font-size: 14px;
+    bottom: 8px;
+    
+  }
+  .footerLink {
+    color: var(--link-color);
+    text-decoration: none;
+  }
+  .footerLinkBold {
+    color: var(--link-color);
+    font-weight: bold;
+    margin-left: 4px;
+    text-decoration: none;
+  }
+}
   @media screen and (min-width: 640px) {
     .treemap {
       flex-direction: row;
