@@ -78,7 +78,7 @@
         display: flex;
         flex-direction: column;
         align-items: center;
-        /* background-color: var(--background-color); */
+        background-color: var(--background-color);
         color: var(--text-color);
         border-radius: 10px;
     }
