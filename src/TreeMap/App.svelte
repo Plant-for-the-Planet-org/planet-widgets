@@ -21,7 +21,7 @@
   export let community = "true";
   export let locale = "en";
   export let refresh;
-  
+
   $: primarycolor = primarycolor;
   $: counterbgcolor = circlebgcolor
     ? circlebgcolor
@@ -30,13 +30,13 @@
     : "#2f3336";
 
   let language = [];
-  language['en'] = enLocale;
-  language['de'] = deLocale;
+  language["en"] = enLocale;
+  language["de"] = deLocale;
 
   let promise = fetchData();
   let mapStyle;
   let userpofiledata;
-  async function fetchData(){
+  async function fetchData() {
     const response = await fetch(`${__myapp.env.API_URL}/profiles/${user}`);
     userpofiledata = await response.json();
     return userpofiledata;
@@ -53,7 +53,7 @@
         fetchData();
       }, 5000);
       return () => clearInterval(fast);
-    } else(refresh === "none")
+    } else refresh === "none";
     return;
   });
 
@@ -86,6 +86,7 @@
         zoom: 1, // starting zoom
         height: "100%",
         width: "100%",
+        maxZoom: 16,
       });
       map.on("load", () => {
         fetchContributionsData.then((contributions) => {
@@ -105,7 +106,7 @@
             type: "geojson",
             data: geojson,
             cluster: true,
-            clusterMaxZoom: 14, // Max zoom to cluster points on
+            clusterMaxZoom: 24, // Max zoom to cluster points on
             clusterRadius: 50, // Radius of each cluster when clustering points (defaults to 50)
             clusterProperties: {
               sum: ["+", ["to-number", ["get", "treeCount", ["properties"]]]],
@@ -256,99 +257,97 @@
       </div>
     </div>
     <div class="mapContainer">
-        {#if community === "true"}
-           {#if theme === "light"}
-            <div id="map" class="view" use:createMap />
-           {:else}
-             <div id="map" class="view" use:createMap />
-           {/if}
+      {#if community === "true"}
+        {#if theme === "light"}
+          <div id="map" class="view" use:createMap />
         {:else}
-          {#if theme === "light"}
-           <div id="map" class="view" use:createMap />
-          {:else}
-            <div id="map" class="view" use:createMap />
-          {/if}
+          <div id="map" class="view" use:createMap />
         {/if}
-        <div class="footer">
+      {:else if theme === "light"}
+        <div id="map" class="view" use:createMap />
+      {:else}
+        <div id="map" class="view" use:createMap />
+      {/if}
+      <div class="footer">
+        <a
+          href={`https://www1.plant-for-the-planet.org/t/${data.slug}`}
+          target="_blank"
+          class="footerLink"
+          >{language[locale].viewProfile}
+        </a>
+        <a
+          class="footerLinkBold"
+          href={`https://www1.plant-for-the-planet.org/`}
+          target="_blank"
+          >| {language[locale].poweredBy}
+        </a>
+        {#if community === "true"}
+          <div
+            class="infoIcon"
+            style={`color: ${theme === "dark" ? "#fff" : "#000"}`}
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              height="14"
+              width="14"
+              viewBox="0 0 512 512"
+            >
+              <path
+                fill={`${theme === "light" ? "#6daff0" : "#fff"}`}
+                d="M256 40c118.621 0 216 96.075 216 216 0 119.291-96.61 216-216 216-119.244 0-216-96.562-216-216 0-119.203 96.602-216 216-216m0-32C119.043 8 8 119.083 8 256c0 136.997 111.043 248 248 248s248-111.003 248-248C504 119.083 392.957 8 256 8zm-36 344h12V232h-12c-6.627 0-12-5.373-12-12v-8c0-6.627 5.373-12 12-12h48c6.627 0 12 5.373 12 12v140h12c6.627 0 12 5.373 12 12v8c0 6.627-5.373 12-12 12h-72c-6.627 0-12-5.373-12-12v-8c0-6.627 5.373-12 12-12zm36-240c-17.673 0-32 14.327-32 32s14.327 32 32 32 32-14.327 32-32-14.327-32-32-32z"
+              />
+            </svg>
+            <p class="infoText ">
+              {localizedAbbreviatedNumber(
+                locale,
+                Number(data.score.personal),
+                1
+              )}
+              {language[locale].treesPlantedBy}
+              {data.displayName}
+              {community === "true"
+                ? `${language[locale].and} ${localizedAbbreviatedNumber(
+                    locale,
+                    Number(data.score.received),
+                    1
+                  )} ${language[locale].treesPlantedByComm}`
+                : ""}
+            </p>
+          </div>
+        {/if}
+      </div>
+      <div class="imageHeader">
+        {#if data.image}
           <a
             href={`https://www1.plant-for-the-planet.org/t/${data.slug}`}
             target="_blank"
-            class="footerLink"
-            >{language[locale].viewProfile}
+          >
+            <img
+              class="logo"
+              src={getImageUrl("profile", "thumb", data.image)}
+              alt={data.displayName}
+            />
           </a>
-          <a
-            class="footerLinkBold"
-            href={`https://www1.plant-for-the-planet.org/`}
-            target="_blank"
-            >| {language[locale].poweredBy}
-          </a>
-          {#if community === "true"}
-            <div
-              class="infoIcon"
-              style={`color: ${theme === "dark" ? "#fff" : "#000"}`}
-            >
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                height="14"
-                width="14"
-                viewBox="0 0 512 512"
-              >
-                <path
-                  fill={`${theme === "light" ? "#6daff0" : "#fff"}`}
-                  d="M256 40c118.621 0 216 96.075 216 216 0 119.291-96.61 216-216 216-119.244 0-216-96.562-216-216 0-119.203 96.602-216 216-216m0-32C119.043 8 8 119.083 8 256c0 136.997 111.043 248 248 248s248-111.003 248-248C504 119.083 392.957 8 256 8zm-36 344h12V232h-12c-6.627 0-12-5.373-12-12v-8c0-6.627 5.373-12 12-12h48c6.627 0 12 5.373 12 12v140h12c6.627 0 12 5.373 12 12v8c0 6.627-5.373 12-12 12h-72c-6.627 0-12-5.373-12-12v-8c0-6.627 5.373-12 12-12zm36-240c-17.673 0-32 14.327-32 32s14.327 32 32 32 32-14.327 32-32-14.327-32-32-32z"
-                />
-              </svg>
-              <p class="infoText ">
-                {localizedAbbreviatedNumber(
-                  locale,
-                  Number(data.score.personal),
-                  1
-                )}
-                {language[locale].treesPlantedBy}
-                {data.displayName}
-                {community === "true"
-                  ? `${language[locale].and} ${localizedAbbreviatedNumber(
-                      locale,
-                      Number(data.score.received),
-                      1
-                    )} ${language[locale].treesPlantedByComm}`
-                  : ""}
-              </p>
-            </div>
-          {/if}
-        </div>
-        <div class="imageHeader">
-          {#if data.image}
-            <a
-              href={`https://www1.plant-for-the-planet.org/t/${data.slug}`}
-              target="_blank"
-            >
+        {/if}
+        {#if data.hasLogoLicense}
+          <div
+            class="logoPlanet"
+            style={`background-color:${theme === "dark" ? "#2f3336" : ""}`}
+          >
+            {#if theme === "dark"}
               <img
-                class="logo"
-                src={getImageUrl("profile", "thumb", data.image)}
-                alt={data.displayName}
+                src={`${__myapp.env.CDN_URL}/logo/svg/planetDark.svg`}
+                alt="Plant-for-the-Planet Logo"
               />
-            </a>
-          {/if}
-          {#if data.hasLogoLicense}
-            <div
-              class="logoPlanet"
-              style={`background-color:${theme === "dark" ? "#2f3336" : ""}`}
-            >
-              {#if theme === "dark"}
-                <img
-                  src={`${__myapp.env.CDN_URL}/logo/svg/planetDark.svg`}
-                  alt="Plant-for-the-Planet Logo"
-                />
-              {:else}
-                <img
-                  src={`${__myapp.env.CDN_URL}/logo/svg/planet.svg`}
-                  alt="Plant-for-the-Planet Logo"
-                />
-              {/if}
-            </div>
-          {/if}
-        </div>
+            {:else}
+              <img
+                src={`${__myapp.env.CDN_URL}/logo/svg/planet.svg`}
+                alt="Plant-for-the-Planet Logo"
+              />
+            {/if}
+          </div>
+        {/if}
+      </div>
     </div>
   {:catch error}
     <p>An error occurred!</p>
