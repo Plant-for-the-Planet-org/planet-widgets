@@ -48,7 +48,7 @@
     }
 
     let promise = fetchData();
-    let radius = 140;
+    let radius = 126;
     let size = 154;
     let circumference = 2 * Math.PI * radius;
 
@@ -131,7 +131,7 @@
                         r={radius}
                         stroke={primarycolor}
                         stroke-linecap="round"
-                        stroke-width="16"
+                        stroke-width="14"
                         transform={`rotate(-90,${size},${size})`}
                         stroke-dasharray={circumference}
                         stroke-dashoffset={circumference *
@@ -248,7 +248,7 @@
     }
 
     .treeCounterContainer {
-        min-height: 420px;
+        max-height: 420px;
         width: 100%;
         display: flex;
         flex-direction: column;
@@ -262,21 +262,22 @@
         justify-content: center;
         align-items: center;
         position: relative;
+        padding: 12px;
     }
     .treeCounterComponent {
-        height: 295px;
-        width: 295px;
+        height: 265px;
+        width: 265px;
         background-image: radial-gradient(white 0%, white 60%, #47a8dc 100%);
         border-radius: 50%;
         display: flex;
         justify-content: center;
         align-items: center;
         position: relative;
-        margin-top: 100px;
+        margin-top: 40px;
     }
     .treeCounter {
-        height: 266px;
-        width: 266px;
+        height: 240px;
+        width: 240px;
         border-radius: 50%;
         background-color: var(--counter-background-color);
         display: flex;
@@ -284,6 +285,7 @@
         justify-content: center;
         align-items: center;
         text-align: center;
+        
     }
     .treecount {
         font-size: 48px;
@@ -304,14 +306,13 @@
         color: white;
         font-weight: bold;
         background-image: linear-gradient(97deg, #68b030 4%, #007a49 116%);
-        height: 48px;
+        height: 40px;
         padding: 0px;
         text-align: center;
         border: 0px;
         border-radius: 52px;
         min-width: 205px;
-        margin-top: 24px;
-        margin-bottom: 24px;
+        margin-top: 18px;
         display: flex;
         align-items: center;
         justify-content: center;
@@ -323,19 +324,21 @@
         transform: translateY(-7px);
         cursor: pointer;
     }
+    .block{
+        display: flex;
+        flex-direction: row;
+    }
     .footer {
         display: flex;
         flex-direction: row;
         font-size: 14px;
-        margin-bottom: 12px;
+        margin-top: 10px;
+        justify-content: center;
+        align-items: center;
     }
     .footerLink {
         color: var(--link-color);
         text-decoration: none;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
     }
     .footerLinkBold {
         color: var(--link-color);
@@ -353,21 +356,22 @@
 
     .logo {
         border-radius: 50%;
-        height: 64px;
-        width: 64px;
+        height: 52px;
+        width: 52px;
         box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.16);
     }
 
     .logoPlanet {
-        height: 64px;
-        width: 64px;
+        height: 52px;
+        width: 52px;
         background-color: white;
         display: flex;
         align-items: center;
         justify-content: center;
         border-radius: 50%;
         box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.16);
-        margin-left: 12px;
+        margin-left: 10px;
+        margin-right: 6px;
     }
 
     .logoPlanet > img {
@@ -379,7 +383,7 @@
         border-radius: 50%;
     }
 
-    @media screen and (min-width: 320px) {
+    @media screen and (min-width: 320px)  and (max-width: 480px){
         .treeCounterContainer {
             border-top-right-radius: 0px;
             border-top-left-radius: 10px;
@@ -390,11 +394,14 @@
             display: flex;
             flex-direction: row;
         }
+        .treeCounterComponent{
+            margin-top: 50px;
+        }
         .footer {
             display: flex;
             flex-direction: column;
             font-size: 14px;
-            margin-bottom: 12px;
+            
         }
         .footerLink {
             color: var(--link-color);
@@ -404,12 +411,33 @@
             justify-content: center;
             align-items: center;
         }
-        .footerLinkBold {
-            color: var(--link-color);
-            font-weight: bold;
-            margin-left: 4px;
-            text-decoration: none;
+        .primaryButton{
+            margin-top: 10px;
         }
+        .footer{
+            margin-bottom: -5px;
+            
+        }
+    }
+
+    @media screen and (min-width: 481px) and (max-width:939px){
+            .treeCounterContainer{
+                height: 600px;
+                width: 100%;
+                padding: 12px;
+            }
+
+            .treeCounterComponent{
+                margin-top: 55px;
+            }
+
+            .block{
+            display: flex;
+            flex-direction: row;
+        }
+            .footer{
+                margin-bottom: 5px;
+            }
     }
 
     @media screen and (min-width: 940px) {
