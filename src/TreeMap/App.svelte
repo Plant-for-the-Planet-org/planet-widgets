@@ -564,10 +564,35 @@ import { onMount } from "svelte";
     .treemap {
       flex-direction: row;
     }
+    .power-icon-block{
+      display: flex;
+      flex-direction: row;
+    }
+    .footer {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    font-size: 14px;
+    bottom: 8px;
+    
+  }
+  .footerLink {
+    color: var(--link-color);
+    text-decoration: none;
+  }
+  .footerLinkBold {
+    color: var(--link-color);
+    font-weight: bold;
+    margin-left: 4px;
+    text-decoration: none;
+  }
     .treeCounterContainer {
       border-top-right-radius: 0px;
       border-top-left-radius: 10px;
       border-bottom-left-radius: 10px;
+      padding: 20px;
     }
     .mapContainer {
       width: 100%;
