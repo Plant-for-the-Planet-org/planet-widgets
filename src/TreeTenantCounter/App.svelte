@@ -132,7 +132,7 @@
         display: flex;
         flex-direction: column;
         align-items: center;
-        border: 1px solid #d5d5d5;
+        /* border: 1px solid #d5d5d5; */
         vertical-align: baseline;
         font-family: "Raleway", sans-serif;
         text-decoration: none;
