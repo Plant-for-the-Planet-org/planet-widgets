@@ -275,6 +275,7 @@
           class="footerLink"
           >{language[locale].viewProfile}
         </a>
+        <div class="block">
         <a
           class="footerLinkBold"
           href={`https://www1.plant-for-the-planet.org/`}
@@ -316,6 +317,7 @@
           </div>
         {/if}
       </div>
+    </div>
       <div class="imageHeader">
         {#if data.image}
           <a
@@ -463,13 +465,20 @@
     height: 420px;
     width: 100%;
   }
-  .footer {
+  .block{
     display: flex;
     flex-direction: row;
+  }
+  .footer {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
     font-size: 14px;
     position: absolute;
-    bottom: 12px;
-    right: 12px;
+    bottom: 8px;
+    /* right: 12px; */
   }
   .footerLink {
     color: var(--link-color);
@@ -526,12 +535,20 @@
       border-top-right-radius: 0px;
       border-top-left-radius: 10px;
       border-bottom-left-radius: 10px;
+      padding-left: 10px;
+      padding-right: 10px;
     }
+    
     .mapContainer {
       width: 100%;
     }
     .view {
       width: 100%;
+    }
+    .footer{
+      flex-direction: row;
+      justify-content: flex-end;
+      right: 10px;
     }
   }
 
