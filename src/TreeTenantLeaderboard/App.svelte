@@ -86,10 +86,10 @@
     @import "https://fonts.googleapis.com/css2?family=Raleway:wght@400;700&display=swap";
 
     .leaderboardSection {
-        min-width: 300px;
+        min-width: 260px;
         width: 100%;
         max-width: 580px;
-        padding: 16px;
+        /* padding: 16px; */
         font-family: "Raleway", sans-serif;
         text-align: center;
         min-height: 682px;
@@ -119,11 +119,11 @@
     .row > .user {
         display: block;
         font-weight: 600;
-        /* text-align: left; */
+        text-align: left;
     }
 
     .row > .treeCount {
-        /* color: #3e3e3c; */
+        text-align: right;
     }
     .headerButtons {
         align-self: center;
