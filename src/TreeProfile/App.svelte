@@ -261,6 +261,7 @@
         align-items: center;
         position: relative;
         margin-top: 40px;
+        margin-bottom: 10px;
     }
     .treeCounter {
         height: 240px;
@@ -321,6 +322,7 @@
         margin-top: 10px;
         justify-content: center;
         align-items: center;
+        margin-top: 15px;
     }
     .footerLink {
         color: var(--link-color);
@@ -384,6 +386,7 @@
 
         .treeCounterComponent{
             margin-top: 50px;
+
         }
 
         .footer {
@@ -391,6 +394,7 @@
         flex-direction: column;
         font-size: 14px;
         margin-bottom: -5px;
+        margin-top: 25px;
         }
         .footerLink {
             color: var(--link-color);
@@ -414,6 +418,9 @@
 
         .treeCounterContainer {
             width: 420px;
+        }
+        .footer{
+            margin-top: 20px;
         }
     }
 
