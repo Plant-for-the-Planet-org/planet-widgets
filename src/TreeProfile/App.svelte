@@ -364,8 +364,8 @@
     }
 
     .logoPlanet > img {
-        height: 52px;
-        width: 52px;
+        height: 46px;
+        width: 46px;
     }
 
     .logoPlanet > svg {
