@@ -526,11 +526,18 @@
   .logoPlanet > svg {
     border-radius: 50%;
   }
-
-  @media screen and (min-width: 640px) {
-    .treemap {
+@media screen and (min-width: 380px){
+  .footer{
       flex-direction: row;
+      justify-content: flex-end;
+      right: 10px;
     }
+    .treemap {
+      flex-direction: column;
+    }
+}
+  @media screen and (min-width: 640px) {
+    
     .treeCounterContainer {
       border-top-right-radius: 0px;
       border-top-left-radius: 10px;
@@ -544,11 +551,6 @@
     }
     .view {
       width: 100%;
-    }
-    .footer{
-      flex-direction: row;
-      justify-content: flex-end;
-      right: 10px;
     }
   }
 
