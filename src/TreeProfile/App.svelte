@@ -1,63 +1,74 @@
-<svelte:options tag="tree-counter" immutable={true} />
+<!-- svelte-ignore non-top-level-reactive-declaration -->
+<!-- svelte-ignore non-top-level-reactive-declaration -->
+<svelte:options tag="tree-profile" immutable={true} />
 
 <script>
     import UserProfileLoader from "../../utils/contentLoaders/UserProfileLoader.svelte";
-    import { getFormattedNumber } from "../../utils/formatNumber";
+    import { localizedAbbreviatedNumber } from "../../utils/formatNumber";
     import getImageUrl from "../../utils/getImageUrl";
     import enLocale from "./../../public/data/locales/en.json";
     import deLocale from "./../../public/data/locales/de.json";
+    import { onMount } from 'svelte';
 
     // Props that can be passed
     export let user;
-    export let primaryColor = "#68b030";
-    export let circleBGColor;
+    export let primarycolor = "#68b030";
+    export let circlebgcolor;
     export let theme = "light";
     export let community = "true";
     export let locale = "en";
+    export let refresh = "slow";
 
-    let counterBGColor = circleBGColor
-        ? circleBGColor
+    $:primarycolor = primarycolor;
+    $:counterbgcolor = circlebgcolor
+        ? circlebgcolor
         : theme === "light"
         ? "#23519b"
         : "#2f3336";
 
-    let language;
-
-    switch (locale) {
-        case "en":
-            language = enLocale;
-            break;
-        case "de":
-            language = deLocale;
-            break;
-        default:
-            language = enLocale;
-            break;
-    }
+    let language = [];
+    language['en'] = enLocale;
+    language['de'] = deLocale;
 
     let userpofiledata;
-    const fetchProfileData = (async () => {
+    async function fetchData(){
         const response = await fetch(`${__myapp.env.API_URL}/profiles/${user}`);
         userpofiledata = await response.json();
         return userpofiledata;
-    })();
+    }
 
+    let promise = fetchData();
     let radius = 140;
     let size = 154;
     let circumference = 2 * Math.PI * radius;
+
+    onMount(() => {
+      if (refresh === "slow") {
+        const slow = setInterval(() => {
+          fetchData();
+        }, 10000);
+        return () => clearInterval(slow);
+      } else if (refresh === "fast") {
+        const fast = setInterval(() => {
+          fetchData();
+        }, 5000);
+        return () => clearInterval(fast);
+      } else(refresh === "none")
+      return;
+    });
 </script>
 
 <div
     class="treecounter"
-    style="--primary-color: {primaryColor};
-    --counter-background-color: {counterBGColor}; 
+    style="--primary-color: {primarycolor};
+    --counter-background-color: {counterbgcolor};
     --background-color: {theme ===
     'light'
         ? '#fff'
         : '#2f3336'};
     --link-color: {theme === 'light' ? '#6daff0' : '#fff'}"
 >
-    {#await fetchProfileData}
+    {#await promise}
         <UserProfileLoader />
     {:then data}
         <div class="treeCounterContainer">
@@ -70,13 +81,13 @@
                             }`}
                         >
                             {community === "true"
-                                ? getFormattedNumber(
+                                ? localizedAbbreviatedNumber(locale,
                                       data.score.personal + data.score.received,
-                                      locale
+                                      1
                                   )
-                                : getFormattedNumber(
+                                : localizedAbbreviatedNumber(locale,
                                       data.score.personal,
-                                      locale
+                                      1
                                   )}
                         </p>
                         <p
@@ -84,15 +95,15 @@
                                 theme === "dark" ? "planted" : ""
                             }`}
                         >
-                            {language.treesPlanted}
+                            {language[locale].treesPlanted}
                         </p>
                     </div>
                     {#if data.score.target != 0}
                         <div class="textContainer">
                             <p class="treecount">
-                                {getFormattedNumber(data.score.target, locale)}
+                                {localizedAbbreviatedNumber(locale, Number(data.score.target), 1)}
                             </p>
-                            <p class="treecountLabel">{language.target}</p>
+                            <p class="treecountLabel">{language[locale].target}</p>
                         </div>
                     {/if}
                 </div>
@@ -106,7 +117,7 @@
                         cx={size}
                         cy={size}
                         r={radius}
-                        stroke={primaryColor}
+                        stroke={primarycolor}
                         stroke-linecap="round"
                         stroke-width="16"
                         transform={`rotate(-90,${size},${size})`}
@@ -123,7 +134,7 @@
                 href={`${__myapp.env.APP_URL}/s/${data.slug}`}
                 class="primaryButton"
                 on:click
-                target="_blank">{language.plantTrees}</a
+                target="_blank">{language[locale].plantTrees}</a
             >
 
             <div class="imageHeader">
@@ -160,13 +171,13 @@
                     href={`https://www1.plant-for-the-planet.org/t/${data.slug}`}
                     target="_blank"
                     class="footerLink"
-                    >{language.viewProfile}
+                    >{language[locale].viewProfile}
                 </a>
                 <a
                     class="footerLinkBold"
                     href={`https://www1.plant-for-the-planet.org/`}
                     target="_blank"
-                    >| {language.poweredBy}
+                    >| {language[locale].poweredBy}
                 </a>
                 {#if community === "true"}
                     <div
@@ -185,14 +196,14 @@
                             />
                         </svg>
                         <p class="infoText ">
-                            {getFormattedNumber(data.score.personal, locale)}
-                            {language.treesPlantedBy}
+                            {localizedAbbreviatedNumber(locale, Number(data.score.personal), 1)}
+                            {language[locale].treesPlantedBy}
                             {data.displayName}
                             {community === "true"
-                                ? `${language.and} ${getFormattedNumber(
-                                      data.score.received,
-                                      locale
-                                  )} ${language.treesPlantedByComm}`
+                                ? `${language[locale].and} ${localizedAbbreviatedNumber(locale,
+                                      Number(data.score.received),
+                                      1
+                                  )} ${language[locale].treesPlantedByComm}`
                                 : ""}
                         </p>
                     </div>
@@ -361,7 +372,7 @@
 
     @media screen and (min-width: 940px) {
         .treeCounterContainer {
-            max-width: 420px;
+            width: 420px;
         }
     }
 

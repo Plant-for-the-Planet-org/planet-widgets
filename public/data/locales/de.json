@@ -4,7 +4,11 @@
     "plantTrees":"Bäume pflanzen",
     "viewProfile":"Profil anzeigen",
     "poweredBy":"Powered by Plant-for-the-Planet",
-    "treesPlantedBy":"trees planted by",
+    "treesPlantedBy":"Bäume gepflanzt von",
     "and":"und",
-    "treesPlantedByComm":"trees planted by community."
+    "treesPlantedByComm":"Bäume gepflanzt von der Community.",
+    "forestfrontrunners": "Baum-Bestenliste",
+    "mostrecent": "NEUESTE SPENDEN",
+    "mosttrees": "DIE MEISTEN BÄUME",
+    "trees": "Bäume"
 }
