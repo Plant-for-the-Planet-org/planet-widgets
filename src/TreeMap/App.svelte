@@ -22,7 +22,7 @@
   export let community = "true";
   export let locale = "en";
   export let refresh;
-  let tenantName = __myapp.env.TENANT_NAME;
+  export let tenant = 'ten_I9TW3ncG';
   $: primarycolor = primarycolor;
   $: counterbgcolor = circlebgcolor
     ? circlebgcolor
@@ -250,7 +250,7 @@
           </svg>
         </div>
         <a
-          href={`${getTenantConfig(tenantName).tenantURL}/s/${data.slug}`}
+          href={`${getTenantConfig(tenant).tenantURL}/s/${data.slug}`}
           class="primaryButton"
           on:click
           target="_blank">{language[locale].plantTrees}</a
@@ -271,16 +271,16 @@
       {/if}
       <div class="footer">
         <a
-          href={`${getTenantConfig(tenantName).tenantURL}/t/${data.slug}`}
+          href={`${getTenantConfig(tenant).tenantURL}/t/${data.slug}`}
           target="_blank"
           class="footerLink"
           >{language[locale].viewProfile}
         </a>
         <a
           class="footerLinkBold"
-          href={getTenantConfig(tenantName).tenantPoweredByURL}
+          href={getTenantConfig(tenant).tenantPoweredByURL}
           target="_blank"
-          >| {language[locale].poweredBy} {getTenantConfig(tenantName).tenantName}
+          >| {language[locale].poweredBy} {getTenantConfig(tenant).tenantName}
         </a>
         {#if community === "true"}
           <div
@@ -337,12 +337,12 @@
           >
             {#if theme === "dark"}
               <img
-                src={getTenantConfig(tenantName).tenantDarkLogoURL}
+                src={getTenantConfig(tenant).tenantDarkLogoURL}
                 alt="Plant-for-the-Planet Logo"
               />
             {:else}
               <img
-                src={getTenantConfig(tenantName).tenantLogoURL}
+                src={getTenantConfig(tenant).tenantLogoURL}
                 alt="Plant-for-the-Planet Logo"
               />
             {/if}

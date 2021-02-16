@@ -18,8 +18,8 @@ export default function getTenantConfig(tenantName){
             }
         }
     switch(tenantName){
-        case 'planet': return config.planet;
-        case 'salesforce': return config.salesforce;
+        case 'ten_I9TW3ncG': return config.planet;
+        case 'ten_3hEjJCBs': return config.salesforce;
         default: return planet;
     }
 }
