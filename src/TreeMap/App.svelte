@@ -526,33 +526,38 @@
   .logoPlanet > svg {
     border-radius: 50%;
   }
-@media screen and (min-width: 380px){
+
+  /* @media screen and (min-width: 320px) and (max-width: 768px){
+    .footer{
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+    }
+    .view{
+      width: 100%;
+    }
+    .treemap{
+      flex-direction: column;
+    }
+  } */
+@media screen and (min-width: 425px){
   .footer{
       flex-direction: row;
       justify-content: flex-end;
       right: 10px;
     }
-    .treemap {
-      flex-direction: column;
-    }
 }
-  @media screen and (min-width: 640px) {
+   @media screen and (min-width: 768px) {
     
-    .treeCounterContainer {
-      border-top-right-radius: 0px;
-      border-top-left-radius: 10px;
-      border-bottom-left-radius: 10px;
-      padding-left: 10px;
-      padding-right: 10px;
+    .treemap{
+      flex-direction: row;
     }
     
     .mapContainer {
       width: 100%;
     }
-    .view {
-      width: 100%;
-    }
-  }
+    
+  } 
 
   @media screen and (min-width: 940px) {
     .treemap {
