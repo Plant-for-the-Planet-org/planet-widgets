@@ -124,6 +124,8 @@
 
     .row > .treeCount {
         text-align: right;
+        margin-left: 24px;
+        min-width: 110px;
     }
     .headerButtons {
         align-self: center;
