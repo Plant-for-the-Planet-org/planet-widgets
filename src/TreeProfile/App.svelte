@@ -140,7 +140,7 @@
 
             <div class="imageHeader">
                 <a
-                    href={`https://www1.plant-for-the-planet.org/t/${data.slug}`}
+                    href={`${getTenantConfig(tenantkey).tenantURL}/t/${data.slug}`}
                     target="_blank"
                 >
                     <img
@@ -154,12 +154,12 @@
                 <div class="logoPlanet" style={`background-color:${theme === 'dark' ? "#2f3336" : ""}`}>
                         {#if theme === "dark"}
                                 <img
-                                    src={getTenantConfig(tenantkey).tenantDarkLogoURL}
+                                    src={`${__myapp.env.CDN_URL}/logo/svg/planetDark.svg`}
                                     alt="Plant-for-the-Planet Logo"
                                 />
                             {:else}
                                 <img
-                                    src={getTenantConfig(tenantkey).tenantLogoURL}
+                                    src={`${__myapp.env.CDN_URL}/logo/svg/planet.svg`}
                                     alt="Plant-for-the-Planet Logo"
                                 />
                             {/if}
