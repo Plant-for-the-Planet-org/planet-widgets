@@ -176,7 +176,7 @@
                 </a>
                 <a
                     class="footerLinkBold"
-                    href={getTenantConfig(tenantkey).tenantPoweredByURL}
+                    href={'https://a.plant-for-the-planet.org/'}
                     target="_blank"
                     >| {language[locale].poweredBy}
                 </a>
