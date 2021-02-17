@@ -19,7 +19,7 @@
     export let community = "true";
     export let locale = "en";
     export let refresh = "slow";
-    export let tenant = 'ten_I9TW3ncG';
+    export let tenantkey = 'ten_I9TW3ncG';
     $:primarycolor = primarycolor;
     $:counterbgcolor = circlebgcolor
         ? circlebgcolor
@@ -132,7 +132,7 @@
                 </svg>
             </div>
             <a
-                href={`${getTenantConfig(tenant).tenantURL}/s/${data.slug}`}
+                href={`${getTenantConfig(tenantkey).tenantURL}/s/${data.slug}`}
                 class="primaryButton"
                 on:click
                 target="_blank">{language[locale].plantTrees}</a
@@ -154,12 +154,12 @@
                 <div class="logoPlanet" style={`background-color:${theme === 'dark' ? "#2f3336" : ""}`}>
                         {#if theme === "dark"}
                                 <img
-                                    src={getTenantConfig(tenant).tenantDarkLogoURL}
+                                    src={getTenantConfig(tenantkey).tenantDarkLogoURL}
                                     alt="Plant-for-the-Planet Logo"
                                 />
                             {:else}
                                 <img
-                                    src={getTenantConfig(tenant).tenantLogoURL}
+                                    src={getTenantConfig(tenantkey).tenantLogoURL}
                                     alt="Plant-for-the-Planet Logo"
                                 />
                             {/if}
@@ -169,16 +169,16 @@
 
             <div class="footer">
                 <a
-                    href={`${getTenantConfig(tenant).tenantURL}/t/${data.slug}`}
+                    href={`${getTenantConfig(tenantkey).tenantURL}/t/${data.slug}`}
                     target="_blank"
                     class="footerLink"
                     >{language[locale].viewProfile}
                 </a>
                 <a
                     class="footerLinkBold"
-                    href={getTenantConfig(tenant).tenantPoweredByURL}
+                    href={getTenantConfig(tenantkey).tenantPoweredByURL}
                     target="_blank"
-                    >| {language[locale].poweredBy} {getTenantConfig(tenant).tenantName}
+                    >| {language[locale].poweredBy}
                 </a>
                 {#if community === "true"}
                     <div
