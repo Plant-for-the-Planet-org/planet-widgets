@@ -132,14 +132,14 @@
                 </svg>
             </div>
             <a
-                href={`${getTenantConfig(tenantkey).tenantURL}/s/${data.slug}`}
+                href={`${getTenantConfig(tenantkey).url}/s/${data.slug}`}
                 class="primaryButton"
                 on:click
                 target="_blank">{language[locale].plantTrees}</a>
 
             <div class="imageHeader">
                 <a
-                    href={`${getTenantConfig(tenantkey).tenantURL}/t/${data.slug}`}
+                    href={`${getTenantConfig(tenantkey).url}/t/${data.slug}`}
                     target="_blank"
                 >
                     <img
@@ -168,7 +168,7 @@
 
             <div class="footer">
                 <a
-                    href={`${getTenantConfig(tenantkey).tenantURL}/t/${data.slug}`}
+                    href={`${getTenantConfig(tenantkey).url}/t/${data.slug}`}
                     target="_blank"
                     class="footerLink"
                     >{language[locale].viewProfile}

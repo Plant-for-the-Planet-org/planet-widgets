@@ -250,7 +250,7 @@
           </svg>
         </div>
         <a
-          href={`${getTenantConfig(tenantkey).tenantURL}/s/${data.slug}`}
+          href={`${getTenantConfig(tenantkey).url}/s/${data.slug}`}
           class="primaryButton"
           on:click
           target="_blank">{language[locale].plantTrees}</a
@@ -271,7 +271,7 @@
       {/if}
       <div class="footer">
         <a
-          href={`${getTenantConfig(tenantkey).tenantURL}/t/${data.slug}`}
+          href={`${getTenantConfig(tenantkey).url}/t/${data.slug}`}
           target="_blank"
           class="footerLink"
           >{language[locale].viewProfile}
@@ -320,7 +320,7 @@
       <div class="imageHeader">
         {#if data.image}
           <a
-            href={`${getTenantConfig(tenantkey).tenantURL}/t/${data.slug}`}
+            href={`${getTenantConfig(tenantkey).url}/t/${data.slug}`}
             target="_blank"
           >
             <img
