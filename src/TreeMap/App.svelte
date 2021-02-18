@@ -12,6 +12,7 @@
   import enLocale from "./../../public/data/locales/en.json";
   import deLocale from "./../../public/data/locales/de.json";
   import { onMount } from "svelte";
+  import getTenantConfig from "../../utils/tenantsConfig";
 
   // Props that can be passed
   export let user;
@@ -21,7 +22,7 @@
   export let community = "true";
   export let locale = "en";
   export let refresh;
-
+  export let tenantkey = 'ten_I9TW3ncG';
   $: primarycolor = primarycolor;
   $: counterbgcolor = circlebgcolor
     ? circlebgcolor
@@ -249,7 +250,7 @@
           </svg>
         </div>
         <a
-          href={`${__myapp.env.APP_URL}/s/${data.slug}`}
+          href={`${getTenantConfig(tenantkey).url}/s/${data.slug}`}
           class="primaryButton"
           on:click
           target="_blank">{language[locale].plantTrees}</a
@@ -270,14 +271,14 @@
       {/if}
       <div class="footer">
         <a
-          href={`https://www1.plant-for-the-planet.org/t/${data.slug}`}
+          href={`${getTenantConfig(tenantkey).url}/t/${data.slug}`}
           target="_blank"
           class="footerLink"
           >{language[locale].viewProfile}
         </a>
         <a
           class="footerLinkBold"
-          href={`https://www1.plant-for-the-planet.org/`}
+          href={'https://a.plant-for-the-planet.org/'}
           target="_blank"
           >| {language[locale].poweredBy}
         </a>
@@ -319,7 +320,7 @@
       <div class="imageHeader">
         {#if data.image}
           <a
-            href={`https://www1.plant-for-the-planet.org/t/${data.slug}`}
+            href={`${getTenantConfig(tenantkey).url}/t/${data.slug}`}
             target="_blank"
           >
             <img
@@ -336,12 +337,12 @@
           >
             {#if theme === "dark"}
               <img
-                src={`${__myapp.env.CDN_URL}/logo/svg/planetDark.svg`}
+              src={`${__myapp.env.CDN_URL}/logo/svg/planetDark.svg`}
                 alt="Plant-for-the-Planet Logo"
               />
             {:else}
               <img
-                src={`${__myapp.env.CDN_URL}/logo/svg/planet.svg`}
+              src={`${__myapp.env.CDN_URL}/logo/svg/planet.svg`}
                 alt="Plant-for-the-Planet Logo"
               />
             {/if}
