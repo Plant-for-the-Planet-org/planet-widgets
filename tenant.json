@@ -1,10 +1,10 @@
-{
-    "planet":{
-        "tenantURL": "https://www1.plant-for-the-planet.org",
-        "tenantName": "Plant-for-the-Planet"
+[
+    {
+        "id": "ten_I9TW3ncG",
+        "url": "https://www1.plant-for-the-planet.org"
     },
-    "salesforce":{
-        "tenantURL": "https://trees.salesforce.com",
-        "tenantName": "Salesforce"
+    {
+        "id": "ten_3hEjJCBs",
+        "tenantURL": "https://trees.salesforce.com"
     }
-}
+]
