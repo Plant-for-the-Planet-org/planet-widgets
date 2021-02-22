@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+	
+	<meta charset='utf-8'>
+	<meta name='viewport' content='width=device-width,initial-scale=1'>
+
+	<title>Planet Widgets</title>
+	<script defer src='/build/tree-map.js'></script>
+	<script defer src='/build/tree-profile.js'></script>
+	<script defer src='/build/tenantCounter.js'></script>
+	<script defer src='/build/tenantLeaderboard.js'></script>
+
+	<!-- Bootstrap -->
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
+		integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+	<style>
+		body{
+			min-height: 100vh;
+			min-width: 100vw;
+			display: grid;
+			place-items: center;
+		}
+
+		label {
+			margin-right: 10px;
+		}
+		#treemapp{
+			display: block;
+		}
+		#treeProf{
+			display: none;
+		}
+		#treeCount{
+			display: none;
+		}
+		#tenantLead{
+			display: none;
+		}
+		#treeMapCust{
+			display: block;
+		}
+		#treeProfCust{
+			display: none;
+		}
+		#treeCountCust{
+			display: none;
+		}
+		#tenantLeadCust{
+			display: none;
+		}
+		.customizationContainer > div,.customizationContainer > select {
+			margin-bottom: 20px;
+		}
+		.customisation-column{
+			margin-top: 60px;
+			min-height: 100vh;
+			max-width: 300px;
+		}
+		.col-container{
+			margin-top: 60px;
+			min-height: 100vh;
+		}
+		
+	</style>
+	
+</head>
+<body>
+	<div class="row w-100">
+		<div class="col-12 col-lg-4 d-flex justify-content-center">
+			<div class="customisation-column">
+
+			
+			<h2 class="fw-bold" style="margin-bottom: 20px;">Get started with a Widget</h2>
+			<select class="form-select" style="margin-bottom: 20px;" onchange="WidgetSelector(this.value)" aria-label="Default select example">
+				<option selected>Select Widget</option>
+				<option value="treemapp">Tree-Map</option>
+				<option value="treeProf">Tree-Profile</option>
+				<option value="treeCount">Tree-Counter</option>
+				<option value="tenantLead">Leaderboard</option>
+			</select>
+			<div id="treeMapCust" class="customizationContainer">
+
+				<select class="form-select" onchange="changeAttribute('treeMap',this.value,'locale')"
+									aria-label="Default select example">
+									<option value="en" selected>Select Language</option>
+									<option value="en">En</option>
+									<option value="de">De</option>
+				</select>
+
+				<div class="form-check form-switch">
+					<input class="form-check-input"
+						onclick="changeAttribute('treeMap',this.checked,'community')" type="checkbox"
+						id="treeMap-community-switch" checked>
+					<label class="form-check-label" for="treeMap-community-switch">Show community</label>
+				</div>
+
+				<select class="form-select" onchange="changeAttribute('treeMap',this.value,'theme')"
+								aria-label="Default select example">
+								<option value="light" selected>Select Theme</option>
+								<option value="light">Light</option>
+								<option value="dark">Dark</option>
+				</select>
+
+				<div class="input-group">
+					<label for="favcolor">Select your Primary color:</label>
+					<input type="color" id="primaryColor" name="primaryColor" value="#68b030"
+						onchange="changeAttribute('treeMap',this.value,'primarycolor')">
+				</div>
+
+				<div class="input-group">
+					<label for="favcolor">Select your Theme color:</label>
+					<input type="color" id="bgColor" name="bgColor" value="#23519b"
+						onchange="changeAttribute('treeMap',this.value,'circlebgcolor')">
+				</div>
+			</div>
+
+			<div id="treeProfCust" class="customizationContainer">
+   
+			   <select class="form-select" onchange="changeAttribute('treeProfile',this.value,'locale')"
+								   aria-label="Default select example">
+								   <option value="en" selected>Select Language</option>
+								   <option value="en">En</option>
+								   <option value="de">De</option>
+			   </select>
+   
+			   <div class="form-check form-switch">
+				   <input class="form-check-input"
+					   onclick="changeAttribute('treeProfile',this.checked,'community')" type="checkbox"
+					   id="treeProfile-community-switch" checked>
+				   <label class="form-check-label" for="treeMap-community-switch">Show community</label>
+			   </div>
+   
+			   <select class="form-select" onchange="changeAttribute('treeProfile',this.value,'theme')"
+							   aria-label="Default select example">
+							   <option value="light" selected>Select Theme</option>
+							   <option value="light">Light</option>
+							   <option value="dark">Dark</option>
+			   </select>
+   
+			   <div class="input-group">
+				   <label for="favcolor">Select your Primary color:</label>
+				   <input type="color" id="primaryColor" name="primaryColor" value="#68b030"
+					   onchange="changeAttribute('treeProfile',this.value,'primarycolor')">
+			   </div>
+   
+			   <div class="input-group">
+				   <label for="favcolor">Select your Theme color:</label>
+				   <input type="color" id="bgColor" name="bgColor" value="#23519b"
+					   onchange="changeAttribute('treeProfile',this.value,'circlebgcolor')">
+			   </div>
+		   </div>
+
+		   	<div id="treeCountCust" class="customizationContainer">
+
+				<select class="form-select" onchange="changeAttribute('treeCounter',this.value,'locale')"
+					aria-label="Default select example">
+					<option value="en" selected>Select Language</option>
+					<option value="en">En</option>
+					<option value="de">De</option>
+				</select>
+
+				<div class="form-check form-switch">
+					<input class="form-check-input"
+						onclick="changeAttribute('treeCounter',this.checked,'community')" type="checkbox"
+						id="treeCounter-community-switch" checked>
+					<label class="form-check-label" for="treeCounter-community-switch">Show community</label>
+				</div>
+
+				<select class="form-select" onchange="changeAttribute('treeCounter',this.value,'theme')"
+								aria-label="Default select example">
+								<option value="light" selected>Select Theme</option>
+								<option value="light">Light</option>
+								<option value="dark">Dark</option>
+				</select>
+
+				<div class="input-group">
+					<label for="favcolor">Select your Primary color:</label>
+					<input type="color" id="primaryColor" name="primaryColor" value="#68b030"
+						onchange="changeAttribute('treeCounter',this.value,'primarycolor')">
+				</div>
+
+				<div class="input-group">
+					<label for="favcolor">Select your Theme color:</label>
+					<input type="color" id="bgColor" name="bgColor" value="#23519b"
+						onchange="changeAttribute('treeCounter',this.value,'circlebgcolor')">
+				</div>
+		   </div>
+		   
+		   	<div id="tenantLeadCust" class="customizationContainer">
+
+				<select class="form-select" onchange="changeAttribute('tenantLeaderboard',this.value,'theme')"
+					aria-label="Default select example">
+					<option value="light" selected>Select Theme</option>
+					<option value="light">Light</option>
+					<option value="dark">Dark</option>
+				</select>
+		   </div>
+		</div>
+		</div> 
+	
+
+
+		<div class="col-12 col-lg-8">
+			 <div class="col-container" id="treemapp" >
+				<tree-map user='prf_h6smcMDN23Qet1CP7BEplM60' theme="light" id="treeMap" circlebgcolor="">
+				</tree-map>
+			</div>
+			<div class="col-container" id="treeProf">
+				<tree-profile user='prf_h6smcMDN23Qet1CP7BEplM60' theme="dark" id="treeProfile">
+				</tree-profile>
+			</div>
+			<div class="col-container" id="treeCount">
+				<tree-tenantcounter tenantkey="ten_I9TW3ncG" goal="10000000000" theme="light" locale="en"id="treeCounter">
+				</tree-tenantcounter>
+			</div>
+			<div class="col-container" id="tenantLead">
+				<tree-tenantleaderboard tenantKey="ten_I9TW3ncG" theme="light" locale="en" id="tenantLeaderboard">
+				</tree-tenantleaderboard>
+			</div>	
+
+		</div>
+	</div>
+</body>
+
+
+
+
+
+	 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js"
+		integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW"
+		crossorigin="anonymous"></script>
+	<script>
+
+		function changeAttribute(id, value, attribute){
+			document.getElementById(id).setAttribute(attribute,value);
+		}
+
+		function WidgetSelector(value) {
+
+			document.getElementById("treemapp").style.display = "none";
+			document.getElementById("treeProf").style.display = "none";
+			document.getElementById("treeCount").style.display = "none";
+			document.getElementById("tenantLead").style.display = "none";
+			document.getElementById(value).style.display = "block";
+
+			document.getElementById("treeMapCust").style.display = "none";
+			document.getElementById("treeProfCust").style.display = "none";
+			document.getElementById("treeCountCust").style.display = "none";
+			document.getElementById("tenantLeadCust").style.display = "none";
+			console.log('value',value);
+			switch(value){
+					case "treemapp": document.getElementById("treeMapCust").style.display = "block";
+					break;
+
+					case "treeProf": document.getElementById("treeProfCust").style.display = "block";
+					break;
+
+					case "treeCount": document.getElementById("treeCountCust").style.display = "block";
+					break;
+
+					case "tenantLead": document.getElementById("tenantLeadCust").style.display = "block";
+					break;
+					
+					default: break;
+				}
+			}
+
+		
+
+	</script>
+
+</body>
+
+</html>

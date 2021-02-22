@@ -37,12 +37,12 @@ function serve() {
 
 //Todo separate the treemap and treecounter.js files
 export default [{
-  input: "src/TreeMap/treemap.js",
+  input: "src/TreeMap/tree-map.js",
   output: {
     sourcemap: true,
     format: "iife",
     name: "app",
-    file: "public/build/treemap.js",
+    file: "public/build/tree-map.js",
   },
   plugins: [
     gzipPlugin(),
@@ -102,12 +102,142 @@ export default [{
     clearScreen: false,
   },
 },{
-  input: "src/TreeCounter/treecounter.js",
+  input: "src/TreeProfile/tree-profile.js",
   output: {
     sourcemap: true,
     format: "iife",
     name: "app",
-    file: "public/build/treecounter.js",
+    file: "public/build/tree-profile.js",
+  },
+  plugins: [
+    gzipPlugin(),
+    replace({
+      // stringify the object
+      __myapp: JSON.stringify({
+        env: {
+          isProd: production,
+          ...config().parsed // attached the .env config
+        }
+      }),
+    }),
+    svelte({
+      include: /App\.svelte$/,
+      compilerOptions: {
+        // enable run-time checks when not in production
+        dev: !production,
+        customElement: true
+      },
+      emitCss: false,
+    }),
+    svelte({
+      exclude: /App\.svelte$/,
+      compilerOptions: {
+        // enable run-time checks when not in production
+        dev: !production,
+        customElement: false
+      },
+      emitCss: false,
+    }),
+    json(),
+
+    // If you have external dependencies installed from
+    // npm, you'll most likely need these plugins. In
+    // some cases you'll need additional configuration -
+    // consult the documentation for details:
+    // https://github.com/rollup/plugins/tree/master/packages/commonjs
+    resolve({
+      browser: true,
+      dedupe: ["svelte"],
+    }),
+    commonjs(),
+
+    // In dev mode, call `npm run start` once
+    // the bundle has been generated
+    !production && serve(),
+
+    // Watch the `public` directory and refresh the
+    // browser on changes when not in production
+    !production && livereload("public"),
+
+    // If we're building for production (npm run build
+    // instead of npm run dev), minify
+    production && terser(),
+  ],
+  watch: {
+    clearScreen: false,
+  },
+},{
+  input: "src/TreeTenantCounter/TreeTenantCounter.js",
+  output: {
+    sourcemap: false,
+    format: "iife",
+    name: "app",
+    file: "public/build/tenantCounter.js",
+  },
+  plugins: [
+    gzipPlugin(),
+    replace({
+      // stringify the object
+      __myapp: JSON.stringify({
+        env: {
+          isProd: production,
+          ...config().parsed // attached the .env config
+        }
+      }),
+    }),
+    svelte({
+      include: /App\.svelte$/,
+      compilerOptions: {
+        // enable run-time checks when not in production
+        dev: !production,
+        customElement: true
+      },
+      emitCss: false,
+    }),
+    svelte({
+      exclude: /App\.svelte$/,
+      compilerOptions: {
+        // enable run-time checks when not in production
+        dev: !production,
+        customElement: false
+      },
+      emitCss: false,
+    }),
+    json(),
+
+    // If you have external dependencies installed from
+    // npm, you'll most likely need these plugins. In
+    // some cases you'll need additional configuration -
+    // consult the documentation for details:
+    // https://github.com/rollup/plugins/tree/master/packages/commonjs
+    resolve({
+      browser: true,
+      dedupe: ["svelte"],
+    }),
+    commonjs(),
+
+    // In dev mode, call `npm run start` once
+    // the bundle has been generated
+    !production && serve(),
+
+    // Watch the `public` directory and refresh the
+    // browser on changes when not in production
+    !production && livereload("public"),
+
+    // If we're building for production (npm run build
+    // instead of npm run dev), minify
+    production && terser(),
+  ],
+  watch: {
+    clearScreen: false,
+  },
+},{
+  input: "src/TreeTenantLeaderboard/TreeTenantLeaderboard.js",
+  output: {
+    sourcemap: false,
+    format: "iife",
+    name: "app",
+    file: "public/build/tenantLeaderboard.js",
   },
   plugins: [
     gzipPlugin(),
