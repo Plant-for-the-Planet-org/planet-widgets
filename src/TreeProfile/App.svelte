@@ -9,6 +9,7 @@
     import enLocale from "./../../public/data/locales/en.json";
     import deLocale from "./../../public/data/locales/de.json";
     import { onMount } from 'svelte';
+    import getTenantConfig from "../../utils/tenantsConfig";
 
     // Props that can be passed
     export let user;
@@ -18,7 +19,7 @@
     export let community = "true";
     export let locale = "en";
     export let refresh = "slow";
-
+    export let tenantkey = 'ten_I9TW3ncG';
     $:primarycolor = primarycolor;
     $:counterbgcolor = circlebgcolor
         ? circlebgcolor
@@ -38,7 +39,7 @@
     }
 
     let promise = fetchData();
-    let radius = 140;
+    let radius = 126;
     let size = 154;
     let circumference = 2 * Math.PI * radius;
 
@@ -119,7 +120,7 @@
                         r={radius}
                         stroke={primarycolor}
                         stroke-linecap="round"
-                        stroke-width="16"
+                        stroke-width="14"
                         transform={`rotate(-90,${size},${size})`}
                         stroke-dasharray={circumference}
                         stroke-dashoffset={circumference *
@@ -131,15 +132,14 @@
                 </svg>
             </div>
             <a
-                href={`${__myapp.env.APP_URL}/s/${data.slug}`}
+                href={`${getTenantConfig(tenantkey).url}/s/${data.slug}`}
                 class="primaryButton"
                 on:click
-                target="_blank">{language[locale].plantTrees}</a
-            >
+                target="_blank">{language[locale].plantTrees}</a>
 
             <div class="imageHeader">
                 <a
-                    href={`https://www1.plant-for-the-planet.org/t/${data.slug}`}
+                    href={`${getTenantConfig(tenantkey).url}/t/${data.slug}`}
                     target="_blank"
                 >
                     <img
@@ -168,14 +168,15 @@
 
             <div class="footer">
                 <a
-                    href={`https://www1.plant-for-the-planet.org/t/${data.slug}`}
+                    href={`${getTenantConfig(tenantkey).url}/t/${data.slug}`}
                     target="_blank"
                     class="footerLink"
                     >{language[locale].viewProfile}
                 </a>
+                <div class="block">
                 <a
                     class="footerLinkBold"
-                    href={`https://www1.plant-for-the-planet.org/`}
+                    href={'https://a.plant-for-the-planet.org/'}
                     target="_blank"
                     >| {language[locale].poweredBy}
                 </a>
@@ -210,6 +211,7 @@
                 {/if}
             </div>
         </div>
+    </div>
     {:catch error}
         <p>An error occurred!</p>
     {/await}
@@ -248,21 +250,23 @@
         justify-content: center;
         align-items: center;
         position: relative;
+        padding: 12px;
     }
     .treeCounterComponent {
-        height: 295px;
-        width: 295px;
+        height: 265px;
+        width: 265px;
         background-image: radial-gradient(white 0%, white 60%, #47a8dc 100%);
         border-radius: 50%;
         display: flex;
         justify-content: center;
         align-items: center;
         position: relative;
-        margin-top: 100px;
+        margin-top: 40px;
+        margin-bottom: 10px;
     }
     .treeCounter {
-        height: 266px;
-        width: 266px;
+        height: 240px;
+        width: 240px;
         border-radius: 50%;
         background-color: var(--counter-background-color);
         display: flex;
@@ -290,14 +294,13 @@
         color: white;
         font-weight: bold;
         background-image: linear-gradient(97deg, #68b030 4%, #007a49 116%);
-        height: 48px;
+        height: 40px;
         padding: 0px;
         text-align: center;
         border: 0px;
         border-radius: 52px;
         min-width: 205px;
-        margin-top: 24px;
-        margin-bottom: 24px;
+        margin-top: 18px;
         display: flex;
         align-items: center;
         justify-content: center;
@@ -309,11 +312,18 @@
         transform: translateY(-7px);
         cursor: pointer;
     }
+    .block{
+        display: flex;
+        flex-direction: row;
+    }
     .footer {
         display: flex;
         flex-direction: row;
         font-size: 14px;
-        margin-bottom: 12px;
+        margin-top: 10px;
+        justify-content: center;
+        align-items: center;
+        margin-top: 15px;
     }
     .footerLink {
         color: var(--link-color);
@@ -336,43 +346,82 @@
 
     .logo {
         border-radius: 50%;
-        height: 64px;
-        width: 64px;
+        height: 52px;
+        width: 52px;
         box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.16);
     }
 
     .logoPlanet {
-        height: 64px;
-        width: 64px;
+        height: 52px;
+        width: 52px;
         background-color: white;
         display: flex;
         align-items: center;
         justify-content: center;
         border-radius: 50%;
         box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.16);
-        margin-left: 12px;
+        margin-left: 18px;
+        margin-right: 6px;
     }
 
     .logoPlanet > img {
-        height: 52px;
-        width: 52px;
+        height: 46px;
+        width: 46px;
     }
 
     .logoPlanet > svg {
         border-radius: 50%;
     }
 
-    @media screen and (min-width: 640px) {
+    @media screen and (min-width: 320px) and (max-width: 419px){
         .treeCounterContainer {
             border-top-right-radius: 0px;
             border-top-left-radius: 10px;
             border-bottom-left-radius: 10px;
         }
-    }
 
-    @media screen and (min-width: 940px) {
+        .block{
+            display: flex;
+            flex-direction: row;
+        }
+
+        .treeCounterComponent{
+            margin-top: 50px;
+
+        }
+
+        .footer {
+        display: flex;
+        flex-direction: column;
+        font-size: 14px;
+        margin-bottom: -5px;
+        margin-top: 25px;
+        }
+        .footerLink {
+            color: var(--link-color);
+            text-decoration: none;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .primaryButton{
+            margin-top: 10px;
+        }
+    }
+    @media screen and (min-width: 420px) {
+        .treeCounterContainer {
+            border-top-right-radius: 0px;
+            border-top-left-radius: 10px;
+            border-bottom-left-radius: 10px;
+        }
+
         .treeCounterContainer {
             width: 420px;
+        }
+        .footer{
+            margin-top: 20px;
         }
     }
 
@@ -381,7 +430,7 @@
     }
 
     .infoIcon {
-        margin-left: 4px;
+        margin-left: 8px;
         position: relative;
     }
 
