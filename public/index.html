@@ -17,13 +17,13 @@
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
 		integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
 	<style>
-		body{
+		 body{
 			min-height: 100vh;
 			min-width: 100vw;
 			display: grid;
 			place-items: center;
-		}
-
+			background-color:  #f2f2f2;
+		} 
 		label {
 			margin-right: 10px;
 		}
@@ -54,20 +54,70 @@
 		.customizationContainer > div,.customizationContainer > select {
 			margin-bottom: 20px;
 		}
+		.customizationContainer > select{
+			background-color: #f2f2f2;
+			border-radius: 12px;
+		}
+		.form-control{
+			background-color: #f2f2f2;
+			border-radius: 12px;
+		}
+		.col-widget{
+			width: 100%;
+			width: 100%;
+			padding: 8px;
+			border-top-right-radius: 20px;
+			border-bottom-right-radius: 20px;
+		}
+		.col-selector{
+			padding: 20px;
+			width: 100%;
+			border-top-left-radius: 20px;
+			border-bottom-left-radius: 20px;
+			
+		}
+
+		.form-check-input{
+			width: 100px;
+			height: 20px;
+			background-color: #f2f2f2;
+		}
+		@media screen and (min-width: 768px){
+			.customizationContainer > select, .form-control, .form-select{
+				width: 300px;
+				padding-left: 10px;
+			}
+		}
+		@media screen and (min-width: 984px){
+			.row{
+				display: flex;
+				flex-direction: row;
+				background-color: teal;
+			}
+
+			.col-widget{
+				width: 1000px;
+				height: 600px;
+			}
+		}
 	</style>
 	
 </head>
 <body>
 	<div class="row">
-		<div class="col-12 col-lg-3">
+		<div class=" col-selector">
 			<h2 class="fw-bold" style="margin-bottom: 20px;">Get started with a Widget</h2>
-			<select class="form-select" style="margin-bottom: 20px;" onchange="WidgetSelector(this.value)" aria-label="Default select example">
+			<select class="form-select" style="margin-bottom: 20px;background-color: #f2f2f2;
+			border-radius: 12px;" onchange="WidgetSelector(this.value)" aria-label="Default select example">
 				<option selected>Select Widget</option>
 				<option value="treemapp">Tree-Map</option>
 				<option value="treeProf">Tree-Profile</option>
 				<option value="treeCount">Tree-Counter</option>
 				<option value="tenantLead">Leaderboard</option>
 			</select>
+			<div class="mb-3">
+				<input type="text" class="form-control" id="formGroupExampleInput" placeholder="website URL">
+			</div>
 			<div id="treeMapCust" class="customizationContainer">
 
 				<select class="form-select" onchange="changeAttribute('treeMap',this.value,'locale')"
@@ -190,7 +240,7 @@
 	
 
 
-		<div class="col-12 col-lg-9">
+		<div class=" col-widget" >
 			 <div class="col-container" id="treemapp" >
 				<tree-map user='prf_h6smcMDN23Qet1CP7BEplM60' theme="light" id="treeMap" circlebgcolor="">
 				</tree-map>
