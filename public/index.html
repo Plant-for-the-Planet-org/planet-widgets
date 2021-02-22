@@ -22,7 +22,6 @@
 			min-width: 100vw;
 			display: grid;
 			place-items: center;
-			background-color:  #f2f2f2;
 		} 
 		label {
 			margin-right: 10px;
@@ -51,196 +50,162 @@
 		#tenantLeadCust{
 			display: none;
 		}
+		.customisation-column{
+			margin-top: 60px;
+			min-height: 100vh;
+			max-width: 300px;
+		}
+		.col-container{
+			margin-top: 60px;
+			min-height: 100vh;
+		}
 		.customizationContainer > div,.customizationContainer > select {
 			margin-bottom: 20px;
 		}
-		.customizationContainer > select{
-			background-color: #f2f2f2;
-			border-radius: 12px;
-		}
-		.form-control{
-			background-color: #f2f2f2;
-			border-radius: 12px;
-		}
-		.col-widget{
-			width: 100%;
-			width: 100%;
-			padding: 8px;
-			border-top-right-radius: 20px;
-			border-bottom-right-radius: 20px;
-		}
-		.col-selector{
-			padding: 20px;
-			width: 100%;
-			border-top-left-radius: 20px;
-			border-bottom-left-radius: 20px;
-			
-		}
-
-		.form-check-input{
-			width: 100px;
-			height: 20px;
-			background-color: #f2f2f2;
-		}
-		@media screen and (min-width: 768px){
-			.customizationContainer > select, .form-control, .form-select{
-				width: 300px;
-				padding-left: 10px;
-			}
-		}
-		@media screen and (min-width: 984px){
-			.row{
-				display: flex;
-				flex-direction: row;
-				background-color: teal;
-			}
-
-			.col-widget{
-				width: 1000px;
-				height: 600px;
-			}
-		}
+		
 	</style>
 	
 </head>
 <body>
-	<div class="row">
-		<div class=" col-selector">
-			<h2 class="fw-bold" style="margin-bottom: 20px;">Get started with a Widget</h2>
-			<select class="form-select" style="margin-bottom: 20px;background-color: #f2f2f2;
-			border-radius: 12px;" onchange="WidgetSelector(this.value)" aria-label="Default select example">
-				<option selected>Select Widget</option>
-				<option value="treemapp">Tree-Map</option>
-				<option value="treeProf">Tree-Profile</option>
-				<option value="treeCount">Tree-Counter</option>
-				<option value="tenantLead">Leaderboard</option>
-			</select>
-			<div class="mb-3">
-				<input type="text" class="form-control" id="formGroupExampleInput" placeholder="website URL">
-			</div>
-			<div id="treeMapCust" class="customizationContainer">
-
-				<select class="form-select" onchange="changeAttribute('treeMap',this.value,'locale')"
+	<div class="row w-100">
+		<div class="col-12 col-lg-4 d-flex justify-content-center">
+			<div class="customisation-column">
+				<h2 class="fw-bold" style="margin-bottom: 20px;">Get started with a Widget</h2>
+				<select class="form-select" style="margin-bottom: 20px;" onchange="WidgetSelector(this.value)" aria-label="Default select example">
+					<option selected>Select Widget</option>
+					<option value="treemapp">Tree-Map</option>
+					<option value="treeProf">Tree-Profile</option>
+					<option value="treeCount">Tree-Counter</option>
+					<option value="tenantLead">Leaderboard</option>
+				</select>
+				<div class="mb-3">
+					<input type="text" class="form-control" id="formGroupExampleInput" placeholder="website URL">
+				</div>
+				<div id="treeMapCust" class="customizationContainer">
+	
+					<select class="form-select" onchange="changeAttribute('treeMap',this.value,'locale')"
+										aria-label="Default select example">
+										<option value="en" selected>Select Language</option>
+										<option value="en">En</option>
+										<option value="de">De</option>
+					</select>
+	
+					<div class="form-check form-switch">
+						<input class="form-check-input"
+							onclick="changeAttribute('treeMap',this.checked,'community')" type="checkbox"
+							id="treeMap-community-switch" checked>
+						<label class="form-check-label" for="treeMap-community-switch">Show community</label>
+					</div>
+	
+					<select class="form-select" onchange="changeAttribute('treeMap',this.value,'theme')"
 									aria-label="Default select example">
-									<option value="en" selected>Select Language</option>
-									<option value="en">En</option>
-									<option value="de">De</option>
-				</select>
-
-				<div class="form-check form-switch">
-					<input class="form-check-input"
-						onclick="changeAttribute('treeMap',this.checked,'community')" type="checkbox"
-						id="treeMap-community-switch" checked>
-					<label class="form-check-label" for="treeMap-community-switch">Show community</label>
+									<option value="light" selected>Select Theme</option>
+									<option value="light">Light</option>
+									<option value="dark">Dark</option>
+					</select>
+	
+					<div class="input-group">
+						<label for="favcolor">Select your Primary color:</label>
+						<input type="color" id="primaryColor" name="primaryColor" value="#68b030"
+							onchange="changeAttribute('treeMap',this.value,'primarycolor')">
+					</div>
+	
+					<div class="input-group">
+						<label for="favcolor">Select your Theme color:</label>
+						<input type="color" id="bgColor" name="bgColor" value="#23519b"
+							onchange="changeAttribute('treeMap',this.value,'circlebgcolor')">
+					</div>
 				</div>
-
-				<select class="form-select" onchange="changeAttribute('treeMap',this.value,'theme')"
-								aria-label="Default select example">
-								<option value="light" selected>Select Theme</option>
-								<option value="light">Light</option>
-								<option value="dark">Dark</option>
-				</select>
-
-				<div class="input-group">
-					<label for="favcolor">Select your Primary color:</label>
-					<input type="color" id="primaryColor" name="primaryColor" value="#68b030"
-						onchange="changeAttribute('treeMap',this.value,'primarycolor')">
-				</div>
-
-				<div class="input-group">
-					<label for="favcolor">Select your Theme color:</label>
-					<input type="color" id="bgColor" name="bgColor" value="#23519b"
-						onchange="changeAttribute('treeMap',this.value,'circlebgcolor')">
-				</div>
-			</div>
-
-			<div id="treeProfCust" class="customizationContainer">
-   
-			   <select class="form-select" onchange="changeAttribute('treeProfile',this.value,'locale')"
+	
+				<div id="treeProfCust" class="customizationContainer">
+	   
+				   <select class="form-select" onchange="changeAttribute('treeProfile',this.value,'locale')"
+									   aria-label="Default select example">
+									   <option value="en" selected>Select Language</option>
+									   <option value="en">En</option>
+									   <option value="de">De</option>
+				   </select>
+	   
+				   <div class="form-check form-switch">
+					   <input class="form-check-input"
+						   onclick="changeAttribute('treeProfile',this.checked,'community')" type="checkbox"
+						   id="treeProfile-community-switch" checked>
+					   <label class="form-check-label" for="treeMap-community-switch">Show community</label>
+				   </div>
+	   
+				   <select class="form-select" onchange="changeAttribute('treeProfile',this.value,'theme')"
 								   aria-label="Default select example">
-								   <option value="en" selected>Select Language</option>
-								   <option value="en">En</option>
-								   <option value="de">De</option>
-			   </select>
-   
-			   <div class="form-check form-switch">
-				   <input class="form-check-input"
-					   onclick="changeAttribute('treeProfile',this.checked,'community')" type="checkbox"
-					   id="treeProfile-community-switch" checked>
-				   <label class="form-check-label" for="treeMap-community-switch">Show community</label>
+								   <option value="light" selected>Select Theme</option>
+								   <option value="light">Light</option>
+								   <option value="dark">Dark</option>
+				   </select>
+	   
+				   <div class="input-group">
+					   <label for="favcolor">Select your Primary color:</label>
+					   <input type="color" id="primaryColor" name="primaryColor" value="#68b030"
+						   onchange="changeAttribute('treeProfile',this.value,'primarycolor')">
+				   </div>
+	   
+				   <div class="input-group">
+					   <label for="favcolor">Select your Theme color:</label>
+					   <input type="color" id="bgColor" name="bgColor" value="#23519b"
+						   onchange="changeAttribute('treeProfile',this.value,'circlebgcolor')">
+				   </div>
 			   </div>
-   
-			   <select class="form-select" onchange="changeAttribute('treeProfile',this.value,'theme')"
-							   aria-label="Default select example">
-							   <option value="light" selected>Select Theme</option>
-							   <option value="light">Light</option>
-							   <option value="dark">Dark</option>
-			   </select>
-   
-			   <div class="input-group">
-				   <label for="favcolor">Select your Primary color:</label>
-				   <input type="color" id="primaryColor" name="primaryColor" value="#68b030"
-					   onchange="changeAttribute('treeProfile',this.value,'primarycolor')">
+	
+				   <div id="treeCountCust" class="customizationContainer">
+	
+					<select class="form-select" onchange="changeAttribute('treeCounter',this.value,'locale')"
+						aria-label="Default select example">
+						<option value="en" selected>Select Language</option>
+						<option value="en">En</option>
+						<option value="de">De</option>
+					</select>
+	
+					<div class="form-check form-switch">
+						<input class="form-check-input"
+							onclick="changeAttribute('treeCounter',this.checked,'community')" type="checkbox"
+							id="treeCounter-community-switch" checked>
+						<label class="form-check-label" for="treeCounter-community-switch">Show community</label>
+					</div>
+	
+					<select class="form-select" onchange="changeAttribute('treeCounter',this.value,'theme')"
+									aria-label="Default select example">
+									<option value="light" selected>Select Theme</option>
+									<option value="light">Light</option>
+									<option value="dark">Dark</option>
+					</select>
+	
+					<div class="input-group">
+						<label for="favcolor">Select your Primary color:</label>
+						<input type="color" id="primaryColor" name="primaryColor" value="#68b030"
+							onchange="changeAttribute('treeCounter',this.value,'primarycolor')">
+					</div>
+	
+					<div class="input-group">
+						<label for="favcolor">Select your Theme color:</label>
+						<input type="color" id="bgColor" name="bgColor" value="#23519b"
+							onchange="changeAttribute('treeCounter',this.value,'circlebgcolor')">
+					</div>
 			   </div>
-   
-			   <div class="input-group">
-				   <label for="favcolor">Select your Theme color:</label>
-				   <input type="color" id="bgColor" name="bgColor" value="#23519b"
-					   onchange="changeAttribute('treeProfile',this.value,'circlebgcolor')">
+			   
+				   <div id="tenantLeadCust" class="customizationContainer">
+	
+					<select class="form-select" onchange="changeAttribute('tenantLeaderboard',this.value,'theme')"
+						aria-label="Default select example">
+						<option value="light" selected>Select Theme</option>
+						<option value="light">Light</option>
+						<option value="dark">Dark</option>
+					</select>
 			   </div>
-		   </div>
-
-		   	<div id="treeCountCust" class="customizationContainer">
-
-				<select class="form-select" onchange="changeAttribute('treeCounter',this.value,'locale')"
-					aria-label="Default select example">
-					<option value="en" selected>Select Language</option>
-					<option value="en">En</option>
-					<option value="de">De</option>
-				</select>
-
-				<div class="form-check form-switch">
-					<input class="form-check-input"
-						onclick="changeAttribute('treeCounter',this.checked,'community')" type="checkbox"
-						id="treeCounter-community-switch" checked>
-					<label class="form-check-label" for="treeCounter-community-switch">Show community</label>
-				</div>
-
-				<select class="form-select" onchange="changeAttribute('treeCounter',this.value,'theme')"
-								aria-label="Default select example">
-								<option value="light" selected>Select Theme</option>
-								<option value="light">Light</option>
-								<option value="dark">Dark</option>
-				</select>
-
-				<div class="input-group">
-					<label for="favcolor">Select your Primary color:</label>
-					<input type="color" id="primaryColor" name="primaryColor" value="#68b030"
-						onchange="changeAttribute('treeCounter',this.value,'primarycolor')">
-				</div>
-
-				<div class="input-group">
-					<label for="favcolor">Select your Theme color:</label>
-					<input type="color" id="bgColor" name="bgColor" value="#23519b"
-						onchange="changeAttribute('treeCounter',this.value,'circlebgcolor')">
-				</div>
-		   </div>
-		   
-		   	<div id="tenantLeadCust" class="customizationContainer">
-
-				<select class="form-select" onchange="changeAttribute('tenantLeaderboard',this.value,'theme')"
-					aria-label="Default select example">
-					<option value="light" selected>Select Theme</option>
-					<option value="light">Light</option>
-					<option value="dark">Dark</option>
-				</select>
-		   </div>
+			</div>
+			
 
 		</div> 
 	
 
 
-		<div class=" col-widget" >
+		<div class=" col-12 col-lg-8" >
 			 <div class="col-container" id="treemapp" >
 				<tree-map user='prf_h6smcMDN23Qet1CP7BEplM60' theme="light" id="treeMap" circlebgcolor="">
 				</tree-map>
@@ -257,11 +222,7 @@
 				<tree-tenantleaderboard tenantKey="ten_I9TW3ncG" theme="light" locale="en" id="tenantLeaderboard">
 				</tree-tenantleaderboard>
 			</div>	
-<!-- 			
-			<div id="widgetCode">
 
-			</div>
-			<button>Copy Code</button> -->
 		</div>
 	</div>
 </body>
