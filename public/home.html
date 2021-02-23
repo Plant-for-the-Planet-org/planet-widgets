@@ -6,10 +6,10 @@
 	<meta name='viewport' content='width=device-width,initial-scale=1'>
 
 	<title>Planet Widgets</title>
-	<script defer src='/build/tree-map.js'></script>
-	<script defer src='/build/tree-profile.js'></script>
-	<script defer src='/build/tenantCounter.js'></script>
-	<script defer src='/build/tenantLeaderboard.js'></script>
+	<script defer src='/build/tree-map.js' id='treeMapScript'></script>
+	<script defer src='/build/tree-profile.js' id='treeProfileScript'></script>
+	<script defer src='/build/tenantCounter.js' id='treeCounterScript'></script>
+	<script defer src='/build/tenantLeaderboard.js' id='tenantLeaderboardScript'></script>
 
 	<!-- Bootstrap -->
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
@@ -19,11 +19,20 @@
 			display: flex;
 			flex-direction: column;
 			width: 320px;
-			align-items: flex-start;
-			align-self: flex-start;
-			margin-top: 60px;
+			align-items: center;
+			align-self: center;
 			gap: 20px;
-			margin-bottom: 80px;
+			margin-top: 60px;
+			margin-bottom: 40px;
+			margin-left: 60px;
+			margin-right: 60px;
+		}
+
+		.code-container {
+			display: flex;
+			flex-direction: column;
+			margin-left: 60px;
+			margin-right: 60px;
 		}
 
 		.col-container {
@@ -35,11 +44,15 @@
 		label {
 			margin-right: 10px;
 		}
+
+		a:link {
+		  text-decoration: none;
+		}
 	</style>
 
 </head>
 
-<body style="margin-top:100px">
+<body style="margin-top:100px" onLoad="update()">
 
 	<!-- Navbar starts -->
 	<nav class="navbar fixed-top navbar-expand-lg navbar-dark bg-dark">
@@ -133,8 +146,11 @@
 							<input type="color" id="bgColor" name="bgColor" value="#23519b"
 								onchange="changeAttribute('treeMap',this.value,'circlebgcolor')">
 						</div>
-
 					</div>
+
+					<a href="" onClick="copyToClipboard('treeMapCode'); return false">
+						<div id="treeMapCode" class="code-container"></div>
+					</a>
 
 				</div>
 			</div>
@@ -182,10 +198,15 @@
 							<input type="color" id="bgColorPro" name="bgColorPro" value="#2f3336"
 								onchange="changeAttribute('treeProfile',this.value,'circlebgcolor')">
 						</div>
-
 					</div>
+
+					<a href="" onClick="copyToClipboard('treeProfileCode'); return false">
+						<div id="treeProfileCode" class="code-container"></div>
+					</a>
+
 				</div>
 			</div>
+
 			<div class="tab-pane fade" id="tenantcounter" role="tabpanel" aria-labelledby="tenant-counter-widget">
 				<div class="col-container">
 					<tree-tenantcounter tenantkey="ten_I9TW3ncG" goal="10000000000" theme="light" locale="en"
@@ -230,8 +251,12 @@
 							<input type="color" id="bgColorCounter" name="bgColorCounter" value="#23519b"
 								onchange="changeAttribute('treeCounter',this.value,'circlebgcolor')">
 						</div>
-
 					</div>
+
+					<a href="" onClick="copyToClipboard('treeCounterCode'); return false">
+						<div id="treeCounterCode" class="code-container"></div>
+					</a>
+
 				</div>
 			</div>
 			<div class="tab-pane fade" id="tenantleaderboard" role="tabpanel"
@@ -239,6 +264,7 @@
 				<div class="col-container">
 					<tree-tenantleaderboard tenantKey="ten_I9TW3ncG" theme="light" locale="en" id="tenantLeaderboard">
 					</tree-tenantleaderboard>
+
 					<div class="customisation-container">
 						<h2 class="fw-bold">Customise your widget:</h2>
 						<!--For Language-->
@@ -258,6 +284,10 @@
 						</select>
 					</div>
 
+					<a href="" onClick="copyToClipboard('tenantLeaderboardCode'); return false">
+						<div id="tenantLeaderboardCode" class="code-container"></div>
+					</a>
+
 				</div>
 			</div>
 		</div>
@@ -269,7 +299,36 @@
 	<script>
 
 		function changeAttribute(id, value, attribute) {
-			document.getElementById(id).setAttribute(attribute, value)
+			document.getElementById(id).setAttribute(attribute, value);
+			updateCode(id);
+		}
+
+		function updateCode(id) {
+			var widgetCode = document.getElementById(id + 'Code');
+			var widgetNode = document.getElementById(id + 'Script');
+			widgetNode.src = 'https://widgets.plant-for-the-planet.org/build/' + widgetNode.src.split("/")[4];
+			widgetCode.innerHTML = "<code>" +
+				document.getElementById(id + 'Script').outerHTML.replace(/</g,"&lt;") + '</br>'+
+				document.getElementById(id).outerHTML.replace(/</g,"&lt;") +
+				"</code>";
+		}
+
+		function copyToClipboard(id) {
+			window.getSelection().removeAllRanges();
+			let range = document.createRange();
+			range.selectNode(document.getElementById(id));
+			window.getSelection().addRange(range);
+			document.execCommand('copy');
+			window.getSelection().removeAllRanges();
+			document.getElementById(id).innerHTML = 'Copied!';
+			setTimeout(function(){ update(); }, 1000);
+		}
+
+		function update() {
+			updateCode('treeMap');
+			updateCode('treeProfile');
+			updateCode('treeCounter');
+			updateCode('tenantLeaderboard');
 		}
 
 	</script>
