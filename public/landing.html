@@ -284,12 +284,14 @@
 						if (!response.ok)	 {
 						throw new Error("Invalid User");
 					}else return response.json();
-					} )
+					} ) 
 					
 					.then((data) => {
-						document.getElementById("treeMap").setAttribute("user", data.slug);
+						document.getElementById("treeMap").setAttribute("user", data);
 					} )
-					.catch(alert);
+					.catch((error) =>{
+						document.getElementById("error").innerHTML = "Invalid Profile URL";
+					});
 					}
 					else{
 						document.getElementById("error").innerHTML = "Invalid URL";
