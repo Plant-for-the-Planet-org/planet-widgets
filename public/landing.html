@@ -63,6 +63,11 @@
 			margin-top: 60px;
 			min-height: 100vh;
 		}
+		#error{
+			display: block;
+			color: red;
+			font-size: smaller;
+		}
 		
 	</style>
 	
@@ -81,29 +86,31 @@
 				<option value="treeCount">Tree-Counter</option>
 				<option value="tenantLead">Leaderboard</option>
 			</select>
+			
 			<div id="treeMapCust" class="customizationContainer">
-
+				<div class="mb-3">
+					<input type="text" class="form-control" onblur="validURL(this.value)" placeholder="User URL">
+				  </div>
+				  <div id="error" ></div>
 				<select class="form-select" onchange="changeAttribute('treeMap',this.value,'locale')"
-									aria-label="Default select example">
-									<option value="en" selected>Select Language</option>
-									<option value="en">En</option>
-									<option value="de">De</option>
+							aria-label="Default select example">
+							<option value="en" selected>Select Language</option>
+							<option value="en">En</option>
+							<option value="de">De</option>
 				</select>
-
+				<h5 style="margin-bottom: 20px;">Optional Customization Options</h2>
+				<select class="form-select" onchange="changeAttribute('treeMap',this.value,'theme')"
+							aria-label="Default select example">
+							<option value="light" selected>Select Theme</option>
+							<option value="light">Light</option>
+							<option value="dark">Dark</option>
+				</select>
 				<div class="form-check form-switch">
 					<input class="form-check-input"
 						onclick="changeAttribute('treeMap',this.checked,'community')" type="checkbox"
 						id="treeMap-community-switch" checked>
 					<label class="form-check-label" for="treeMap-community-switch">Show community</label>
 				</div>
-
-				<select class="form-select" onchange="changeAttribute('treeMap',this.value,'theme')"
-								aria-label="Default select example">
-								<option value="light" selected>Select Theme</option>
-								<option value="light">Light</option>
-								<option value="dark">Dark</option>
-				</select>
-
 				<div class="input-group">
 					<label for="favcolor">Select your Primary color:</label>
 					<input type="color" id="primaryColor" name="primaryColor" value="#68b030"
@@ -119,12 +126,12 @@
 
 			<div id="treeProfCust" class="customizationContainer">
    
-			   <select class="form-select" onchange="changeAttribute('treeProfile',this.value,'locale')"
-								   aria-label="Default select example">
-								   <option value="en" selected>Select Language</option>
-								   <option value="en">En</option>
-								   <option value="de">De</option>
-			   </select>
+			<select class="form-select" onchange="changeAttribute('treeProfile',this.value,'locale')"
+							aria-label="Default select example">
+							<option value="en" selected>Select Language</option>
+							<option value="en">En</option>
+							<option value="de">De</option>
+			</select>
    
 			   <div class="form-check form-switch">
 				   <input class="form-check-input"
@@ -205,7 +212,7 @@
 
 		<div class="col-12 col-lg-8">
 			 <div class="col-container" id="treemapp" >
-				<tree-map user='prf_h6smcMDN23Qet1CP7BEplM60' theme="light" id="treeMap" circlebgcolor="">
+				<tree-map user='harsh-vitra' theme="light" id="treeMap" circlebgcolor="">
 				</tree-map>
 			</div>
 			<div class="col-container" id="treeProf">
@@ -267,9 +274,28 @@
 					default: break;
 				}
 			}
-
-		
-
+			 function validURL(str) {
+				var expression = /[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*)?/gi;
+						var regex = new RegExp(expression);
+						if (str.match(regex)) {
+							const lastSegment = str.split("/").pop();
+					fetch(`https://app.plant-for-the-planet.org/app/profiles/${lastSegment}`)
+					.then((response) => {
+						if (!response.ok)	 {
+						throw new Error("Invalid User");
+					}
+					return response;
+					} )
+					
+					.then((data) => {
+						document.getElementById("treeMap").setAttribute("user", data.slug);
+					} )
+					.catch(alert);
+					}
+					else{
+						document.getElementById("error").innerHTML = "Invalid URL";
+					}
+				}
 	</script>
 
 </body>
