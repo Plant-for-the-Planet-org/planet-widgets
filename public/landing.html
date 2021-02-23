@@ -283,8 +283,7 @@
 					.then((response) => {
 						if (!response.ok)	 {
 						throw new Error("Invalid User");
-					}
-					return response;
+					}else return response.json();
 					} )
 					
 					.then((data) => {
