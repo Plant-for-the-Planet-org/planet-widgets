@@ -102,7 +102,7 @@
 
 				<div id="treeMapCust" class="customizationContainer">
 					<div class="mb-3">
-						<input type="text" class="form-control" onblur="validURL(this.value)" placeholder="User URL">
+						<input type="text" class="form-control" onblur="validURLTreeMap(this.value)" placeholder="User URL">
 					</div>
 					<div id="error"></div>
 					<select class="form-select" onchange="changeAttribute('treeMap',this.value,'locale')"
@@ -138,14 +138,16 @@
 				</div>
 
 				<div id="treeProfCust" class="customizationContainer">
-
+					<div class="mb-3">
+						<input type="text" class="form-control" onblur="validURLTreeProf(this.value)" placeholder="User URL">
+					</div>
+					<div id="error-prof"></div>
 					<select class="form-select" onchange="changeAttribute('treeProfile',this.value,'locale')"
 						aria-label="Default select example">
 						<option value="en" selected>Select Language</option>
 						<option value="en">En</option>
 						<option value="de">De</option>
 					</select>
-
 					<div class="form-check form-switch">
 						<input class="form-check-input"
 							onclick="changeAttribute('treeProfile',this.checked,'community')" type="checkbox"
@@ -288,7 +290,7 @@
 			default: break;
 		}
 	}
-	function validURL(str) {
+	function validURLTreeMap(str) {
 		var expression = /[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*)?/gi;
 		var regex = new RegExp(expression);
 		document.getElementById("error").innerHTML = "";
@@ -309,10 +311,52 @@
 				} else return response.json();
 			})
 			.then((data) => {
-				document.getElementById("treemapp").innerHTML = `<tree-map user=${data.slug} id="treeMap">`;
+				
+				// let theme = document.getElementById("treeMap").getAttribute("theme");
+				// let primaryColor = document.getElementById("treeMap").getAttribute("primarycolor");
+				// let circleBGColor = document.getElementById("treeMap").getAttribute("circlebgcolor");
+				// let community = document.getElementById("treeMap").getAttribute("community");
+				// let locale = document.getElementById("treeMap").getAttribute("locale");
+
+				document.getElementById("treemapp").innerHTML = `<tree-map user=${data.slug}  id="treeMap"> </tree-map>`;
 			})
 			.catch((error) => {
 				document.getElementById("error").innerHTML = "Invalid Profile URL";
+			});
+	}
+
+	function validURLTreeProf(str) {
+		var expression = /[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*)?/gi;
+		var regex = new RegExp(expression);
+		document.getElementById("error-prof").innerHTML = "";
+		if (str.match(regex)) {
+			const lastSegment = str.split("/").pop();
+			updateUserAttributeProf(lastSegment)
+		}
+		else {
+			updateUserAttributeProf(str)
+		}
+	}
+
+	function updateUserAttributeProf(userslug) {
+		fetch(`https://app.plant-for-the-planet.org/app/profiles/${userslug}`)
+			.then((response) => {
+				if (!response.ok) {
+					throw new Error("Invalid User");
+				} else return response.json();
+			})
+			.then((data) => {
+				
+				// let theme = document.getElementById("treeMap").getAttribute("theme");
+				// let primaryColor = document.getElementById("treeMap").getAttribute("primarycolor");
+				// let circleBGColor = document.getElementById("treeMap").getAttribute("circlebgcolor");
+				// let community = document.getElementById("treeMap").getAttribute("community");
+				// let locale = document.getElementById("treeMap").getAttribute("locale");
+
+				document.getElementById("treeProf").innerHTML = `<tree-profile user=${data.slug}  id="treeProfile"> </tree-profile>`;
+			})
+			.catch((error) => {
+				document.getElementById("error-prof").innerHTML = "Invalid Profile URL";
 			});
 	}
 </script>
