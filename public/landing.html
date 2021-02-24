@@ -75,7 +75,7 @@
 			min-height: 100vh;
 		}
 
-		#error {
+		#error, #error-prof, #error-count {
 			display: block;
 			color: red;
 			font-size: smaller;
@@ -176,7 +176,10 @@
 				</div>
 
 				<div id="treeCountCust" class="customizationContainer">
-
+					<div class="mb-3">
+						<input type="text" class="form-control" onblur="validURLTreeCount(this.value)" placeholder="User URL">
+					</div>
+					<div id="error-count"></div>
 					<select class="form-select" onchange="changeAttribute('treeCounter',this.value,'locale')"
 						aria-label="Default select example">
 						<option value="en" selected>Select Language</option>
@@ -357,6 +360,28 @@
 			})
 			.catch((error) => {
 				document.getElementById("error-prof").innerHTML = "Invalid Profile URL";
+			});
+	}
+	
+	function validURLTreeCount(tenantkey){
+		document.getElementById("error-count").innerHTML = "";
+		fetch(`https://app.plant-for-the-planet.org/app/tenantScore`, 
+		{
+			headers: {
+				'tenant-key': tenantkey
+			}
+		})
+		.then((response)=> {
+				if (!response.ok) {
+					throw new Error("Invalid Tenant");
+				} else return response.json();
+			})
+		.then((data) => {
+			let goal = document.getElementById("treeCounter").getAttribute("goal");
+			document.getElementById("treeCount").innerHTML = `<tree-tenantcounter tenantkey=${tenantkey}  goal=${goal} id="treeCounter"> </tree-tenantcounter>`;
+		})
+		.catch((error) => {
+				document.getElementById("error-count").innerHTML = "Invalid Tenant ID";
 			});
 	}
 </script>
