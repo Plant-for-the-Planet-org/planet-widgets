@@ -75,7 +75,7 @@
 			min-height: 100vh;
 		}
 
-		#error, #error-prof, #error-count {
+		#error, #error-prof, #error-count, #error-lead {
 			display: block;
 			color: red;
 			font-size: smaller;
@@ -215,7 +215,10 @@
 				</div>
 
 				<div id="tenantLeadCust" class="customizationContainer">
-
+					<div class="mb-3">
+						<input type="text" class="form-control" onblur="validURLTreeLead(this.value)" placeholder="User URL">
+					</div>
+					<div id="error-lead"></div>
 					<select class="form-select" onchange="changeAttribute('tenantLeaderboard',this.value,'theme')"
 						aria-label="Default select example">
 						<option value="light" selected>Select Theme</option>
@@ -383,6 +386,31 @@
 		.catch((error) => {
 				document.getElementById("error-count").innerHTML = "Invalid Tenant ID";
 			});
+	}
+
+	function validURLTreeLead(tenantkey){
+		document.getElementById("error-lead").innerHTML = "";
+		fetch(`https://app.plant-for-the-planet.org/app/tenantScore`, 
+		{
+			headers: {
+				'tenant-key': tenantkey
+			}
+		})
+
+		.then((response)=> {
+				if (!response.ok) {
+					throw new Error("Invalid Tenant");
+				} else return response.json();
+			})
+		.then((data) => {
+			document.getElementById("tenantLead").innerHTML = `<tree-tenantleaderboard tenantkey=${tenantkey} id="tenantLeaderboard"> </tree-tenantleaderboard>`;
+		})
+		.catch((error) => {
+				document.getElementById("error-lead").innerHTML = "Invalid Tenant ID";
+			});
+
+			// .then((response) => response.json())
+		// .then((data) => console.log(data))
 	}
 </script>
 
