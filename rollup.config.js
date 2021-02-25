@@ -172,7 +172,7 @@ export default [{
     sourcemap: false,
     format: "iife",
     name: "app",
-    file: "public/build/tenantCounter.js",
+    file: "public/build/tree-tenant-counter.js",
   },
   plugins: [
     gzipPlugin(),
@@ -237,7 +237,7 @@ export default [{
     sourcemap: false,
     format: "iife",
     name: "app",
-    file: "public/build/tenantLeaderboard.js",
+    file: "public/build/tree-tenant-leaderboard.js",
   },
   plugins: [
     gzipPlugin(),
