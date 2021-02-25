@@ -1,7 +1,7 @@
 <svelte:options tag="tree-tenantleaderboard" immutable={true} />
 
 <script>
-    import {getFormattedNumber} from '../../utils/formatNumber';
+    import { getFormattedNumber } from "../../utils/formatNumber";
     import enLocale from "./../../public/data/locales/en.json";
     import deLocale from "./../../public/data/locales/de.json";
 
@@ -14,8 +14,8 @@
     }
 
     let language = [];
-    language['en'] = enLocale;
-    language['de'] = deLocale;
+    language["en"] = enLocale;
+    language["de"] = deLocale;
     let leaderboardData;
     const fetchProfileData = (async () => {
         const response = await fetch(`${__myapp.env.API_URL}/leaderboard`, {
@@ -26,26 +26,31 @@
         leaderboardData = await response.json();
         return leaderboardData;
     })();
-
 </script>
 
 {#await fetchProfileData then leaderboardData}
-    <div class="leaderboardSection" 
-    style = "--background-color: {theme ==='light' ? '#fff'
-    : '#2f3336'}; --text-color: {theme === 'light' ? '#2f3336' : '#fff'};">
-        <h2 class="leaderboardTitle">{language[locale].forestfrontrunners}</h2>
+    <div
+        class="leaderboardSection"
+        style="--background-color: {theme === 'light'
+            ? '#fff'
+            : '#2f3336'}; --text-color: {theme === 'light'
+            ? '#2f3336'
+            : '#fff'};"
+    >
         <div class="headerButtons">
             <button
-                class={`tabButton ${(selectedTab === "recent"
-                    ? "tabButtonActive"
-                    : "")}`}
-                on:click={() => setSelectedTab("recent")}>{language[locale].mostrecent}</button
+                class={`tabButton ${
+                    selectedTab === "recent" ? "tabButtonActive" : ""
+                }`}
+                on:click={() => setSelectedTab("recent")}
+                >{language[locale].mostrecent}</button
             >
             <button
-                class={`tabButton ${(selectedTab === "highest"
-                    ? "tabButtonActive"
-                    : "")}`}
-                on:click={() => setSelectedTab("highest")}>{language[locale].mosttrees}</button
+                class={`tabButton ${
+                    selectedTab === "highest" ? "tabButtonActive" : ""
+                }`}
+                on:click={() => setSelectedTab("highest")}
+                >{language[locale].mosttrees}</button
             >
         </div>
 
@@ -55,19 +60,23 @@
                     <li class="row">
                         <p class="user">{item.donorName}</p>
                         <p class="treeCount">
-                            {getFormattedNumber(item.treeCount, locale)} {" "}{language[locale].trees}</p>
-                        </li>
+                            {getFormattedNumber(item.treeCount, locale)}
+                            {" "}{language[locale].trees}
+                        </p>
+                    </li>
                 {/each}
             {:else if selectedTab === "highest"}
                 {#each leaderboardData.mostDonated as item}
                     <div class="row">
                         <p class="user">{item.donorName}</p>
                         <p class="treeCount">
-                        {getFormattedNumber(item.treeCount, locale)} {" "}{language[locale].trees}</p>
+                            {getFormattedNumber(item.treeCount, locale)}
+                            {" "}{language[locale].trees}
+                        </p>
                     </div>
                 {/each}
             {/if}
-                </ul>
+        </ul>
     </div>
 {:catch error}
     <p>An error occurred!</p>
@@ -77,8 +86,10 @@
     @import "https://fonts.googleapis.com/css2?family=Raleway:wght@400;700&display=swap";
 
     .leaderboardSection {
-        width: 320px;
-        padding: 16px;
+        min-width: 260px;
+        width: 100%;
+        max-width: 580px;
+        /* padding: 16px; */
         font-family: "Raleway", sans-serif;
         text-align: center;
         min-height: 682px;
@@ -90,26 +101,13 @@
         border-radius: 10px;
     }
 
-    .leaderboardTitle {
-        font-style: normal;
-        font-weight: 600;
-        font-size: 36px;
-        letter-spacing: -0.4px;
-        /* color: #080707; */
-    }
     .row-container {
         width: 100%;
         height: auto;
         margin: 0px;
-        padding: 0px;
+        padding: 8px;
     }
-    @media screen and (min-width: 320px) {
-        .leaderboardSection {
-            width: 100%;
-            max-width: 528px;
-            
-        }
-    }
+
 
     .row {
         border-bottom: 1px solid #dddbda;
@@ -119,11 +117,15 @@
     }
 
     .row > .user {
+        display: block;
         font-weight: 600;
+        text-align: left;
     }
 
     .row > .treeCount {
-        /* color: #3e3e3c; */
+        text-align: right;
+        margin-left: 24px;
+        min-width: 110px;
     }
     .headerButtons {
         align-self: center;
