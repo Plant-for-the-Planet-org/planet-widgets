@@ -269,8 +269,8 @@
 			var community = url.searchParams.get("community");
 			var locale = url.searchParams.get("locale");
 			if(user){
-			document.getElementById("treemapp").innerHTML = `<tree-map user=${user} theme=${theme} community=${community}    id="treeMap"> </tree-map>`;
-			document.getElementById("treeProf").innerHTML = `<tree-profile user=${user} theme=${theme} community=${community}  id="treeProfile"> </tree-profile>`;
+			document.getElementById("treemapp").innerHTML = `<tree-map user=${user} theme=${theme} community=${community} locale=${locale}    id="treeMap"> </tree-map>`;
+			document.getElementById("treeProf").innerHTML = `<tree-profile user=${user} theme=${theme} community=${community} locale=${locale}  id="treeProfile"> </tree-profile>`;
 
 			}
 	}
