@@ -9,53 +9,31 @@
 	<title>Planet Widgets</title>
 	<script defer src='/build/tree-map.js'></script>
 	<script defer src='/build/tree-profile.js'></script>
-	<script defer src='/build/tenantCounter.js'></script>
-	<script defer src='/build/tenantLeaderboard.js'></script>
 
 	<!-- Bootstrap -->
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
 		integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+
+	<link rel="preconnect" href="https://fonts.gstatic.com">
+	<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet">
 	<style>
 		body {
 			min-height: 100vh;
 			min-width: 100vw;
 			display: grid;
 			place-items: center;
+			font-family: "Inter", sans-serif;
 		}
 
 		label {
 			margin-right: 10px;
 		}
 
-		#treemapp {
+		#treemapp, #treeMapCust {
 			display: block;
 		}
 
-		#treeProf {
-			display: none;
-		}
-
-		#treeCount {
-			display: none;
-		}
-
-		#tenantLead {
-			display: none;
-		}
-
-		#treeMapCust {
-			display: block;
-		}
-
-		#treeProfCust {
-			display: none;
-		}
-
-		#treeCountCust {
-			display: none;
-		}
-
-		#tenantLeadCust {
+		#treeProf, #treeProfCust {
 			display: none;
 		}
 
@@ -65,20 +43,110 @@
 		}
 
 		.customisation-column {
-			margin-top: 60px;
 			min-height: 100vh;
 			max-width: 300px;
+			display: flex;
+			flex-direction: column;
+			justify-content: center;
 		}
 
-		.col-container {
-			margin-top: 60px;
-			min-height: 100vh;
-		}
-
-		#error, #error-prof, #error-count, #error-lead {
+		#error,
+		#error-prof,
+		#error-count,
+		#error-lead {
 			display: block;
 			color: red;
 			font-size: smaller;
+		}
+
+		.input-group,
+		.form-select,
+		.form-control {
+			background-color: rgb(245, 245, 245);
+			padding: 15px;
+			border-radius: 10px;
+			color: rgb(68, 68, 68);
+			border: 0px;
+			font-size: 13px;
+
+		}
+
+		.input-group>label {
+			color: rgba(68, 68, 68, 0.4);
+		}
+
+		.widgetTitle {
+			font-family: "Inter-Bold", "Inter", sans-serif;
+			font-size: 46px;
+			font-weight: 700;
+			letter-spacing: -2px;
+			line-height: 1.1;
+			margin-bottom: 40px;
+		}
+
+		.widgetSubTitle {
+			font-family: "Inter", sans-serif;
+			font-size: 16px;
+			letter-spacing: 0px;
+			line-height: 1.2;
+			text-align: left;
+		}
+
+		.colorPicker {
+			border: 0px;
+			background-color: transparent;
+			border-color: transparent;
+			width: 24px;
+			height: 24px;
+			border-radius: 50%;
+			padding: 0px;
+		}
+
+		.form-switch>input {
+			height: 32px;
+			width: 54px !important;
+			margin-bottom: 20px;
+		}
+
+		.form-switch>label {
+			margin-left: 12px;
+			margin-top: 6px;
+		}
+
+		.widgetContainer {
+			background-color: rgba(255, 187, 0, 0.1);
+			min-height: 100vh;
+			display: flex;
+			flex-direction: column;
+			justify-content: center;
+			align-items: center;
+		}
+
+		.copyCodeButton {
+			border: none;
+			inset: 0px;
+			color: rgb(255, 255, 255);
+			outline: none;
+			resize: none;
+			-webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+			letter-spacing: -0.2px;
+			font-weight: 600;
+			font-size: 13px;
+			border-radius: 10px;
+			padding: 10px;
+			text-align: center;
+			background: rgb(255, 187, 0);
+			box-shadow: rgb(0 0 0 / 0%) 0px 0px 0px;
+			transform: none;
+			width: 300px;
+			margin-top: 20px;
+		}
+
+		.code-container {
+			display: flex;
+			flex-direction: column;
+			margin-left: 60px;
+			margin-right: 60px;
 		}
 	</style>
 
@@ -89,8 +157,7 @@
 		<div class="col-12 col-lg-4 d-flex justify-content-center">
 			<div class="customisation-column">
 
-
-				<h2 class="fw-bold" style="margin-bottom: 20px;">Get started with a Widget</h2>
+				<h2 class="widgetTitle">Get started with a Widget</h2>
 				<select class="form-select" style="margin-bottom: 20px;" onchange="WidgetSelector(this.value)"
 					aria-label="Default select example">
 					<option selected>Select Widget</option>
@@ -100,7 +167,8 @@
 
 				<div id="treeMapCust" class="customizationContainer">
 					<div class="mb-3">
-						<input type="text" class="form-control" onblur="validURLTreeMap(this.value)" placeholder="User URL">
+						<input type="text" class="form-control" onblur="validURLTreeMap(this.value)"
+							placeholder="User URL">
 					</div>
 					<div id="error"></div>
 					<select class="form-select" onchange="changeAttribute('treeMap',this.value,'locale')"
@@ -109,7 +177,7 @@
 						<option value="en">English</option>
 						<option value="de">Deutsch</option>
 					</select>
-					<h5 style="margin-bottom: 20px;">Optional Customization Options</h2>
+					<h5 class="widgetSubTitle" style="margin-bottom: 20px;">Customization Options (Optional): </h2>
 						<select class="form-select" onchange="changeAttribute('treeMap',this.value,'theme')"
 							aria-label="Default select example">
 							<option value="light" selected>Select Theme</option>
@@ -123,21 +191,22 @@
 							<label class="form-check-label" for="treeMap-community-switch">Show community</label>
 						</div>
 						<div class="input-group">
-							<label for="favcolor">Select your Primary color:</label>
-							<input type="color" id="primaryColor" name="primaryColor" value="#68b030"
-								onchange="changeAttribute('treeMap',this.value,'primarycolor')">
+							<label for="primaryColor">Primary Color:</label>
+							<input class="colorPicker" type="color" id="primaryColor" name="primaryColor"
+								value="#68b030" onchange="changeAttribute('treeMap',this.value,'primarycolor')">
 						</div>
 
 						<div class="input-group">
-							<label for="favcolor">Select your Theme color:</label>
-							<input type="color" id="bgColor" name="bgColor" value="#23519b"
+							<label for="bgColor">Circle Color:</label>
+							<input class="colorPicker" type="color" id="bgColor" name="bgColor" value="#23519b"
 								onchange="changeAttribute('treeMap',this.value,'circlebgcolor')">
 						</div>
 				</div>
 
 				<div id="treeProfCust" class="customizationContainer">
 					<div class="mb-3">
-						<input type="text" class="form-control" onblur="validURLTreeProf(this.value)" placeholder="User URL">
+						<input type="text" class="form-control" onblur="validURLTreeProf(this.value)"
+							placeholder="User URL">
 					</div>
 					<div id="error-prof"></div>
 					<select class="form-select" onchange="changeAttribute('treeProfile',this.value,'locale')"
@@ -161,153 +230,79 @@
 					</select>
 
 					<div class="input-group">
-						<label for="favcolor">Select your Primary color:</label>
-						<input type="color" id="primaryColor" name="primaryColor" value="#68b030"
+						<label for="primaryColor">Primary Color:</label>
+						<input class="colorPicker" type="color" id="primaryColor" name="primaryColor" value="#68b030"
 							onchange="changeAttribute('treeProfile',this.value,'primarycolor')">
 					</div>
 
 					<div class="input-group">
-						<label for="favcolor">Select your Theme color:</label>
-						<input type="color" id="bgColor" name="bgColor" value="#23519b"
+						<label for="bgColor">Circle Color:</label>
+						<input class="colorPicker" type="color" id="bgColor" name="bgColor" value="#23519b"
 							onchange="changeAttribute('treeProfile',this.value,'circlebgcolor')">
 					</div>
 				</div>
 
-				<div id="treeCountCust" class="customizationContainer">
-					<div class="mb-3">
-						<input type="text" class="form-control" onblur="validURLTreeCount(this.value)" placeholder="Tenant ID">
-					</div>
-					<div id="error-count"></div>
-					<select class="form-select" onchange="changeAttribute('treeCounter',this.value,'locale')"
-						aria-label="Default select example">
-						<option value="en" selected>Select Language</option>
-						<option value="en">English</option>
-						<option value="de">Deutsch</option>
-					</select>
-
-					<div class="form-check form-switch">
-						<input class="form-check-input"
-							onclick="changeAttribute('treeCounter',this.checked,'community')" type="checkbox"
-							id="treeCounter-community-switch" checked>
-						<label class="form-check-label" for="treeCounter-community-switch">Show community</label>
-					</div>
-
-					<select class="form-select" onchange="changeAttribute('treeCounter',this.value,'theme')"
-						aria-label="Default select example">
-						<option value="light" selected>Select Theme</option>
-						<option value="light">Light</option>
-						<option value="dark">Dark</option>
-					</select>
-
-					<div class="input-group">
-						<label for="favcolor">Select your Primary color:</label>
-						<input type="color" id="primaryColor" name="primaryColor" value="#68b030"
-							onchange="changeAttribute('treeCounter',this.value,'primarycolor')">
-					</div>
-
-					<div class="input-group">
-						<label for="favcolor">Select your Theme color:</label>
-						<input type="color" id="bgColor" name="bgColor" value="#23519b"
-							onchange="changeAttribute('treeCounter',this.value,'circlebgcolor')">
-					</div>
-				</div>
-
-				<div id="tenantLeadCust" class="customizationContainer">
-					<div class="mb-3">
-						<input type="text" class="form-control" onblur="validURLTreeLead(this.value)" placeholder="Tenant ID">
-					</div>
-					<div id="error-lead"></div>
-					<select class="form-select" onchange="changeAttribute('tenantLeaderboard',this.value,'theme')"
-						aria-label="Default select example">
-						<option value="light" selected>Select Theme</option>
-						<option value="light">Light</option>
-						<option value="dark">Dark</option>
-					</select>
-				</div>
 			</div>
 		</div>
 
-
-
-		<div class="col-12 col-lg-8">
-			<div class="col-container" id="treemapp">
+		<div class="col-12 col-lg-8 widgetContainer">
+			<div id="treemapp">
 				<tree-map user='harsh-vitra' theme="light" id="treeMap" circlebgcolor="">
 				</tree-map>
+				<a href="" onClick="copyToClipboard('treeMapCode'); return false">
+					<div id="treeMapCode" class="code-container"></div>
+				</a>
 			</div>
-			<div class="col-container" id="treeProf">
+			<div id="treeProf">
 				<tree-profile user='prf_h6smcMDN23Qet1CP7BEplM60' theme="dark" id="treeProfile">
 				</tree-profile>
+				<a href="" onClick="copyToClipboard('treeProfileCode'); return false">
+					<div id="treeProfileCode" class="code-container"></div>
+				</a>
 			</div>
-			<div class="col-container" id="treeCount">
-				<tree-tenantcounter tenantkey="ten_I9TW3ncG" goal="10000000000" theme="light" locale="en"
-					id="treeCounter">
-				</tree-tenantcounter>
-			</div>
-			<div class="col-container" id="tenantLead">
-				<tree-tenantleaderboard tenantKey="ten_I9TW3ncG" theme="light" locale="en" id="tenantLeaderboard">
-				</tree-tenantleaderboard>
-			</div>
-
+			<button class="copyCodeButton">
+				Copy Code
+			</button>
 		</div>
 	</div>
 </body>
-
-
-
-
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js"
 	integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW"
 	crossorigin="anonymous"></script>
 <script>
-	window.onload = function(){
-	
+	window.onload = function () {
+
 		var url_string = (window.location.href).toLowerCase();
-			var url = new URL(url_string);
-			var user = url.searchParams.get("user");
-			var theme = url.searchParams.get("theme");
-			var community = url.searchParams.get("community");
-			var locale = url.searchParams.get("locale");
-			if(user){
+		var url = new URL(url_string);
+		var user = url.searchParams.get("user");
+		var theme = url.searchParams.get("theme");
+		var community = url.searchParams.get("community");
+		var locale = url.searchParams.get("locale");
+		if (user) {
 			document.getElementById("treemapp").innerHTML = `<tree-map user=${user} theme=${theme} community=${community}    id="treeMap"> </tree-map>`;
 			document.getElementById("treeProf").innerHTML = `<tree-profile user=${user} theme=${theme} community=${community}   id="treeProfile"> </tree-profile>`;
 
-			}
+		}
 	}
-			
-			
-	
 
 	function changeAttribute(id, value, attribute) {
 		document.getElementById(id).setAttribute(attribute, value);
 	}
 
 	function WidgetSelector(value) {
-
+		// Hiding all the other
 		document.getElementById("treemapp").style.display = "none";
 		document.getElementById("treeProf").style.display = "none";
-		document.getElementById("treeCount").style.display = "none";
-		document.getElementById("tenantLead").style.display = "none";
 		document.getElementById(value).style.display = "block";
 
 		document.getElementById("treeMapCust").style.display = "none";
 		document.getElementById("treeProfCust").style.display = "none";
-		document.getElementById("treeCountCust").style.display = "none";
-		document.getElementById("tenantLeadCust").style.display = "none";
-		console.log('value', value);
 		switch (value) {
 			case "treemapp": document.getElementById("treeMapCust").style.display = "block";
 				break;
-
 			case "treeProf": document.getElementById("treeProfCust").style.display = "block";
 				break;
-
-			case "treeCount": document.getElementById("treeCountCust").style.display = "block";
-				break;
-
-			case "tenantLead": document.getElementById("tenantLeadCust").style.display = "block";
-				break;
-
 			default: break;
 		}
 	}
@@ -332,13 +327,6 @@
 				} else return response.json();
 			})
 			.then((data) => {
-				
-				// let theme = document.getElementById("treeMap").getAttribute("theme");
-				// let primaryColor = document.getElementById("treeMap").getAttribute("primarycolor");
-				// let circleBGColor = document.getElementById("treeMap").getAttribute("circlebgcolor");
-				// let community = document.getElementById("treeMap").getAttribute("community");
-				// let locale = document.getElementById("treeMap").getAttribute("locale");
-
 				document.getElementById("treemapp").innerHTML = `<tree-map user=${data.slug}  id="treeMap"> </tree-map>`;
 			})
 			.catch((error) => {
@@ -367,66 +355,14 @@
 				} else return response.json();
 			})
 			.then((data) => {
-				
-				// let theme = document.getElementById("treeMap").getAttribute("theme");
-				// let primaryColor = document.getElementById("treeMap").getAttribute("primarycolor");
-				// let circleBGColor = document.getElementById("treeMap").getAttribute("circlebgcolor");
-				// let community = document.getElementById("treeMap").getAttribute("community");
-				// let locale = document.getElementById("treeMap").getAttribute("locale");
-
 				document.getElementById("treeProf").innerHTML = `<tree-profile user=${data.slug}  id="treeProfile"> </tree-profile>`;
 			})
 			.catch((error) => {
 				document.getElementById("error-prof").innerHTML = "Invalid Profile URL";
 			});
 	}
-	
-	function validURLTreeCount(tenantkey){
-		document.getElementById("error-count").innerHTML = "";
-		fetch(`https://app.plant-for-the-planet.org/app/tenantScore`, 
-		{
-			headers: {
-				'tenant-key': tenantkey
-			}
-		})
-		.then((response)=> {
-				if (!response.ok) {
-					throw new Error("Invalid Tenant");
-				} else return response.json();
-			})
-		.then((data) => {
-			let goal = document.getElementById("treeCounter").getAttribute("goal");
-			document.getElementById("treeCount").innerHTML = `<tree-tenantcounter tenantkey=${tenantkey}  goal=${goal} id="treeCounter"> </tree-tenantcounter>`;
-		})
-		.catch((error) => {
-				document.getElementById("error-count").innerHTML = "Invalid Tenant ID";
-			});
-	}
 
-	function validURLTreeLead(tenantkey){
-		document.getElementById("error-lead").innerHTML = "";
-		fetch(`https://app.plant-for-the-planet.org/app/tenantScore`, 
-		{
-			headers: {
-				'tenant-key': tenantkey
-			}
-		})
 
-		.then((response)=> {
-				if (!response.ok) {
-					throw new Error("Invalid Tenant");
-				} else return response.json();
-			})
-		.then((data) => {
-			document.getElementById("tenantLead").innerHTML = `<tree-tenantleaderboard tenantkey=${tenantkey} id="tenantLeaderboard"> </tree-tenantleaderboard>`;
-		})
-		.catch((error) => {
-				document.getElementById("error-lead").innerHTML = "Invalid Tenant ID";
-			});
-
-			// .then((response) => response.json())
-		// .then((data) => console.log(data))
-	}
 </script>
 
 </body>
