@@ -267,9 +267,10 @@
 			var user = url.searchParams.get("user");
 			var theme = url.searchParams.get("theme");
 			var community = url.searchParams.get("community");
-			var locale = url.searchParams.get("locale");
-			document.getElementById("treemapp").innerHTML = `<tree-map user=${user} theme=${theme} community=${community}    id="treeMap"> </tree-map>`;
-			document.getElementById("treeProf").innerHTML = `<tree-profile user=${user} theme=${theme} community=${community}  id="treeProfile"> </tree-profile>`;
+			document.getElementById("treemapp").innerHTML = 
+			`<tree-map user=${user} theme=${theme} community=${community}  id="treeMap"> </tree-map>`;
+			document.getElementById("treeProf").innerHTML = 
+			`<tree-profile user=${user} theme=${theme} community=${community}  id="treeProfile"> </tree-profile>`;
 
 
 	}
