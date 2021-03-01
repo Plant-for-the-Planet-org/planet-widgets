@@ -260,6 +260,20 @@
 	integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW"
 	crossorigin="anonymous"></script>
 <script>
+	window.onload = function(){
+	
+			var url_string = (window.location.href).toLowerCase();
+			var url = new URL(url_string);
+			var user = url.searchParams.get("user");
+			var theme = url.searchParams.get("theme");
+			var community = url.searchParams.get("community");
+			var locale = url.searchParams.get("locale");
+			document.getElementById("treemapp").innerHTML = `<tree-map user=${user} theme=${theme} community=${community}    id="treeMap"> </tree-map>`;
+			document.getElementById("treeProf").innerHTML = `<tree-profile user=${user} theme=${theme} community=${community}  id="treeProfile"> </tree-profile>`;
+
+
+	}
+	
 
 	function changeAttribute(id, value, attribute) {
 		document.getElementById(id).setAttribute(attribute, value);
