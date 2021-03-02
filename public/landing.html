@@ -7,8 +7,8 @@
 	<meta name='viewport' content='width=device-width,initial-scale=1'>
 
 	<title>Planet Widgets</title>
-	<script defer src='/build/tree-map.js'></script>
-	<script defer src='/build/tree-profile.js'></script>
+	<script defer src='/build/tree-map.js' id='treeMapScript'></script>
+	<script defer src='/build/tree-profile.js' id='treeProfileScript'></script>
 
 	<!-- Bootstrap -->
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
@@ -163,7 +163,7 @@
 
 </head>
 
-<body onLoad="update()">
+<body>
 	<div class="row w-100">
 		<div class="col-12 col-lg-4 d-flex justify-content-center">
 			<div class="customisation-column">
@@ -260,20 +260,19 @@
 			<div id="treemapp">
 				<tree-map user='harsh-vitra' theme="light" id="treeMap" circlebgcolor="">
 				</tree-map>
-				<a href="" onClick="copyToClipboard('treeMapCode'); return false">
-					<div id="treeMapCode" class="code-container"></div>
-				</a>
+				<div id="treeMapCode" class="code-container"></div>
+				<button id="treeMapCopyButton" class="copyCodeButton" onClick="copyToClipboard('treeMap'); return false">
+					Copy Code
+				</button>
 			</div>
 			<div id="treeProf">
 				<tree-profile user='prf_h6smcMDN23Qet1CP7BEplM60' theme="dark" id="treeProfile">
 				</tree-profile>
-				<a href="" onClick="copyToClipboard('treeProfileCode'); return false">
-					<div id="treeProfileCode" class="code-container"></div>
-				</a>
+				<div id="treeProfileCode" class="code-container"></div>
+				<button id="treeProfileCopyButton" class="copyCodeButton" onClick="copyToClipboard('treeProfile'); return false">
+					Copy Code
+				</button>
 			</div>
-			<button class="copyCodeButton">
-				Copy Code
-			</button>
 		</div>
 	</div>
 </body>
@@ -282,20 +281,19 @@
 	integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW"
 	crossorigin="anonymous"></script>
 <script>
-	window.onload = function () {
-
-		var url_string = (window.location.href).toLowerCase();
-		var url = new URL(url_string);
-		var user = url.searchParams.get("user");
-		var theme = url.searchParams.get("theme");
-		var community = url.searchParams.get("community");
-		var locale = url.searchParams.get("locale");
-		if (user) {
-			document.getElementById("treemapp").innerHTML = `<tree-map user=${user} theme=${theme} community=${community}    id="treeMap"> </tree-map>`;
-			document.getElementById("treeProf").innerHTML = `<tree-profile user=${user} theme=${theme} community=${community}   id="treeProfile"> </tree-profile>`;
-
+		window.onload = function () {
+			var url_string = (window.location.href).toLowerCase();
+			var url = new URL(url_string);
+			var user = url.searchParams.get("user");
+			var theme = url.searchParams.get("theme");
+			var community = url.searchParams.get("community");
+			var locale = url.searchParams.get("locale");
+			if (user) {
+				document.getElementById("treemapp").innerHTML = `<tree-map user=${user} theme=${theme} community=${community}    id="treeMap"> </tree-map>`;
+				document.getElementById("treeProf").innerHTML = `<tree-profile user=${user} theme=${theme} community=${community}   id="treeProfile"> </tree-profile>`;
+			}
+			update();
 		}
-	}
 
 		function changeAttribute(id, value, attribute) {
 			document.getElementById(id).setAttribute(attribute, value);
@@ -315,19 +313,22 @@
 		function copyToClipboard(id) {
 			window.getSelection().removeAllRanges();
 			let range = document.createRange();
-			range.selectNode(document.getElementById(id));
+			range.selectNode(document.getElementById(id + 'Code'));
 			window.getSelection().addRange(range);
 			document.execCommand('copy');
 			window.getSelection().removeAllRanges();
-			document.getElementById(id).innerHTML = 'Copied!';
-			setTimeout(function(){ update(); }, 1000);
+			let button = document.getElementById(id + 'CopyButton');
+			const buttonText = button.innerHTML;
+			button.innerHTML = 'Copied!';
+			setTimeout(function(){ button.innerHTML = buttonText; }, 1000);
 		}
 
 		function update() {
 			updateCode('treeMap');
 			updateCode('treeProfile');
-			updateCode('treeCounter');
-			updateCode('tenantLeaderboard');
+			// add more widgets here!
+			//updateCode('treeCounter');
+			//updateCode('tenantLeaderboard');
 		}
 
 	function WidgetSelector(value) {
