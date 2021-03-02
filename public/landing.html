@@ -206,13 +206,13 @@
 						<div class="input-group">
 							<label for="primaryColor">Primary Color:</label>
 							<input class="colorPicker" type="color" id="primaryColor" name="primaryColor"
-								value="#68b030" onchange="changeAttribute('treeMap',this.value,'primarycolor')">
+								value="#68b030" onchange="changeAttribute('treeMap',this.value,'primarycolor',true)">
 						</div>
 
 						<div class="input-group">
 							<label for="bgColor">Circle Color:</label>
 							<input class="colorPicker" type="color" id="bgColor" name="bgColor" value="#23519b"
-								onchange="changeAttribute('treeMap',this.value,'circlebgcolor')">
+								onchange="changeAttribute('treeMap',this.value,'circlebgcolor',true)">
 						</div>
 				</div>
 
@@ -301,8 +301,11 @@
 			update();
 		}
 
-		function changeAttribute(id, value, attribute) {
+		function changeAttribute(id, value, attribute, forceUpdateComponent) {
 			document.getElementById(id).setAttribute(attribute, value);
+			if (forceUpdateComponent) {
+				document.getElementById(id + 'Component').innerHTML = document.getElementById(id).outerHTML;				
+			}
 			updateCode(id);
 		}
 
@@ -372,8 +375,7 @@
 					} else return response.json();
 				})
 				.then((data) => {
-					changeAttribute(id, userslug, 'user');
-					document.getElementById(id + 'Component').innerHTML = document.getElementById(id).outerHTML;
+					changeAttribute(id, userslug, 'user', true);
 				})
 				.catch((error) => {
 					console.log(error);
