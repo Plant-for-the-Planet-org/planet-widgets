@@ -25,6 +25,17 @@
 			font-family: "Inter", sans-serif;
 		}
 
+		.code-container {
+			display: flex;
+			flex-direction: column;
+			margin-left: 60px;
+			margin-right: 60px;
+		}
+
+		a:link {
+		  text-decoration: none;
+		}
+
 		label {
 			margin-right: 10px;
 		}
@@ -152,7 +163,7 @@
 
 </head>
 
-<body>
+<body onLoad="update()">
 	<div class="row w-100">
 		<div class="col-12 col-lg-4 d-flex justify-content-center">
 			<div class="customisation-column">
@@ -286,9 +297,38 @@
 		}
 	}
 
-	function changeAttribute(id, value, attribute) {
-		document.getElementById(id).setAttribute(attribute, value);
-	}
+		function changeAttribute(id, value, attribute) {
+			document.getElementById(id).setAttribute(attribute, value);
+			updateCode(id);
+		}
+
+		function updateCode(id) {
+				var widgetCode = document.getElementById(id + 'Code');
+				var widgetNode = document.getElementById(id + 'Script');
+				widgetNode.src = 'https://widgets.plant-for-the-planet.org/build/' + widgetNode.src.split("/")[4];
+				widgetCode.innerHTML = "<code>" +
+					document.getElementById(id + 'Script').outerHTML.replace(/</g,"&lt;") + '</br>'+
+					document.getElementById(id).outerHTML.replace(/</g,"&lt;") +
+					"</code>";
+		}
+
+		function copyToClipboard(id) {
+			window.getSelection().removeAllRanges();
+			let range = document.createRange();
+			range.selectNode(document.getElementById(id));
+			window.getSelection().addRange(range);
+			document.execCommand('copy');
+			window.getSelection().removeAllRanges();
+			document.getElementById(id).innerHTML = 'Copied!';
+			setTimeout(function(){ update(); }, 1000);
+		}
+
+		function update() {
+			updateCode('treeMap');
+			updateCode('treeProfile');
+			updateCode('treeCounter');
+			updateCode('tenantLeaderboard');
+		}
 
 	function WidgetSelector(value) {
 		// Hiding all the other
