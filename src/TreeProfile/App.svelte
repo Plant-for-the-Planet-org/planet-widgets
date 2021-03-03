@@ -349,6 +349,7 @@
         height: 52px;
         width: 52px;
         box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.16);
+        margin-right: 12px;
     }
 
     .logoPlanet {
@@ -360,8 +361,7 @@
         justify-content: center;
         border-radius: 50%;
         box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.16);
-        margin-left: 18px;
-        margin-right: 6px;
+        margin-right: 12px;
     }
 
     .logoPlanet > img {

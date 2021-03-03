@@ -228,13 +228,14 @@
 						<option value="en">English</option>
 						<option value="de">Deutsch</option>
 					</select>
-					<div class="form-check form-switch">
-						<input class="form-check-input"
-							onclick="changeAttribute('treeProfile',this.checked,'community')" type="checkbox"
-							id="treeProfile-community-switch" checked>
-						<label class="form-check-label" for="treeMap-community-switch">Show community</label>
-					</div>
-
+					<h5 class="widgetSubTitle" style="margin-bottom: 20px;">Customization Options (Optional): </h2>
+						<div class="form-check form-switch">
+							<input class="form-check-input"
+								onclick="changeAttribute('treeProfile',this.checked,'community')" type="checkbox"
+								id="treeProfile-community-switch" checked>
+							<label class="form-check-label" for="treeMap-community-switch">Show community</label>
+						</div>
+					
 					<select class="form-select" onchange="changeAttribute('treeProfile',this.value,'theme')"
 						aria-label="Default select example">
 						<option value="light" selected>Select Theme</option>
