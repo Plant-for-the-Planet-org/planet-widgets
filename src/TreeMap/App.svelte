@@ -391,6 +391,8 @@
     justify-content: center;
     border-top-right-radius: 10px;
     border-top-left-radius: 10px;
+    padding-right: 10px;
+    padding-left: 10px;
   }
   .treeCounterComponent {
     height: 295px;
