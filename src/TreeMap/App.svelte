@@ -217,7 +217,7 @@
                 {language[locale].treesPlanted}
               </p>
             </div>
-            {#if data.score.target != 0}
+            {#if data.score.target}
               <div class="textContainer">
                 <p class="treecount">
                   {localizedAbbreviatedNumber(locale, data.score.target, 1)}
