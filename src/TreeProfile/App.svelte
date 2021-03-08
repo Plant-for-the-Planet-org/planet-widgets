@@ -99,7 +99,7 @@
                             {language[locale].treesPlanted}
                         </p>
                     </div>
-                    {#if data.score.target != 0}
+                    {#if data.score.target}
                         <div class="textContainer">
                             <p class="treecount">
                                 {localizedAbbreviatedNumber(locale, Number(data.score.target), 1)}
@@ -138,17 +138,19 @@
                 target="_blank">{language[locale].plantTrees}</a>
 
             <div class="imageHeader">
-                <a
-                    href={`${getTenantConfig(tenantkey).url}/t/${data.slug}`}
-                    target="_blank"
-                >
-                    <img
-                        class="logo"
-                        src={getImageUrl("profile", "thumb", data.image)}
-                        alt={data.displayName}
-                        href="www.facebook.com"
-                    />
-                </a>
+                {#if data.image}
+                  <a
+                      href={`${getTenantConfig(tenantkey).url}/t/${data.slug}`}
+                      target="_blank"
+                  >
+                      <img
+                          class="logo"
+                          src={getImageUrl("profile", "thumb", data.image)}
+                          alt={data.displayName}
+                          href="www.facebook.com"
+                      />
+                  </a>
+                {/if}
                 {#if data.hasLogoLicense}
                 <div class="logoPlanet" style={`background-color:${theme === 'dark' ? "#2f3336" : ""}`}>
                         {#if theme === "dark"}
