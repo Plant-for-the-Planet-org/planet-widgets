@@ -301,21 +301,23 @@
 		var tenantkey = url.searchParams.get("tenantkey");
 		var locale = url.searchParams.get("locale");
 		if (user) {
-			document.getElementById("treeMapComponent").innerHTML = `<tree-map user=${user} theme=${theme} community=${community} locale=${locale}
- tenantkey=${tenantkey}   id="treeMap"> </tree-map>`;
-			if (theme === null) {
-				document.getElementById("treeMap").setAttribute("theme", "light")
+			document.getElementById("treeMapComponent").innerHTML = `<tree-map user=${user} tenantkey="ten_I9TW3ncG" id="treeMap"> </tree-map>`;
+			document.getElementById("treeProfileComponent").innerHTML = `<tree-profile user=${user} tenantkey="ten_I9TW3ncG" id="treeProfile"> </tree-profile>`;
+			if (theme ) {
+				document.getElementById("treeMap").setAttribute("theme", theme)
+				document.getElementById("treeProfile").setAttribute("theme", theme)
 			}
-			if (community === null) {
-				document.getElementById("treeMap").setAttribute("community", "true")
+			if (community) {
+				document.getElementById("treeMap").setAttribute("community", community)
+				document.getElementById("treeProfile").setAttribute("community", community)
 			}
-			document.getElementById("treeProfileComponent").innerHTML = `<tree-profile user=${user} theme=${theme} locale=${locale}
- community=${community} tenantkey=${tenantkey} id="treeProfile"> </tree-profile>`;
-			if (theme === null) {
-				document.getElementById("treeProfile").setAttribute("theme", "light")
+			if (locale) {
+				document.getElementById("treeMap").setAttribute("locale", locale)
+				document.getElementById("treeProfile").setAttribute("locale", locale)
 			}
-			if (community === null) {
-				document.getElementById("treeProfile").setAttribute("community", "true")
+			if (tenantkey) {
+				document.getElementById("treeMap").setAttribute("tenantkey", tenantkey)
+				document.getElementById("treeProfile").setAttribute("tenantkey", tenantkey)
 			}
 		}
 		update();
