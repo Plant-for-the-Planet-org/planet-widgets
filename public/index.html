@@ -48,7 +48,7 @@
 
 		.customisation-column {
 			min-height: 100vh;
-			max-width: 300px;
+			max-width: 250px;
 			display: flex;
 			flex-direction: column;
 			justify-content: center;
@@ -67,7 +67,7 @@
 		.form-select,
 		.form-control {
 			background-color: rgb(245, 245, 245);
-			padding: 15px;
+			padding: 10px;
 			border-radius: 10px;
 			color: rgb(68, 68, 68);
 			border: 0px;
@@ -81,7 +81,7 @@
 
 		.widgetTitle {
 			font-family: "Inter-Bold", "Inter", sans-serif;
-			font-size: 46px;
+			font-size: 36px;
 			font-weight: 700;
 			letter-spacing: -2px;
 			line-height: 1.1;
@@ -161,6 +161,7 @@
 			margin-top: 20px;
 			border-radius: 10px;
 		}
+		
 	</style>
 
 </head>
@@ -262,7 +263,7 @@
 		<div class="col-lg-12 col-xl-8 widgetContainer">
 			<div id="treemapp">
 				<div>
-					<tree-map user='harsh-vitra' theme="light" id="treeMap" circlebgcolor="">
+					<tree-map user='sagar-aryal' tenantkey="ten_I9TW3ncG" theme="light" id="treeMap" circlebgcolor="">
 					</tree-map>
 					<div id="treeMapCode" class="code-container"></div>
 					<button id="treeMapCopyButton" class="copyCodeButton" onClick="copyToClipboard('treeMap'); return false">
@@ -272,7 +273,7 @@
 			</div>
 			<div id="treeProf">
 				<div>
-					<tree-profile user='prf_h6smcMDN23Qet1CP7BEplM60' theme="light" id="treeProfile">
+					<tree-profile user='prf_h6smcMDN23Qet1CP7BEplM60' tenantkey="ten_I9TW3ncG" theme="light" id="treeProfile">
 					</tree-profile>
 					<div id="treeProfileCode" class="code-container"></div>
 					<button id="treeProfileCopyButton" class="copyCodeButton" onClick="copyToClipboard('treeProfile'); return false">
@@ -291,13 +292,29 @@
 		window.onload = function () {
 			var url_string = (window.location.href).toLowerCase();
 			var url = new URL(url_string);
+			console.log(url)
 			var user = url.searchParams.get("user");
+			console.log(user)
 			var theme = url.searchParams.get("theme");
 			var community = url.searchParams.get("community");
+			var tenantkey = url.searchParams.get("tenantkey");
+			console.log(tenantkey)
 			var locale = url.searchParams.get("locale");
 			if (user) {
-				document.getElementById("treemapp").innerHTML = `<tree-map user=${user} theme=${theme} community=${community}    id="treeMap"> </tree-map>`;
-				document.getElementById("treeProf").innerHTML = `<tree-profile user=${user} theme=${theme} community=${community}   id="treeProfile"> </tree-profile>`;
+				document.getElementById("treemapp").innerHTML = `<tree-map user=${user} theme=${theme} community=${community} tenantkey=${tenantkey}   id="treeMap"> </tree-map>`;
+				if(theme === null){
+					document.getElementById("treeMap").setAttribute("theme","light")
+				}
+				if(community === null){
+					document.getElementById("treeMap").setAttribute("community","true")
+				}
+				document.getElementById("treeProf").innerHTML = `<tree-profile user=${user} theme=${theme} community=${community} tenantkey=${tenantkey} id="treeProfile"> </tree-profile>`;
+				if(theme === null){
+					document.getElementById("treeProfile").setAttribute("theme","light")
+				}
+				if(community === null){
+					document.getElementById("treeProfile").setAttribute("community","true")
+				}
 			}
 			update();
 		}
