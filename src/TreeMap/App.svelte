@@ -21,7 +21,7 @@
   export let theme = "light";
   export let community = "true";
   export let locale = "en";
-  export let refresh;
+  export let refresh = "none";
   export let tenantkey = 'ten_I9TW3ncG';
   $: primarycolor = primarycolor;
   $: counterbgcolor = circlebgcolor
