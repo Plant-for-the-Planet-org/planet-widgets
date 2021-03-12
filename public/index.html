@@ -295,30 +295,30 @@
 	window.onload = function () {
 		var url_string = (window.location.href).toLowerCase();
 		var url = new URL(url_string);
-		var user = url.searchParams.get("user");
 		var theme = url.searchParams.get("theme");
+		if (theme ) {
+			changeAttribute('treeMap', theme, 'theme');
+			changeAttribute('treeProfile', theme, 'theme');
+		}
 		var community = url.searchParams.get("community");
-		var tenantkey = url.searchParams.get("tenantkey");
+		if (community) {
+			changeAttribute('treeMap', community, 'community');
+			changeAttribute('treeProfile', community, 'community');
+		}
 		var locale = url.searchParams.get("locale");
+		if (locale) {
+			changeAttribute('treeMap', locale, 'locale');
+			changeAttribute('treeProfile', locale, 'locale');
+		}
+		var tenantkey = url.searchParams.get("tenantkey");
+		if (tenantkey) {
+			changeAttribute('treeMap', tenantkey, 'tenantkey');
+			changeAttribute('treeProfile', tenantkey, 'tenantkey');
+		}
+		var user = url.searchParams.get("user");
 		if (user) {
-			document.getElementById("treeMapComponent").innerHTML = `<tree-map user=${user} tenantkey="ten_I9TW3ncG" id="treeMap"> </tree-map>`;
-			document.getElementById("treeProfileComponent").innerHTML = `<tree-profile user=${user} tenantkey="ten_I9TW3ncG" id="treeProfile"> </tree-profile>`;
-			if (theme ) {
-				document.getElementById("treeMap").setAttribute("theme", theme)
-				document.getElementById("treeProfile").setAttribute("theme", theme)
-			}
-			if (community) {
-				document.getElementById("treeMap").setAttribute("community", community)
-				document.getElementById("treeProfile").setAttribute("community", community)
-			}
-			if (locale) {
-				document.getElementById("treeMap").setAttribute("locale", locale)
-				document.getElementById("treeProfile").setAttribute("locale", locale)
-			}
-			if (tenantkey) {
-				document.getElementById("treeMap").setAttribute("tenantkey", tenantkey)
-				document.getElementById("treeProfile").setAttribute("tenantkey", tenantkey)
-			}
+			updateURL('treeMap', user);
+			updateURL('treeProfile', user);
 		}
 		update();
 	}
