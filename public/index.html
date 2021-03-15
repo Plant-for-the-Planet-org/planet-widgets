@@ -9,6 +9,8 @@
 	<title>Planet Widgets</title>
 	<script defer src='/build/tree-map.js' id='treeMapScript'></script>
 	<script defer src='/build/tree-profile.js' id='treeProfileScript'></script>
+	<script defer src='/build/tree-tenant-counter.js' id='treeTenantCounterScript'></script>
+	<script defer src='/build/tree-tenant-leaderboard.js' id='treeTenantLeaderboardScript'></script>
 
 	<!-- Bootstrap -->
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
@@ -40,6 +42,16 @@
 
 		#treeProfileWidget,
 		#treeProfileCust {
+			display: none;
+		}
+
+		#treeTenantCounterWidget,
+		#treeTenantCounterCust {
+			display: none;
+		}
+
+		#treeTenantLeaderboardWidget,
+		#treeTenantLeaderboardCust {
 			display: none;
 		}
 
@@ -178,6 +190,8 @@
 					<option value="">Select Widget</option>
 					<option value="treeMap">Tree-Map</option>
 					<option value="treeProfile">Tree-Profile</option>
+					<option value="treeTenantCounter">Tree-Tenant-Counter</option>
+					<option value="treeTenantLeaderboard">Tree-Tenant-Leaderboard</option>
 				</select>
 
 				<div id="treeMapCust" class="customizationContainer">
@@ -258,6 +272,53 @@
 						</div>
 				</div>
 
+				<div id="treeTenantCounterCust" class="customizationContainer">
+					<div class="mb-3">
+						<input type="number" class="form-control" onblur="changeAttribute('treeTenantCounter',this.value,'goal')"
+							placeholder="Goal">
+					</div>
+					<select class="form-select" onchange="changeAttribute('treeTenantCounter',this.value,'locale')"
+						aria-label="Default select example">
+						<option value="en" selected>Select Language</option>
+						<option value="en">English</option>
+						<option value="de">Deutsch</option>
+					</select>
+					<h5 class="widgetSubTitle" style="margin-bottom: 20px;">Customization Options (Optional): </h2>
+						<select class="form-select" onchange="changeAttribute('treeTenantCounter',this.value,'theme')"
+							aria-label="Default select example">
+							<option value="light" selected>Select Theme</option>
+							<option value="light">Light</option>
+							<option value="dark">Dark</option>
+						</select>
+						<div class="input-group">
+							<label for="primaryColor">Primary Color:</label>
+							<input class="colorPicker" type="color" id="primaryColor" name="primaryColor"
+								value="#68b030" onchange="changeAttribute('treeTenantCounter',this.value,'primarycolor',true)">
+						</div>
+
+						<div class="input-group">
+							<label for="bgColor">Circle Color:</label>
+							<input class="colorPicker" type="color" id="bgColor" name="bgColor" value="#23519b"
+								onchange="changeAttribute('treeTenantCounter',this.value,'circlebgcolor',true)">
+						</div>
+				</div>
+
+				<div id="treeTenantLeaderboardCust" class="customizationContainer">
+					<select class="form-select" onchange="changeAttribute('treeTenantLeaderboard',this.value,'locale')"
+						aria-label="Default select example">
+						<option value="en" selected>Select Language</option>
+						<option value="en">English</option>
+						<option value="de">Deutsch</option>
+					</select>
+					<h5 class="widgetSubTitle" style="margin-bottom: 20px;">Customization Options (Optional): </h2>
+						<select class="form-select" onchange="changeAttribute('treeTenantLeaderboard',this.value,'theme')"
+							aria-label="Default select example">
+							<option value="light" selected>Select Theme</option>
+							<option value="light">Light</option>
+							<option value="dark">Dark</option>
+						</select>
+				</div>
+
 			</div>
 		</div>
 
@@ -284,6 +345,28 @@
 					Copy Code
 				</button>
 			</div>
+			<div id="treeTenantCounterWidget">
+				<div id="treeTenantCounterComponent">
+					<tree-tenantcounter tenantkey="ten_I9TW3ncG" goal="10000000000" id="treeTenantCounter">
+					</tree-tenantcounter>
+				</div>
+				<div id="treeTenantCounterCode" class="code-container"></div>
+				<button id="treeTenantCounterCopyButton" class="copyCodeButton"
+					onClick="copyToClipboard('treeTenantCounter'); return false">
+					Copy Code
+				</button>
+			</div>
+			<div id="treeTenantLeaderboardWidget">
+				<div id="treeTenantLeaderboardComponent">
+					<tree-tenantleaderboard tenantkey="ten_I9TW3ncG" id="treeTenantLeaderboard">
+					</tree-tenantleaderboard>
+				</div>
+				<div id="treeTenantLeaderboardCode" class="code-container"></div>
+				<button id="treeTenantLeaderboardCopyButton" class="copyCodeButton"
+					onClick="copyToClipboard('treeTenantLeaderboard'); return false">
+					Copy Code
+				</button>
+			</div>
 		</div>
 	</div>
 </body>
@@ -299,6 +382,8 @@
 		if (theme ) {
 			changeAttribute('treeMap', theme, 'theme');
 			changeAttribute('treeProfile', theme, 'theme');
+			changeAttribute('treeTenantCounter', theme, 'theme');
+			changeAttribute('treeTenantLeaderboard', theme, 'theme');
 		}
 		var community = url.searchParams.get("community");
 		if (community) {
@@ -309,11 +394,15 @@
 		if (locale) {
 			changeAttribute('treeMap', locale, 'locale');
 			changeAttribute('treeProfile', locale, 'locale');
+			changeAttribute('treeTenantCounter', locale, 'locale');
+			changeAttribute('treeTenantLeaderboard', locale, 'locale');
 		}
 		var tenantkey = url.searchParams.get("tenantkey");
 		if (tenantkey) {
 			changeAttribute('treeMap', tenantkey, 'tenantkey');
 			changeAttribute('treeProfile', tenantkey, 'tenantkey');
+			changeAttribute('treeTenantCounter', tenantkey, 'tenantkey');
+			changeAttribute('treeTenantLeaderboard', tenantkey, 'tenantkey');
 		}
 		var user = url.searchParams.get("user");
 		if (user) {
@@ -358,17 +447,20 @@
 	function update() {
 		updateCode('treeMap');
 		updateCode('treeProfile');
-		// add more widgets here!
-		//updateCode('treeCounter');
-		//updateCode('tenantLeaderboard');
+		updateCode('treeTenantCounter');
+		updateCode('treeTenantLeaderboard');
 	}
 
 	function WidgetSelector(id) {
-		// Hiding all 
+		// Hiding all
 		document.getElementById("treeMapWidget").style.display = "none";
 		document.getElementById("treeProfileWidget").style.display = "none";
+		document.getElementById("treeTenantCounterWidget").style.display = "none";
+		document.getElementById("treeTenantLeaderboardWidget").style.display = "none";
 		document.getElementById("treeMapCust").style.display = "none";
 		document.getElementById("treeProfileCust").style.display = "none";
+		document.getElementById("treeTenantCounterCust").style.display = "none";
+		document.getElementById("treeTenantLeaderboardCust").style.display = "none";
 
 		// Show selected
 		if (id) {
@@ -405,8 +497,6 @@
 				document.getElementById("error").innerHTML = "Invalid Profile URL";
 			});
 	}
-
-
 </script>
 
 </body>
