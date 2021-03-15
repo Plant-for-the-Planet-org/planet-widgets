@@ -399,10 +399,10 @@
 		}
 		var tenantkey = url.searchParams.get("tenantkey");
 		if (tenantkey) {
-			changeAttribute('treeMap', tenantkey, 'tenantkey');
-			changeAttribute('treeProfile', tenantkey, 'tenantkey');
-			changeAttribute('treeTenantCounter', tenantkey, 'tenantkey');
-			changeAttribute('treeTenantLeaderboard', tenantkey, 'tenantkey');
+			changeAttribute('treeMap', tenantkey, 'tenantkey', 1);
+			changeAttribute('treeProfile', tenantkey, 'tenantkey', 1);
+			changeAttribute('treeTenantCounter', tenantkey, 'tenantkey', 1);
+			changeAttribute('treeTenantLeaderboard', tenantkey, 'tenantkey', 1);
 		}
 		var user = url.searchParams.get("user");
 		if (user) {
