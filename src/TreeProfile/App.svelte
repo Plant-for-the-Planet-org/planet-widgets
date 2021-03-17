@@ -18,7 +18,7 @@
     export let theme = "light";
     export let community = "true";
     export let locale = "en";
-    export let refresh = "slow";
+    export let refresh = "none";
     export let tenantkey = 'ten_I9TW3ncG';
     $:primarycolor = primarycolor;
     $:counterbgcolor = circlebgcolor
@@ -99,7 +99,7 @@
                             {language[locale].treesPlanted}
                         </p>
                     </div>
-                    {#if data.score.target}
+                    {#if data.score.target != 0}
                         <div class="textContainer">
                             <p class="treecount">
                                 {localizedAbbreviatedNumber(locale, Number(data.score.target), 1)}
@@ -138,19 +138,17 @@
                 target="_blank">{language[locale].plantTrees}</a>
 
             <div class="imageHeader">
-                {#if data.image}
-                  <a
-                      href={`${getTenantConfig(tenantkey).url}/t/${data.slug}`}
-                      target="_blank"
-                  >
-                      <img
-                          class="logo"
-                          src={getImageUrl("profile", "thumb", data.image)}
-                          alt={data.displayName}
-                          href="www.facebook.com"
-                      />
-                  </a>
-                {/if}
+                <a
+                    href={`${getTenantConfig(tenantkey).url}/t/${data.slug}`}
+                    target="_blank"
+                >
+                    <img
+                        class="logo"
+                        src={getImageUrl("profile", "thumb", data.image)}
+                        alt={data.displayName}
+                        href="www.facebook.com"
+                    />
+                </a>
                 {#if data.hasLogoLicense}
                 <div class="logoPlanet" style={`background-color:${theme === 'dark' ? "#2f3336" : ""}`}>
                         {#if theme === "dark"}
@@ -351,6 +349,7 @@
         height: 52px;
         width: 52px;
         box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.16);
+        margin-right: 12px;
     }
 
     .logoPlanet {
@@ -362,8 +361,7 @@
         justify-content: center;
         border-radius: 50%;
         box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.16);
-        margin-left: 18px;
-        margin-right: 6px;
+        margin-right: 12px;
     }
 
     .logoPlanet > img {

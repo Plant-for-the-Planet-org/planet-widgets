@@ -21,7 +21,7 @@
   export let theme = "light";
   export let community = "true";
   export let locale = "en";
-  export let refresh;
+  export let refresh = "none";
   export let tenantkey = 'ten_I9TW3ncG';
   $: primarycolor = primarycolor;
   $: counterbgcolor = circlebgcolor
@@ -217,7 +217,7 @@
                 {language[locale].treesPlanted}
               </p>
             </div>
-            {#if data.score.target}
+            {#if data.score.target != 0}
               <div class="textContainer">
                 <p class="treecount">
                   {localizedAbbreviatedNumber(locale, data.score.target, 1)}
@@ -391,6 +391,8 @@
     justify-content: center;
     border-top-right-radius: 10px;
     border-top-left-radius: 10px;
+    padding-right: 10px;
+    padding-left: 10px;
   }
   .treeCounterComponent {
     height: 295px;
