@@ -362,6 +362,9 @@
   /* @import "https://api.mapbox.com/mapbox-gl-js/v1.2.0/mapbox-gl.css"; */
   @import "https://fonts.googleapis.com/css2?family=Raleway:wght@400;700&display=swap";
   @import "https://widgets.plant-for-the-planet.org/map.css";
+  :host{
+    all:initial;
+  }
   .treemap {
     width: 100%;
     border-radius: 10px;
@@ -393,6 +396,7 @@
     border-top-left-radius: 10px;
     padding-right: 10px;
     padding-left: 10px;
+    line-height: 50px;
   }
   .treeCounterComponent {
     height: 295px;
@@ -428,7 +432,6 @@
     text-align: center;
     color: white;
     margin: 0px;
-    margin-top: 6px;
   }
   .planted {
     color: var(--primary-color);
