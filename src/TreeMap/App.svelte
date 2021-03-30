@@ -396,7 +396,6 @@
     border-top-left-radius: 10px;
     padding-right: 10px;
     padding-left: 10px;
-    line-height: 50px;
   }
   .treeCounterComponent {
     height: 295px;
