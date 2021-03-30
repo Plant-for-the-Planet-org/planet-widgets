@@ -424,7 +424,7 @@
 	function updateCode(id) {
 		var widgetCode = document.getElementById(id + 'Code');
 		var widgetNode = document.getElementById(id + 'Script');
-		widgetNode.src = 'https://widgets.plant-for-the-planet.org/build/' + widgetNode.src.split("/")[4];
+		widgetNode.src = `${window.location.origin}/build/` + widgetNode.src.split("/")[4];
 		widgetCode.innerHTML = "<code>" +
 			document.getElementById(id + 'Script').outerHTML.replace(/</g, "&lt;") + '</br>' +
 			document.getElementById(id).outerHTML.replace(/</g, "&lt;") +
