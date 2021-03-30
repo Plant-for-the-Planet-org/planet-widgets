@@ -22,7 +22,7 @@
   export let community = "true";
   export let locale = "en";
   export let refresh = "none";
-  export let tenantkey = 'ten_I9TW3ncG';
+  export let tenantkey = "ten_I9TW3ncG";
   $: primarycolor = primarycolor;
   $: counterbgcolor = circlebgcolor
     ? circlebgcolor
@@ -278,7 +278,7 @@
         </a>
         <a
           class="footerLinkBold"
-          href={'https://a.plant-for-the-planet.org/'}
+          href={"https://a.plant-for-the-planet.org/"}
           target="_blank"
           >| {language[locale].poweredBy}
         </a>
@@ -337,12 +337,12 @@
           >
             {#if theme === "dark"}
               <img
-              src={`${__myapp.env.CDN_URL}/logo/svg/planetDark.svg`}
+                src={`${__myapp.env.CDN_URL}/logo/svg/planetDark.svg`}
                 alt="Plant-for-the-Planet Logo"
               />
             {:else}
               <img
-              src={`${__myapp.env.CDN_URL}/logo/svg/planet.svg`}
+                src={`${__myapp.env.CDN_URL}/logo/svg/planet.svg`}
                 alt="Plant-for-the-Planet Logo"
               />
             {/if}
@@ -362,6 +362,9 @@
   /* @import "https://api.mapbox.com/mapbox-gl-js/v1.2.0/mapbox-gl.css"; */
   @import "https://fonts.googleapis.com/css2?family=Raleway:wght@400;700&display=swap";
   @import "https://widgets.plant-for-the-planet.org/map.css";
+  :host {
+    all: initial;
+  }
   .treemap {
     width: 100%;
     border-radius: 10px;
@@ -421,6 +424,7 @@
     text-align: center;
     color: white;
     margin: 0px;
+    line-height: 72px;
   }
   .treecountLabel {
     font-size: 13px;
@@ -428,7 +432,6 @@
     text-align: center;
     color: white;
     margin: 0px;
-    margin-top: 6px;
   }
   .planted {
     color: var(--primary-color);
