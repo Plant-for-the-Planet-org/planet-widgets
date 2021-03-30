@@ -285,6 +285,7 @@
     text-align: center;
     color: white;
     margin: 0px;
+    line-height: 72px;
   }
   .treecountLabel {
     font-size: 13px;
