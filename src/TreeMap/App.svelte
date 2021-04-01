@@ -13,7 +13,7 @@
   import deLocale from "./../../public/data/locales/de.json";
   import { onMount } from "svelte";
   import getTenantConfig from "../../utils/tenantsConfig";
-
+let w,h;
   // Props that can be passed
   export let user;
   export let primarycolor = "#68b030";
@@ -188,10 +188,11 @@
     });
   };
 </script>
-
+<div class={`${w > 640 ? "treeMapContainer" : "treemap"}`} bind:clientWidth={w} bind:clientHeight={h}>
+  <p>Size: {w}px{h}px</p>
 <div
-  class="treemap"
-  style="--primary-color: {primarycolor};--counter-background-color: {counterbgcolor}; --background-color: {theme ===
+  class="treemap" 
+  style="--widgetWidth:{w};--primary-color: {primarycolor};--counter-background-color: {counterbgcolor}; --background-color: {theme ===
   'light'
     ? '#fff'
     : '#2f3336'}; --link-color: {theme === 'light' ? '#6daff0' : '#fff'}"
@@ -354,6 +355,7 @@
     <p>An error occurred!</p>
   {/await}
 </div>
+</div>
 <div class="marker" style="display:none">
   <svg />
 </div>
@@ -362,6 +364,11 @@
   /* @import "https://api.mapbox.com/mapbox-gl-js/v1.2.0/mapbox-gl.css"; */
   @import "https://fonts.googleapis.com/css2?family=Raleway:wght@400;700&display=swap";
   @import "https://widgets.plant-for-the-planet.org/map.css";
+  .treeMapContainer{
+    display: flex;
+    flex-direction: column;
+    background-color: violet;
+  }
   .treemap {
     width: 100%;
     border-radius: 10px;
@@ -521,34 +528,6 @@
     border-radius: 50%;
   }
 
-  @media screen and (min-width: 640px) {
-    .treemap {
-      flex-direction: row;
-    }
-    .treeCounterContainer {
-      border-top-right-radius: 0px;
-      border-top-left-radius: 10px;
-      border-bottom-left-radius: 10px;
-    }
-    .mapContainer {
-      width: 100%;
-    }
-    .view {
-      width: 100%;
-    }
-  }
-
-  @media screen and (min-width: 940px) {
-    .treemap {
-      width: 940px;
-    }
-    .mapContainer {
-      width: 520px;
-    }
-    .view {
-      width: 520px;
-    }
-  }
 
   .marker {
     height: 30px;
