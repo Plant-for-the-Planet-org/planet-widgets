@@ -197,7 +197,7 @@
 				<div id="treeMapCust" class="customizationContainer">
 					<div class="mb-3">
 						<input type="text" class="form-control" onblur="updateURL('treeMap', this.value)"
-							placeholder="User URL">
+							placeholder="Username or profile url" id="userSlug">
 					</div>
 					<div id="error"></div>
 					<select class="form-select" onchange="changeAttribute('treeMap',this.value,'locale')"
@@ -227,7 +227,7 @@
 
 						<div class="input-group">
 							<label for="bgColor">Circle Color:</label>
-							<input class="colorPicker" type="color" id="bgColor" name="bgColor" value="#23519b"
+							<input class="colorPicker" type="color" id="bgColor" name="bgColor" value="#007A49"
 								onchange="changeAttribute('treeMap',this.value,'circlebgcolor',true)">
 						</div>
 				</div>
@@ -267,7 +267,7 @@
 
 						<div class="input-group">
 							<label for="bgColor">Circle Color:</label>
-							<input class="colorPicker" type="color" id="bgColor" name="bgColor" value="#23519b"
+							<input class="colorPicker" type="color" id="bgColor" name="bgColor" value="#007A49"
 								onchange="changeAttribute('treeProfile',this.value,'circlebgcolor')">
 						</div>
 				</div>
@@ -298,7 +298,7 @@
 
 						<div class="input-group">
 							<label for="bgColor">Circle Color:</label>
-							<input class="colorPicker" type="color" id="bgColor" name="bgColor" value="#23519b"
+							<input class="colorPicker" type="color" id="bgColor" name="bgColor" value="#007A49"
 								onchange="changeAttribute('treeTenantCounter',this.value,'circlebgcolor',true)">
 						</div>
 				</div>
@@ -496,6 +496,7 @@
 				console.log(error);
 				document.getElementById("error").innerHTML = "Invalid Profile URL";
 			});
+			document.getElementById("userSlug").placeholder = userslug;
 	}
 </script>
 

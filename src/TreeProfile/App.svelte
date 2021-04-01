@@ -23,7 +23,7 @@
   $: counterbgcolor = circlebgcolor
     ? circlebgcolor
     : theme === "light"
-    ? "#23519b"
+    ? "#007A49"
     : "#2f3336";
 
   let language = [];
