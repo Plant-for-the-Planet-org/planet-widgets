@@ -13,7 +13,7 @@
   import deLocale from "./../../public/data/locales/de.json";
   import { onMount } from "svelte";
   import getTenantConfig from "../../utils/tenantsConfig";
-
+  let w;
   // Props that can be passed
   export let user;
   export let primarycolor = "#68b030";
@@ -55,6 +55,8 @@
       }, 5000);
       return () => clearInterval(fast);
     } else refresh === "none";
+    let el = document.getElementById("treeMap");
+    el.style.width = "100%";
     return;
   });
 
@@ -190,8 +192,9 @@
 </script>
 
 <div
-  class="treemap"
-  style="--primary-color: {primarycolor};--counter-background-color: {counterbgcolor}; --background-color: {theme ===
+  class={`treemap ${w > 640 ? "landscape" : "portrait"}`}
+  bind:clientWidth={w}
+  style="--widgetWidth:{w};--primary-color: {primarycolor};--counter-background-color: {counterbgcolor}; --background-color: {theme ===
   'light'
     ? '#fff'
     : '#2f3336'}; --link-color: {theme === 'light' ? '#6daff0' : '#fff'}"
@@ -199,7 +202,7 @@
   {#await promise}
     <UserProfileLoader />
   {:then data}
-    <div class="treeCounterContainer">
+    <div class={`treeCounterContainer ${w > 640 ? "w40" : "w100"}`}>
       <div class="mainContainer">
         <div class="treeCounterComponent">
           <div class="treeCounter">
@@ -257,17 +260,33 @@
         >
       </div>
     </div>
-    <div class="mapContainer">
+    <div class={`mapContainer ${w > 640 ? "w60" : "w100"}`}>
       {#if community === "true"}
         {#if theme === "light"}
-          <div id="map" class="view" use:createMap />
+          <div
+            id="map"
+            class={`view ${w > 640 ? "viewLandscape" : "viewPortrait"}`}
+            use:createMap
+          />
         {:else}
-          <div id="map" class="view" use:createMap />
+          <div
+            id="map"
+            class={`view ${w > 640 ? "viewLandscape" : "viewPortrait"}`}
+            use:createMap
+          />
         {/if}
       {:else if theme === "light"}
-        <div id="map" class="view" use:createMap />
+        <div
+          id="map"
+          class={`view ${w > 640 ? "viewLandscape" : "viewPortrait"}`}
+          use:createMap
+        />
       {:else}
-        <div id="map" class="view" use:createMap />
+        <div
+          id="map"
+          class={`view ${w > 640 ? "viewLandscape" : "viewPortrait"}`}
+          use:createMap
+        />
       {/if}
       <div class="footer">
         <a
@@ -369,7 +388,7 @@
     width: 100%;
     border-radius: 10px;
     display: flex;
-    flex-direction: column;
+
     align-items: center;
     border: 1px solid #d5d5d5;
     vertical-align: baseline;
@@ -377,6 +396,26 @@
     text-decoration: none;
     margin: 10px 0px 10px 0px;
     background-color: var(--background-color);
+  }
+
+  .portrait {
+    flex-direction: column;
+  }
+
+  .landscape {
+    flex-direction: row;
+  }
+
+  .w40 {
+    width: 40%;
+  }
+
+  .w60 {
+    width: 60%;
+  }
+
+  .w100 {
+    width: 100%;
   }
 
   .mainContainer {
@@ -387,7 +426,6 @@
   }
   .treeCounterContainer {
     height: 420px;
-    width: 100%;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -463,11 +501,14 @@
     position: relative;
     height: 420px;
     border-radius: 20px;
-    width: 100%;
   }
   .view {
     height: 420px;
     width: 100%;
+  }
+
+  * {
+    outline: none !important;
   }
   .footer {
     display: flex;
@@ -524,35 +565,6 @@
     border-radius: 50%;
   }
 
-  @media screen and (min-width: 640px) {
-    .treemap {
-      flex-direction: row;
-    }
-    .treeCounterContainer {
-      border-top-right-radius: 0px;
-      border-top-left-radius: 10px;
-      border-bottom-left-radius: 10px;
-    }
-    .mapContainer {
-      width: 100%;
-    }
-    .view {
-      width: 100%;
-    }
-  }
-
-  @media screen and (min-width: 940px) {
-    .treemap {
-      width: 940px;
-    }
-    .mapContainer {
-      width: 520px;
-    }
-    .view {
-      width: 520px;
-    }
-  }
-
   .marker {
     height: 30px;
     min-width: 60px;
@@ -590,18 +602,16 @@
     text-decoration: none;
   }
 
-  #map {
+  .viewPortrait {
     border-bottom-left-radius: 10px;
     border-bottom-right-radius: 10px;
   }
 
-  @media screen and (min-width: 940px) {
-    #map {
-      border-bottom-left-radius: 0px;
-      border-top-right-radius: 10px;
-      border-bottom-right-radius: 10px;
-    }
+  .viewLandscape {
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
   }
+
   .infoIcon {
     margin-left: 4px;
     position: relative;
