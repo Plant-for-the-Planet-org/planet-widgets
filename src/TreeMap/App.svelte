@@ -289,18 +289,23 @@
         />
       {/if}
       <div class="footer">
-        <a
-          href={`${getTenantConfig(tenantkey).url}/t/${data.slug}`}
-          target="_blank"
-          class="footerLink"
-          >{language[locale].viewProfile}
-        </a>
-        <a
-          class="footerLinkBold"
-          href={"https://a.plant-for-the-planet.org/"}
-          target="_blank"
-          >| {language[locale].poweredBy}
-        </a>
+        <div class="footerContainer">
+          <div class="footerLink">
+            <a
+              href={`${getTenantConfig(tenantkey).url}/t/${data.slug}`}
+              target="_blank"
+              >{language[locale].viewProfile}
+            </a>
+          </div>
+          <div class="footerLinkBold">
+            <a
+              href={"https://a.plant-for-the-planet.org/"}
+              target="_blank"
+              > 
+              <div class="seperater">|</div> 
+              {language[locale].poweredBy}
+            </a>
+        
         {#if community === "true"}
           <div
             class="infoIcon"
@@ -335,6 +340,8 @@
             </p>
           </div>
         {/if}
+        </div>
+        </div>
       </div>
       <div class="imageHeader">
         {#if data.image}
@@ -527,8 +534,16 @@
     font-weight: bold;
     margin-left: 4px;
     text-decoration: none;
+    display: flex;
+    flex-direction: row;
   }
-
+  .seperater{
+    padding-right: 4px;
+  }
+  .footerContainer{
+    display: flex;
+    flex-direction: row;
+  }
   .imageHeader {
     position: absolute;
     top: 12px;
@@ -536,6 +551,24 @@
     display: flex;
     flex-direction: row;
   }
+  @media screen and (max-width: 376px){
+    .footerContainer{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 300px;
+    margin-right: 6px;
+  }
+  .footerLink{
+    margin-bottom: 6px;
+  }
+  .seperater{
+    display: none;
+  }
+  }
+  
+
 
   .logo {
     border-radius: 50%;
@@ -599,6 +632,8 @@
   }
 
   a {
+    display: flex;
+    flex-direction: row;
     text-decoration: none;
   }
 
