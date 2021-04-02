@@ -525,15 +525,13 @@
     bottom: 12px;
     right: 12px;
   }
-  .footerLink {
+  .footerLink > a, .footerLinkBold > a {
     color: var(--link-color);
     text-decoration: none;
   }
   .footerLinkBold {
-    color: var(--link-color);
     font-weight: bold;
     margin-left: 4px;
-    text-decoration: none;
     display: flex;
     flex-direction: row;
   }
