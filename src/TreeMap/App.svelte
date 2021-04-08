@@ -235,6 +235,7 @@
               size * 2
             }px;position:absolute;`}
           >
+          {#if data.score.target > data.score.personal + data.score.received}
             <circle
               cx={size}
               cy={size}
@@ -250,6 +251,23 @@
                     data.score.target)}
               fill="transparent"
             />
+            {:else if data.score.target < data.score.personal + data.score.received}
+            <circle
+              cx={size}
+              cy={size}
+              r={radius}
+              stroke={primarycolor}
+              stroke-linecap="round"
+              stroke-width="16"
+              transform={`rotate(-90,${size},${size})`}
+              stroke-dasharray={circumference}
+              stroke-dashoffset={circumference *
+                (1 ==
+                  (data.score.personal + data.score.received) /
+                    data.score.target)}
+              fill="transparent"
+            />
+            {/if}
           </svg>
         </div>
         <a
