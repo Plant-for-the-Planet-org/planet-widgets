@@ -10,18 +10,21 @@
   // Props that can be passed
   export let primarycolor = "#68b030";
   export let circlebgcolor;
-  export let theme = "light";
+  export let theme = "default";
   export let locale = "en";
   export let goal;
   export let tenantkey;
+  export let darkMode = "false";
+
+  console.log(darkMode);
 
   goal = Number(goal);
   $: primarycolor = primarycolor;
   $: counterbgcolor = circlebgcolor
     ? circlebgcolor
-    : theme === "light"
-    ? "#007A49"
-    : "#2f3336";
+    : darkMode === "true"
+    ? "#2f3336"
+    : "#007A49";
 
   let language = [];
   language["en"] = enLocale;
@@ -49,12 +52,8 @@
     --counter-background-color: {theme === 'klum'
     ? 'transparent'
     : counterbgcolor}; 
-    --background-color: {theme === 'light'
-    ? '#fff'
-    : theme === 'dark'
-    ? '#2f3336'
-    : 'transparent'};
-    --link-color: {theme === 'light' ? '#6daff0' : '#fff'}"
+    --background-color: {darkMode === 'true' ? '#2f3336' : '#fff'};
+    --link-color: {darkMode === 'true' ? '#fff' : '#6daff0'}"
 >
   {#await fetchProfileData}
     <UserProfileLoader />
@@ -68,10 +67,10 @@
         {/if}
         <div class="treeCounter">
           <div class="textContainer">
-            <p class={`treecount ${theme === "dark" ? "planted" : ""}`}>
+            <p class={`treecount ${darkMode === "true" ? "planted" : ""}`}>
               {localizedAbbreviatedNumber(locale, Number(data.total), 1)}
             </p>
-            <p class={`treecountLabel ${theme === "dark" ? "planted" : ""}`}>
+            <p class={`treecountLabel ${darkMode === "true" ? "planted" : ""}`}>
               {language[locale].treesPlanted}
             </p>
           </div>

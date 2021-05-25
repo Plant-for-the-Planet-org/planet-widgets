@@ -185,7 +185,7 @@
 			<div class="customisation-column">
 
 				<h2 class="widgetTitle">Get started with a Widget</h2>
-				<select class="form-select" style="margin-bottom: 20px;" onchange="WidgetSelector(this.value)"
+				<select id="widget" class="form-select" style="margin-bottom: 20px;" onchange="WidgetSelector(this.value)"
 					aria-label="Default select example">
 					<option value="">Select Widget</option>
 					<option value="treeMap">Tree-Map</option>
@@ -287,10 +287,15 @@
 						<select class="form-select" onchange="changeAttribute('treeTenantCounter',this.value,'theme')"
 							aria-label="Default select example">
 							<option value="light" selected>Select Theme</option>
-							<option value="light">Light</option>
-							<option value="dark">Dark</option>
+							<option value="light">Default</option>
 							<option value="klum">Klum</option>
 						</select>
+						<div class="form-check form-switch">
+							<input class="form-check-input"
+								onclick="changeAttribute('treeTenantCounter',this.checked,'darkMode')" type="checkbox"
+								id="treeTenantCounter-darkMode-switch">
+							<label class="form-check-label" for="treeTenantCounter-darkMode-switch">Dark Mode</label>
+						</div>
 						<div class="input-group">
 							<label for="primaryColor">Primary Color:</label>
 							<input class="colorPicker" type="color" id="primaryColor" name="primaryColor"
@@ -383,7 +388,7 @@
 		if (theme ) {
 			changeAttribute('treeMap', theme, 'theme');
 			changeAttribute('treeProfile', theme, 'theme');
-			changeAttribute('treeTenantCounter', theme, 'theme');
+			//changeAttribute('treeTenantCounter', theme, 'theme');
 			changeAttribute('treeTenantLeaderboard', theme, 'theme');
 		}
 		var community = url.searchParams.get("community");
@@ -410,6 +415,18 @@
 			updateURL('treeMap', user);
 			updateURL('treeProfile', user);
 		}
+
+
+		// Darkmode and theme implementation **only for tenant treecounter
+		var darkMode = url.searchParams.get("darkMode");
+		if (darkMode ) {
+			changeAttribute('treeTenantCounter', darkMode , 'darkMode');
+		}
+
+		if (theme ) {
+			changeAttribute('treeTenantCounter', theme, 'darkMode');
+		}
+
 		update();
 	}
 
