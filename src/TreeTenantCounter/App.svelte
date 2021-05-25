@@ -5,6 +5,7 @@
   import { localizedAbbreviatedNumber } from "../../utils/formatNumber";
   import enLocale from "./../../public/data/locales/en.json";
   import deLocale from "./../../public/data/locales/de.json";
+  import TcBackground from "../common/themes/leniKlum/TcBackground.svelte";
 
   // Props that can be passed
   export let primarycolor = "#68b030";
@@ -45,11 +46,14 @@
 <div
   class="treecounter"
   style="--primary-color: {primarycolor};
-    --counter-background-color: {counterbgcolor}; 
-    --background-color: {theme ===
-  'light'
+    --counter-background-color: {theme === 'klum'
+    ? 'transparent'
+    : counterbgcolor}; 
+    --background-color: {theme === 'light'
     ? '#fff'
-    : '#2f3336'};
+    : theme === 'dark'
+    ? '#2f3336'
+    : 'transparent'};
     --link-color: {theme === 'light' ? '#6daff0' : '#fff'}"
 >
   {#await fetchProfileData}
@@ -57,6 +61,11 @@
   {:then data}
     <div class="treeCounterContainer">
       <div class="treeCounterComponent">
+        {#if theme === "klum"}
+          <div class={"customBackground"}>
+            <TcBackground />
+          </div>
+        {/if}
         <div class="treeCounter">
           <div class="textContainer">
             <p class={`treecount ${theme === "dark" ? "planted" : ""}`}>
@@ -161,6 +170,13 @@
     align-items: center;
     position: relative;
   }
+
+  .customBackground {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+  }
+
   .treeCounter {
     height: 266px;
     width: 266px;
@@ -171,6 +187,7 @@
     justify-content: center;
     align-items: center;
     text-align: center;
+    z-index: 1;
   }
   .treecount {
     font-size: 48px;
