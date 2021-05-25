@@ -66,7 +66,7 @@
               {language[locale].treesPlanted}
             </p>
           </div>
-          {#if goal != 0 && goal != "" && !isNaN(goal) }
+          {#if goal != 0}
             <div class="textContainer">
               <p class="treecount">
                 {localizedAbbreviatedNumber(locale, Number(goal), 1)}
