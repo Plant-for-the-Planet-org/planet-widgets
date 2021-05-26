@@ -36,7 +36,6 @@
       },
     });
     userpofiledata = await response.json();
-    console.log(userpofiledata)
     return userpofiledata;
   })();
 
@@ -77,16 +76,9 @@
             <p class={`treecountLabel ${theme === "dark" ? "planted" : ""}`}>
               {language[locale].trees}.
             </p>
-            {#if !goal}
             <p class={`treecountLabel ${theme === "dark" ? "planted" : ""}`}>
               The {forestname} Forest Grows.
             </p>
-            {:else}
-            <p class="treecount">
-              {localizedAbbreviatedNumber(locale, Number(goal), 1)}
-            </p>
-            <p class="treecountLabel">{language[locale].target}</p>
-            {/if}
           </div>
         </div>
         {:else}
@@ -99,7 +91,7 @@
               {language[locale].treesPlanted}
             </p>
           </div>
-          {#if goal != 0}
+          {#if goal && goal != "" && goal != 0}
             <div class="textContainer">
               <p class="treecount">
                 {localizedAbbreviatedNumber(locale, Number(goal), 1)}
@@ -109,6 +101,7 @@
           {/if}
         </div>
         {/if}
+        {#if goal && goal != "" && goal != 0}
         <svg
           style={`width:${size * 2}px; height:${size * 2}px;position:absolute;`}
         >
@@ -140,6 +133,7 @@
             />
           {/if}
         </svg>
+        {/if}
       </div>
     </div>
   {:catch error}
@@ -228,6 +222,7 @@
     color: white;
     margin: 0px;
     margin-top: 6px;
+    max-width: 220px;
   }
 
   @media screen and (min-width: 640px) {
