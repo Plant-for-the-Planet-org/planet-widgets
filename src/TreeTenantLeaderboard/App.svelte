@@ -62,8 +62,8 @@
           </li>
         {/each}
       {:else if selectedTab === "highest"}
-        {#each leaderboardData.mostDonated as item}
-          <div class="row">
+        {#each leaderboardData.mostDonated as item, i}
+          <div class="row" style={i === leaderboardData.mostRecent.length-1 ? "border: none;" : ""}>
             <p class="user">{item.donorName}</p>
             <p class="treeCount">
               {getFormattedNumber(item.treeCount, locale)}
