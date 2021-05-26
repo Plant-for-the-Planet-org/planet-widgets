@@ -52,8 +52,8 @@
 
     <ul class="row-container">
       {#if selectedTab === "recent"}
-        {#each leaderboardData.mostRecent as item}
-          <li class="row">
+        {#each leaderboardData.mostRecent as item, i}
+          <li class="row" style={i === leaderboardData.mostRecent.length-1 ? "border: none;" : ""}>
             <p class="user">{item.donorName}</p>
             <p class="treeCount">
               {getFormattedNumber(item.treeCount, locale)}
@@ -62,8 +62,8 @@
           </li>
         {/each}
       {:else if selectedTab === "highest"}
-        {#each leaderboardData.mostDonated as item}
-          <div class="row">
+        {#each leaderboardData.mostDonated as item, i}
+          <div class="row" style={i === leaderboardData.mostRecent.length-1 ? "border: none;" : ""}>
             <p class="user">{item.donorName}</p>
             <p class="treeCount">
               {getFormattedNumber(item.treeCount, locale)}
@@ -85,8 +85,7 @@
     all: initial;
   }
   .leaderboardSection {
-    min-width: 270px;
-    max-width: 270px;
+    max-width: 300px;
     padding: 16px;
     font-family: "Raleway", sans-serif;
     text-align: center;
