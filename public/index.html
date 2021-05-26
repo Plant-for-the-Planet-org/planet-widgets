@@ -284,6 +284,8 @@
 						<option value="de">Deutsch</option>
 					</select>
 					<h5 class="widgetSubTitle" style="margin-bottom: 20px;">Customization Options (Optional): </h2>
+						<input type="text" class="form-control" onblur="changeAttribute('treeTenantCounter',this.value,'forestname')"
+							placeholder="Forest Name"><br />
 						<select class="form-select" onchange="changeAttribute('treeTenantCounter',this.value,'theme')"
 							aria-label="Default select example">
 							<option value="light" selected>Select Theme</option>
@@ -348,7 +350,7 @@
 			</div>
 			<div id="treeTenantCounterWidget">
 				<div id="treeTenantCounterComponent">
-					<tree-tenantcounter tenantkey="ten_I9TW3ncG" goal="10000000000" forestname="Plant-for-the-planet" id="treeTenantCounter">
+					<tree-tenantcounter tenantkey="ten_I9TW3ncG" id="treeTenantCounter">
 					</tree-tenantcounter>
 				</div>
 				<div id="treeTenantCounterCode" class="code-container"></div>
