@@ -363,6 +363,10 @@
       </div>
       <div class="imageHeader">
         {#if data.image}
+        <div
+            class="logoPlanet"
+            style={`background-color:${theme === "dark" ? "#2f3336" : ""}`}
+          >
           <a
             href={`${getTenantConfig(tenantkey).url}/t/${data.slug}`}
             target="_blank"
@@ -373,6 +377,7 @@
               alt={data.displayName}
             />
           </a>
+        </div>
         {/if}
         {#if data.hasLogoLicense}
           <div

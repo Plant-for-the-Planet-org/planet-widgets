@@ -85,10 +85,9 @@
     all: initial;
   }
   .leaderboardSection {
-    min-width: 260px;
-    width: 100%;
-    max-width: 580px;
-    /* padding: 16px; */
+    min-width: 270px;
+    max-width: 270px;
+    padding: 16px;
     font-family: "Raleway", sans-serif;
     text-align: center;
     min-height: 682px;
@@ -98,6 +97,7 @@
     background-color: var(--background-color);
     color: var(--text-color);
     border-radius: 10px;
+    margin-top: 20px;
   }
 
   .row-container {
@@ -155,5 +155,17 @@
   .tabButton:focus {
     border: 0px;
     outline: 0px;
+  }
+
+  @media screen and (min-width: 425px){
+    .leaderboardSection{
+      min-width: 380px;
+      max-width: 380px;
+    }
+  }
+  @media screen and (min-width: 768px){
+    .leaderboardSection{
+      min-width: 580px;
+    }
   }
 </style>
