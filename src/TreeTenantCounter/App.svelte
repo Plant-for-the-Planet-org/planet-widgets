@@ -14,6 +14,7 @@
   export let locale = "en";
   export let goal;
   export let tenantkey;
+  export let forestname;
 
   goal = Number(goal);
   $: primarycolor = primarycolor;
@@ -35,6 +36,7 @@
       },
     });
     userpofiledata = await response.json();
+    console.log(userpofiledata)
     return userpofiledata;
   })();
 
@@ -46,7 +48,7 @@
 <div
   class="treecounter"
   style="--primary-color: {primarycolor};
-    --counter-background-color: {theme === 'klum'
+    --counter-background-color: {theme === 'forest'
     ? 'transparent'
     : counterbgcolor}; 
     --background-color: {theme === 'light'
@@ -61,11 +63,33 @@
   {:then data}
     <div class="treeCounterContainer">
       <div class="treeCounterComponent">
-        {#if theme === "klum"}
+        {#if theme === "forest"}
           <div class={"customBackground"}>
             <TcBackground />
           </div>
         {/if}
+        {#if forestname}
+        <div class="treeCounter">
+          <div class="textContainer">
+            <p class={`treecount ${theme === "dark" ? "planted" : ""}`}>
+              {localizedAbbreviatedNumber(locale, Number(data.total), 1)}
+            </p>
+            <p class={`treecountLabel ${theme === "dark" ? "planted" : ""}`}>
+              {language[locale].trees}.
+            </p>
+            {#if !goal}
+            <p class={`treecountLabel ${theme === "dark" ? "planted" : ""}`}>
+              The {forestname} Forest Grows.
+            </p>
+            {:else}
+            <p class="treecount">
+              {localizedAbbreviatedNumber(locale, Number(goal), 1)}
+            </p>
+            <p class="treecountLabel">{language[locale].target}</p>
+            {/if}
+          </div>
+        </div>
+        {:else}
         <div class="treeCounter">
           <div class="textContainer">
             <p class={`treecount ${theme === "dark" ? "planted" : ""}`}>
@@ -84,7 +108,7 @@
             </div>
           {/if}
         </div>
-
+        {/if}
         <svg
           style={`width:${size * 2}px; height:${size * 2}px;position:absolute;`}
         >
