@@ -77,7 +77,7 @@
               {language[locale].trees}.
             </p>
             <p class={`treecountLabel ${theme === "dark" ? "planted" : ""}`}>
-              The {forestname} Forest Grows.
+              {language[locale].the} {forestname} {language[locale].forestGrows}
             </p>
           </div>
         </div>
