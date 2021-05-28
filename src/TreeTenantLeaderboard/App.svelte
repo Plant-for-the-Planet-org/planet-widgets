@@ -63,7 +63,7 @@
         {/each}
       {:else if selectedTab === "highest"}
         {#each leaderboardData.mostDonated as item, i}
-          <div class="row" style={i === leaderboardData.mostRecent.length-1 ? "border: none;" : ""}>
+          <div class="row" style={i === leaderboardData.mostDonated.length-1 ? "border: none;" : ""}>
             <p class="user">{item.donorName}</p>
             <p class="treeCount">
               {getFormattedNumber(item.treeCount, locale)}
@@ -89,7 +89,6 @@
     padding: 16px;
     font-family: "Raleway", sans-serif;
     text-align: center;
-    min-height: 682px;
     display: flex;
     flex-direction: column;
     align-items: center;
