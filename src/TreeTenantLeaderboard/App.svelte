@@ -89,7 +89,6 @@
     padding: 16px;
     font-family: "Raleway", sans-serif;
     text-align: center;
-    min-height: 682px;
     display: flex;
     flex-direction: column;
     align-items: center;
