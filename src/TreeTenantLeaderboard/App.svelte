@@ -23,7 +23,7 @@
   language["es"] = esLocale;
   language["fr"] = frLocale;
   language["it"] = itLocale;
-  language["pt-BR"] = ptBRLocale;
+  language["pt-br"] = ptBRLocale;
   let leaderboardData;
   const fetchProfileData = (async () => {
     const response = await fetch(`${__myapp.env.API_URL}/leaderboard`, {

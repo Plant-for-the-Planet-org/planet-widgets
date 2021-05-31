@@ -40,7 +40,7 @@
   language["es"] = esLocale;
   language["fr"] = frLocale;
   language["it"] = itLocale;
-  language["pt-BR"] = ptBRLocale;
+  language["pt-br"] = ptBRLocale;
 
   let promise = fetchData();
   let mapStyle;
