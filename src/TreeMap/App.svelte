@@ -691,6 +691,7 @@
     width: 220px;
     border-radius: 4px;
     text-align: center;
+    font-weight: normal;
   }
 
   .infoIcon > .infoText {
