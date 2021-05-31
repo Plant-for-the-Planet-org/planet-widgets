@@ -112,16 +112,22 @@
     /* color: #080707; */
   }
 
-  .row > .user {
+  .row>.user {
     display: block;
     font-weight: 600;
     text-align: left;
-  }
+    text-overflow: ellipsis;
+    width: 100%;
+    overflow: hidden;
+    white-space: nowrap;
+}
 
   .row > .treeCount {
     text-align: right;
     margin-left: 24px;
     min-width: 110px;
+    width: 100%;
+    max-width: 130px;
   }
   .headerButtons {
     align-self: center;
