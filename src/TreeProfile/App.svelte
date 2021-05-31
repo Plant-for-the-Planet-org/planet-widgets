@@ -7,6 +7,10 @@
   import getImageUrl from "../../utils/getImageUrl";
   import enLocale from "./../../public/data/locales/en.json";
   import deLocale from "./../../public/data/locales/de.json";
+  import esLocale from "./../../public/data/locales/es.json";
+  import frLocale from "./../../public/data/locales/fr.json";
+  import itLocale from "./../../public/data/locales/it.json";
+  import ptBRLocale from "./../../public/data/locales/pt-BR.json";
   import { onMount } from "svelte";
   import getTenantConfig from "../../utils/tenantsConfig";
 
@@ -29,6 +33,10 @@
   let language = [];
   language["en"] = enLocale;
   language["de"] = deLocale;
+  language["es"] = esLocale;
+  language["fr"] = frLocale;
+  language["it"] = itLocale;
+  language["pt-BR"] = ptBRLocale;
 
   let userpofiledata;
   async function fetchData() {

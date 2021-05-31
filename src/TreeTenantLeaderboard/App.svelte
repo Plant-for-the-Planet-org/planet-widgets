@@ -4,6 +4,10 @@
   import { getFormattedNumber } from "../../utils/formatNumber";
   import enLocale from "./../../public/data/locales/en.json";
   import deLocale from "./../../public/data/locales/de.json";
+  import esLocale from "./../../public/data/locales/es.json";
+  import frLocale from "./../../public/data/locales/fr.json";
+  import itLocale from "./../../public/data/locales/it.json";
+  import ptBRLocale from "./../../public/data/locales/pt-BR.json";
 
   export let theme = "light";
   let selectedTab = "recent";
@@ -16,6 +20,10 @@
   let language = [];
   language["en"] = enLocale;
   language["de"] = deLocale;
+  language["es"] = esLocale;
+  language["fr"] = frLocale;
+  language["it"] = itLocale;
+  language["pt-BR"] = ptBRLocale;
   let leaderboardData;
   const fetchProfileData = (async () => {
     const response = await fetch(`${__myapp.env.API_URL}/leaderboard`, {

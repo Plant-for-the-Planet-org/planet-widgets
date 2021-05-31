@@ -5,6 +5,10 @@
   import { localizedAbbreviatedNumber } from "../../utils/formatNumber";
   import enLocale from "./../../public/data/locales/en.json";
   import deLocale from "./../../public/data/locales/de.json";
+  import esLocale from "./../../public/data/locales/es.json";
+  import frLocale from "./../../public/data/locales/fr.json";
+  import itLocale from "./../../public/data/locales/it.json";
+  import ptBRLocale from "./../../public/data/locales/pt-BR.json";
   import TcBackground from "../common/themes/leniKlum/TcBackground.svelte";
 
   // Props that can be passed
@@ -27,6 +31,10 @@
   let language = [];
   language["en"] = enLocale;
   language["de"] = deLocale;
+  language["es"] = esLocale;
+  language["fr"] = frLocale;
+  language["it"] = itLocale;
+  language["pt-BR"] = ptBRLocale;
 
   let userpofiledata;
   const fetchProfileData = (async () => {
@@ -49,7 +57,7 @@
   style="--primary-color: {primarycolor};
     --counter-background-color: {theme === 'forest'
     ? 'transparent'
-    : counterbgcolor}; 
+    : counterbgcolor};
     --background-color: {theme === 'light'
     ? '#fff'
     : theme === 'dark'
