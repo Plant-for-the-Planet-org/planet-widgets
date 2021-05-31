@@ -11,6 +11,10 @@
   import getImageUrl from "../../utils/getImageUrl";
   import enLocale from "./../../public/data/locales/en.json";
   import deLocale from "./../../public/data/locales/de.json";
+  import esLocale from "./../../public/data/locales/es.json";
+  import frLocale from "./../../public/data/locales/fr.json";
+  import itLocale from "./../../public/data/locales/it.json";
+  import ptBRLocale from "./../../public/data/locales/pt-BR.json";
   import { onMount } from "svelte";
   import getTenantConfig from "../../utils/tenantsConfig";
   let w;
@@ -33,6 +37,10 @@
   let language = [];
   language["en"] = enLocale;
   language["de"] = deLocale;
+  language["es"] = esLocale;
+  language["fr"] = frLocale;
+  language["it"] = itLocale;
+  language["pt-br"] = ptBRLocale;
 
   let promise = fetchData();
   let mapStyle;
@@ -319,11 +327,11 @@
             <a
               href={"https://a.plant-for-the-planet.org/"}
               target="_blank"
-              > 
-              <div class="seperater">|</div> 
+              >
+              <div class="seperater">|</div>
               {language[locale].poweredBy}
             </a>
-        
+
         {#if community === "true"}
           <div
             class="infoIcon"
@@ -588,7 +596,7 @@
     display: none;
   }
   }
-  
+
 
 
   .logo {
