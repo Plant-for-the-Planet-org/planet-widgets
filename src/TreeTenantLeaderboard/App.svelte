@@ -135,7 +135,7 @@
     margin-left: 24px;
     min-width: 110px;
     width: 100%;
-    max-width: 135px;
+    max-width: 140px;
   }
   .headerButtons {
     align-self: center;
