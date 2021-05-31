@@ -4,6 +4,10 @@
   import { getFormattedNumber } from "../../utils/formatNumber";
   import enLocale from "./../../public/data/locales/en.json";
   import deLocale from "./../../public/data/locales/de.json";
+  import esLocale from "./../../public/data/locales/es.json";
+  import frLocale from "./../../public/data/locales/fr.json";
+  import itLocale from "./../../public/data/locales/it.json";
+  import ptBRLocale from "./../../public/data/locales/pt-BR.json";
 
   export let theme = "light";
   let selectedTab = "recent";
@@ -16,6 +20,10 @@
   let language = [];
   language["en"] = enLocale;
   language["de"] = deLocale;
+  language["es"] = esLocale;
+  language["fr"] = frLocale;
+  language["it"] = itLocale;
+  language["pt-br"] = ptBRLocale;
   let leaderboardData;
   const fetchProfileData = (async () => {
     const response = await fetch(`${__myapp.env.API_URL}/leaderboard`, {
@@ -52,8 +60,8 @@
 
     <ul class="row-container">
       {#if selectedTab === "recent"}
-        {#each leaderboardData.mostRecent as item}
-          <li class="row">
+        {#each leaderboardData.mostRecent as item, i}
+          <li class="row" style={i === leaderboardData.mostRecent.length-1 ? "border: none;" : ""}>
             <p class="user">{item.donorName}</p>
             <p class="treeCount">
               {getFormattedNumber(item.treeCount, locale)}
@@ -62,8 +70,8 @@
           </li>
         {/each}
       {:else if selectedTab === "highest"}
-        {#each leaderboardData.mostDonated as item}
-          <div class="row">
+        {#each leaderboardData.mostDonated as item, i}
+          <div class="row" style={i === leaderboardData.mostDonated.length-1 ? "border: none;" : ""}>
             <p class="user">{item.donorName}</p>
             <p class="treeCount">
               {getFormattedNumber(item.treeCount, locale)}
@@ -85,19 +93,17 @@
     all: initial;
   }
   .leaderboardSection {
-    min-width: 260px;
-    width: 100%;
-    max-width: 580px;
-    /* padding: 16px; */
+    max-width: 300px;
+    padding: 16px;
     font-family: "Raleway", sans-serif;
     text-align: center;
-    min-height: 682px;
     display: flex;
     flex-direction: column;
     align-items: center;
     background-color: var(--background-color);
     color: var(--text-color);
     border-radius: 10px;
+    margin-top: 20px;
   }
 
   .row-container {
@@ -114,16 +120,22 @@
     /* color: #080707; */
   }
 
-  .row > .user {
+  .row>.user {
     display: block;
     font-weight: 600;
     text-align: left;
-  }
+    text-overflow: ellipsis;
+    width: 100%;
+    overflow: hidden;
+    white-space: nowrap;
+}
 
   .row > .treeCount {
     text-align: right;
     margin-left: 24px;
     min-width: 110px;
+    width: 100%;
+    max-width: 140px;
   }
   .headerButtons {
     align-self: center;
@@ -155,5 +167,17 @@
   .tabButton:focus {
     border: 0px;
     outline: 0px;
+  }
+
+  @media screen and (min-width: 425px){
+    .leaderboardSection{
+      min-width: 380px;
+      max-width: 380px;
+    }
+  }
+  @media screen and (min-width: 768px){
+    .leaderboardSection{
+      min-width: 580px;
+    }
   }
 </style>

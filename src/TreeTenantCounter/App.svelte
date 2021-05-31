@@ -5,6 +5,11 @@
   import { localizedAbbreviatedNumber } from "../../utils/formatNumber";
   import enLocale from "./../../public/data/locales/en.json";
   import deLocale from "./../../public/data/locales/de.json";
+  import esLocale from "./../../public/data/locales/es.json";
+  import frLocale from "./../../public/data/locales/fr.json";
+  import itLocale from "./../../public/data/locales/it.json";
+  import ptBRLocale from "./../../public/data/locales/pt-BR.json";
+  import TcBackground from "../common/themes/leniKlum/TcBackground.svelte";
 
   // Props that can be passed
   export let primarycolor = "#68b030";
@@ -13,6 +18,7 @@
   export let locale = "en";
   export let goal;
   export let tenantkey;
+  export let forestname;
 
   goal = Number(goal);
   $: primarycolor = primarycolor;
@@ -25,6 +31,10 @@
   let language = [];
   language["en"] = enLocale;
   language["de"] = deLocale;
+  language["es"] = esLocale;
+  language["fr"] = frLocale;
+  language["it"] = itLocale;
+  language["pt-br"] = ptBRLocale;
 
   let userpofiledata;
   const fetchProfileData = (async () => {
@@ -45,11 +55,14 @@
 <div
   class="treecounter"
   style="--primary-color: {primarycolor};
-    --counter-background-color: {counterbgcolor}; 
-    --background-color: {theme ===
-  'light'
+    --counter-background-color: {theme === 'forest'
+    ? 'transparent'
+    : counterbgcolor};
+    --background-color: {theme === 'light'
     ? '#fff'
-    : '#2f3336'};
+    : theme === 'dark'
+    ? '#2f3336'
+    : 'transparent'};
     --link-color: {theme === 'light' ? '#6daff0' : '#fff'}"
 >
   {#await fetchProfileData}
@@ -57,6 +70,26 @@
   {:then data}
     <div class="treeCounterContainer">
       <div class="treeCounterComponent">
+        {#if theme === "forest"}
+          <div class={"customBackground"}>
+            <TcBackground />
+          </div>
+        {/if}
+        {#if forestname}
+        <div class="treeCounter">
+          <div class="textContainer">
+            <p class={`treecount ${theme === "dark" ? "planted" : ""}`}>
+              {localizedAbbreviatedNumber(locale, Number(data.total), 1)}
+            </p>
+            <p class={`treecountLabel ${theme === "dark" ? "planted" : ""}`}>
+              {language[locale].trees}.
+            </p>
+            <p class={`treecountLabel ${theme === "dark" ? "planted" : ""}`}>
+              {language[locale].the} {forestname} {language[locale].forestGrows}
+            </p>
+          </div>
+        </div>
+        {:else}
         <div class="treeCounter">
           <div class="textContainer">
             <p class={`treecount ${theme === "dark" ? "planted" : ""}`}>
@@ -66,7 +99,7 @@
               {language[locale].treesPlanted}
             </p>
           </div>
-          {#if goal !== 0}
+          {#if goal && goal != "" && goal != 0}
             <div class="textContainer">
               <p class="treecount">
                 {localizedAbbreviatedNumber(locale, Number(goal), 1)}
@@ -75,7 +108,8 @@
             </div>
           {/if}
         </div>
-
+        {/if}
+        {#if goal && goal != "" && goal != 0}
         <svg
           style={`width:${size * 2}px; height:${size * 2}px;position:absolute;`}
         >
@@ -107,6 +141,7 @@
             />
           {/if}
         </svg>
+        {/if}
       </div>
     </div>
   {:catch error}
@@ -161,6 +196,13 @@
     align-items: center;
     position: relative;
   }
+
+  .customBackground {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+  }
+
   .treeCounter {
     height: 266px;
     width: 266px;
@@ -171,6 +213,7 @@
     justify-content: center;
     align-items: center;
     text-align: center;
+    z-index: 1;
   }
   .treecount {
     font-size: 48px;
@@ -187,6 +230,7 @@
     color: white;
     margin: 0px;
     margin-top: 6px;
+    max-width: 220px;
   }
 
   @media screen and (min-width: 640px) {

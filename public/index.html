@@ -203,8 +203,12 @@
 					<select class="form-select" onchange="changeAttribute('treeMap',this.value,'locale')"
 						aria-label="Default select example">
 						<option value="en" selected>Select Language</option>
-						<option value="en">English</option>
-						<option value="de">Deutsch</option>
+						<option value="en">EN</option>
+						<option value="de">DE</option>
+						<option value="es">ES</option>
+						<option value="fr">FR</option>
+						<option value="it">IT</option>
+						<option value="pt-br">PT-BR</option>
 					</select>
 					<h5 class="widgetSubTitle" style="margin-bottom: 20px;">Customization Options (Optional): </h2>
 						<select class="form-select" onchange="changeAttribute('treeMap',this.value,'theme')"
@@ -241,8 +245,12 @@
 					<select class="form-select" onchange="changeAttribute('treeProfile',this.value,'locale')"
 						aria-label="Default select example">
 						<option value="en" selected>Select Language</option>
-						<option value="en">English</option>
-						<option value="de">Deutsch</option>
+						<option value="en">EN</option>
+						<option value="de">DE</option>
+						<option value="es">ES</option>
+						<option value="fr">FR</option>
+						<option value="it">IT</option>
+						<option value="pt-br">PT-BR</option>
 					</select>
 					<h5 class="widgetSubTitle" style="margin-bottom: 20px;">Customization Options (Optional): </h2>
 						<div class="form-check form-switch">
@@ -280,15 +288,22 @@
 					<select class="form-select" onchange="changeAttribute('treeTenantCounter',this.value,'locale')"
 						aria-label="Default select example">
 						<option value="en" selected>Select Language</option>
-						<option value="en">English</option>
-						<option value="de">Deutsch</option>
+						<option value="en">EN</option>
+						<option value="de">DE</option>
+						<option value="es">ES</option>
+						<option value="fr">FR</option>
+						<option value="it">IT</option>
+						<option value="pt-br">PT-BR</option>
 					</select>
 					<h5 class="widgetSubTitle" style="margin-bottom: 20px;">Customization Options (Optional): </h2>
+						<input type="text" class="form-control" onblur="changeAttribute('treeTenantCounter',this.value,'forestname')"
+							placeholder="Forest Name"><br />
 						<select class="form-select" onchange="changeAttribute('treeTenantCounter',this.value,'theme')"
 							aria-label="Default select example">
-							<option value="light" selected>Select Theme</option>
+							<option value="light" >Select Theme</option>
 							<option value="light">Light</option>
 							<option value="dark">Dark</option>
+							<option value="forest" selected>Forest</option>
 						</select>
 						<div class="input-group">
 							<label for="primaryColor">Primary Color:</label>
@@ -307,8 +322,12 @@
 					<select class="form-select" onchange="changeAttribute('treeTenantLeaderboard',this.value,'locale')"
 						aria-label="Default select example">
 						<option value="en" selected>Select Language</option>
-						<option value="en">English</option>
-						<option value="de">Deutsch</option>
+						<option value="en">EN</option>
+						<option value="de">DE</option>
+						<option value="es">ES</option>
+						<option value="fr">FR</option>
+						<option value="it">IT</option>
+						<option value="pt-br">PT-BR</option>
 					</select>
 					<h5 class="widgetSubTitle" style="margin-bottom: 20px;">Customization Options (Optional): </h2>
 						<select class="form-select" onchange="changeAttribute('treeTenantLeaderboard',this.value,'theme')"
@@ -347,7 +366,7 @@
 			</div>
 			<div id="treeTenantCounterWidget">
 				<div id="treeTenantCounterComponent">
-					<tree-tenantcounter tenantkey="ten_I9TW3ncG" goal="10000000000" id="treeTenantCounter">
+					<tree-tenantcounter tenantkey="ten_I9TW3ncG" theme="forest" id="treeTenantCounter">
 					</tree-tenantcounter>
 				</div>
 				<div id="treeTenantCounterCode" class="code-container"></div>

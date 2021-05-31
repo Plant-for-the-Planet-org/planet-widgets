@@ -1,14 +1,16 @@
 {
-    "treesPlanted":"Bäume gepflanzt",
-    "target":"Ziel",
-    "plantTrees":"Bäume pflanzen",
-    "viewProfile":"Profil anzeigen",
-    "poweredBy":"Powered by Plant-for-the-Planet",
-    "treesPlantedBy":"Bäume gepflanzt von",
-    "and":"und",
-    "treesPlantedByComm":"Bäume gepflanzt von der Community.",
-    "forestfrontrunners": "Baum-Bestenliste",
-    "mostrecent": "NEUESTE SPENDEN",
-    "mosttrees": "DIE MEISTEN BÄUME",
-    "trees": "Bäume"
+  "treesPlanted": "Bäume gepflanzt",
+  "target": "Ziel",
+  "plantTrees": "Bäume pflanzen",
+  "viewProfile": "Profil anzeigen",
+  "poweredBy": "Powered by Plant-for-the-Planet",
+  "treesPlantedBy": "Bäume gepflanzt von",
+  "and": "und",
+  "treesPlantedByComm": "Bäume gepflanzt von der Community.",
+  "forestfrontrunners": "Baum-Bestenliste",
+  "mostrecent": "NEUESTE SPENDEN",
+  "mosttrees": "DIE MEISTEN BÄUME",
+  "trees": "Bäume",
+  "the": "Der",
+  "forestGrows": "Wald Wächst."
 }

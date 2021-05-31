@@ -11,6 +11,10 @@
   import getImageUrl from "../../utils/getImageUrl";
   import enLocale from "./../../public/data/locales/en.json";
   import deLocale from "./../../public/data/locales/de.json";
+  import esLocale from "./../../public/data/locales/es.json";
+  import frLocale from "./../../public/data/locales/fr.json";
+  import itLocale from "./../../public/data/locales/it.json";
+  import ptBRLocale from "./../../public/data/locales/pt-BR.json";
   import { onMount } from "svelte";
   import getTenantConfig from "../../utils/tenantsConfig";
   let w;
@@ -33,6 +37,10 @@
   let language = [];
   language["en"] = enLocale;
   language["de"] = deLocale;
+  language["es"] = esLocale;
+  language["fr"] = frLocale;
+  language["it"] = itLocale;
+  language["pt-br"] = ptBRLocale;
 
   let promise = fetchData();
   let mapStyle;
@@ -235,6 +243,7 @@
               size * 2
             }px;position:absolute;`}
           >
+          {#if data.score.target > data.score.personal + data.score.received}
             <circle
               cx={size}
               cy={size}
@@ -250,6 +259,23 @@
                     data.score.target)}
               fill="transparent"
             />
+            {:else if data.score.target < data.score.personal + data.score.received}
+            <circle
+              cx={size}
+              cy={size}
+              r={radius}
+              stroke={primarycolor}
+              stroke-linecap="round"
+              stroke-width="16"
+              transform={`rotate(-90,${size},${size})`}
+              stroke-dasharray={circumference}
+              stroke-dashoffset={circumference *
+                (1 ==
+                  (data.score.personal + data.score.received) /
+                    data.score.target)}
+              fill="transparent"
+            />
+            {/if}
           </svg>
         </div>
         <a
@@ -289,18 +315,23 @@
         />
       {/if}
       <div class="footer">
-        <a
-          href={`${getTenantConfig(tenantkey).url}/t/${data.slug}`}
-          target="_blank"
-          class="footerLink"
-          >{language[locale].viewProfile}
-        </a>
-        <a
-          class="footerLinkBold"
-          href={"https://a.plant-for-the-planet.org/"}
-          target="_blank"
-          >| {language[locale].poweredBy}
-        </a>
+        <div class="footerContainer">
+          <div class="footerLink">
+            <a
+              href={`${getTenantConfig(tenantkey).url}/t/${data.slug}`}
+              target="_blank"
+              >{language[locale].viewProfile}
+            </a>
+          </div>
+          <div class="footerLinkBold">
+            <a
+              href={"https://a.plant-for-the-planet.org/"}
+              target="_blank"
+              >
+              <div class="seperater">|</div>
+              {language[locale].poweredBy}
+            </a>
+
         {#if community === "true"}
           <div
             class="infoIcon"
@@ -335,9 +366,15 @@
             </p>
           </div>
         {/if}
+        </div>
+        </div>
       </div>
       <div class="imageHeader">
         {#if data.image}
+        <div
+            class="logoPlanet"
+            style={`background-color:${theme === "dark" ? "#2f3336" : ""}`}
+          >
           <a
             href={`${getTenantConfig(tenantkey).url}/t/${data.slug}`}
             target="_blank"
@@ -348,6 +385,7 @@
               alt={data.displayName}
             />
           </a>
+        </div>
         {/if}
         {#if data.hasLogoLicense}
           <div
@@ -518,17 +556,23 @@
     bottom: 12px;
     right: 12px;
   }
-  .footerLink {
+  .footerLink > a, .footerLinkBold > a {
     color: var(--link-color);
     text-decoration: none;
   }
   .footerLinkBold {
-    color: var(--link-color);
     font-weight: bold;
     margin-left: 4px;
-    text-decoration: none;
+    display: flex;
+    flex-direction: row;
   }
-
+  .seperater{
+    padding-right: 4px;
+  }
+  .footerContainer{
+    display: flex;
+    flex-direction: row;
+  }
   .imageHeader {
     position: absolute;
     top: 12px;
@@ -536,6 +580,24 @@
     display: flex;
     flex-direction: row;
   }
+  @media screen and (max-width: 376px){
+    .footerContainer{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 300px;
+    margin-right: 6px;
+  }
+  .footerLink{
+    margin-bottom: 6px;
+  }
+  .seperater{
+    display: none;
+  }
+  }
+
+
 
   .logo {
     border-radius: 50%;
@@ -599,6 +661,8 @@
   }
 
   a {
+    display: flex;
+    flex-direction: row;
     text-decoration: none;
   }
 
@@ -627,6 +691,7 @@
     width: 220px;
     border-radius: 4px;
     text-align: center;
+    font-weight: normal;
   }
 
   .infoIcon > .infoText {

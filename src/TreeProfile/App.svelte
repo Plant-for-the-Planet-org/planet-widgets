@@ -7,6 +7,10 @@
   import getImageUrl from "../../utils/getImageUrl";
   import enLocale from "./../../public/data/locales/en.json";
   import deLocale from "./../../public/data/locales/de.json";
+  import esLocale from "./../../public/data/locales/es.json";
+  import frLocale from "./../../public/data/locales/fr.json";
+  import itLocale from "./../../public/data/locales/it.json";
+  import ptBRLocale from "./../../public/data/locales/pt-BR.json";
   import { onMount } from "svelte";
   import getTenantConfig from "../../utils/tenantsConfig";
 
@@ -29,6 +33,10 @@
   let language = [];
   language["en"] = enLocale;
   language["de"] = deLocale;
+  language["es"] = esLocale;
+  language["fr"] = frLocale;
+  language["it"] = itLocale;
+  language["pt-br"] = ptBRLocale;
 
   let userpofiledata;
   async function fetchData() {
@@ -105,6 +113,7 @@
         <svg
           style={`width:${size * 2}px; height:${size * 2}px;position:absolute;`}
         >
+        {#if data.score.target > data.score.personal + data.score.received}
           <circle
             cx={size}
             cy={size}
@@ -120,6 +129,23 @@
                   data.score.target)}
             fill="transparent"
           />
+          {:else if data.score.target < data.score.personal + data.score.received}
+          <circle
+            cx={size}
+            cy={size}
+            r={radius}
+            stroke={primarycolor}
+            stroke-linecap="round"
+            stroke-width="16"
+            transform={`rotate(-90,${size},${size})`}
+            stroke-dasharray={circumference}
+            stroke-dashoffset={circumference *
+              (1 ==
+                (data.score.personal + data.score.received) /
+                  data.score.target)}
+            fill="transparent"
+          />
+          {/if}
         </svg>
       </div>
       <a
@@ -448,6 +474,7 @@
     width: 220px;
     border-radius: 4px;
     text-align: center;
+    font-weight: normal;
   }
 
   .infoIcon > .infoText {
