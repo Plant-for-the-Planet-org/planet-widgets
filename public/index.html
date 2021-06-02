@@ -211,11 +211,14 @@
 						<option value="pt-br">PT-BR</option>
 					</select>
 					<h5 class="widgetSubTitle" style="margin-bottom: 20px;">Customization Options (Optional): </h2>
+						<input type="text" class="form-control" onblur="changeAttribute('treeMap',this.value,'forestname')"
+							placeholder="Forest Name"><br />
 						<select class="form-select" onchange="changeAttribute('treeMap',this.value,'theme')"
 							aria-label="Default select example">
-							<option value="light" selected>Select Theme</option>
+							<option value="light">Select Theme</option>
 							<option value="light">Light</option>
 							<option value="dark">Dark</option>
+							<option value="forest" selected>Forest</option>
 						</select>
 						<div class="form-check form-switch">
 							<input class="form-check-input"
@@ -253,6 +256,8 @@
 						<option value="pt-br">PT-BR</option>
 					</select>
 					<h5 class="widgetSubTitle" style="margin-bottom: 20px;">Customization Options (Optional): </h2>
+						<input type="text" class="form-control" onblur="changeAttribute('treeProfile',this.value,'forestname')"
+							placeholder="Forest Name"><br />
 						<div class="form-check form-switch">
 							<input class="form-check-input"
 								onclick="changeAttribute('treeProfile',this.checked,'community')" type="checkbox"
@@ -262,9 +267,10 @@
 
 						<select class="form-select" onchange="changeAttribute('treeProfile',this.value,'theme')"
 							aria-label="Default select example">
-							<option value="light" selected>Select Theme</option>
+							<option value="light">Select Theme</option>
 							<option value="light">Light</option>
 							<option value="dark">Dark</option>
+							<option value="forest" selected>Forest</option>
 						</select>
 
 						<div class="input-group">
@@ -344,7 +350,7 @@
 		<div class="col-lg-12 col-xl-8 widgetContainer">
 			<div id="treeMapWidget">
 				<div id="treeMapComponent">
-					<tree-map user='sagar-aryal' tenantkey="ten_I9TW3ncG" id="treeMap">
+					<tree-map user='sagar-aryal' tenantkey="ten_I9TW3ncG" theme="forest" id="treeMap">
 					</tree-map>
 				</div>
 				<div id="treeMapCode" class="code-container"></div>
@@ -355,7 +361,7 @@
 			</div>
 			<div id="treeProfileWidget">
 				<div id="treeProfileComponent">
-					<tree-profile user='sagar-aryal' tenantkey="ten_I9TW3ncG" id="treeProfile">
+					<tree-profile user='sagar-aryal' tenantkey="ten_I9TW3ncG" theme="forest" id="treeProfile">
 					</tree-profile>
 				</div>
 				<div id="treeProfileCode" class="code-container"></div>

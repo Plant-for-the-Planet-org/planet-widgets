@@ -75,40 +75,37 @@
             <TcBackground />
           </div>
         {/if}
-        {#if forestname}
         <div class="treeCounter">
           <div class="textContainer">
             <p class={`treecount ${theme === "dark" ? "planted" : ""}`}>
               {localizedAbbreviatedNumber(locale, Number(data.total), 1)}
             </p>
-            <p class={`treecountLabel ${theme === "dark" ? "planted" : ""}`}>
-              {language[locale].trees}.
-            </p>
-            <p class={`treecountLabel ${theme === "dark" ? "planted" : ""}`}>
-              {language[locale].the} {forestname} {language[locale].forestGrows}
-            </p>
           </div>
-        </div>
-        {:else}
-        <div class="treeCounter">
-          <div class="textContainer">
-            <p class={`treecount ${theme === "dark" ? "planted" : ""}`}>
-              {localizedAbbreviatedNumber(locale, Number(data.total), 1)}
-            </p>
-            <p class={`treecountLabel ${theme === "dark" ? "planted" : ""}`}>
-              {language[locale].treesPlanted}
-            </p>
-          </div>
-          {#if goal && goal != "" && goal != 0}
+          {#if forestname}
             <div class="textContainer">
-              <p class="treecount">
-                {localizedAbbreviatedNumber(locale, Number(goal), 1)}
+              <p class={`treecountLabel ${theme === "dark" ? "planted" : ""}`}>
+                {language[locale].trees}.
               </p>
-              <p class="treecountLabel">{language[locale].target}</p>
+              <p class={`treecountLabel ${theme === "dark" ? "planted" : ""}`}>
+                {language[locale].the} {forestname} {language[locale].forestGrows}
+              </p>
+            </div>
+          {:else}
+            <div class="textContainer">
+              <p class={`treecountLabel ${theme === "dark" ? "planted" : ""}`}>
+                {language[locale].treesPlanted}
+              </p>
+              {#if goal && goal != "" && goal != 0}
+                <div class="textContainer">
+                  <p class="treecount">
+                    {localizedAbbreviatedNumber(locale, Number(goal), 1)}
+                  </p>
+                  <p class="treecountLabel">{language[locale].target}</p>
+                </div>
+              {/if}
             </div>
           {/if}
         </div>
-        {/if}
         {#if goal && goal != "" && goal != 0}
         <svg
           style={`width:${size * 2}px; height:${size * 2}px;position:absolute;`}
@@ -231,6 +228,7 @@
     margin: 0px;
     margin-top: 6px;
     max-width: 220px;
+    word-wrap: break-word;
   }
 
   @media screen and (min-width: 640px) {
