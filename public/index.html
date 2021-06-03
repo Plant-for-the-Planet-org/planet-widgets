@@ -258,13 +258,6 @@
 					<h5 class="widgetSubTitle" style="margin-bottom: 20px;">Customization Options (Optional): </h2>
 						<input type="text" class="form-control" onblur="changeAttribute('treeProfile',this.value,'forestname')"
 							placeholder="Forest Name"><br />
-						<div class="form-check form-switch">
-							<input class="form-check-input"
-								onclick="changeAttribute('treeProfile',this.checked,'community')" type="checkbox"
-								id="treeProfile-community-switch" checked>
-							<label class="form-check-label" for="treeMap-community-switch">Show community</label>
-						</div>
-
 						<select class="form-select" onchange="changeAttribute('treeProfile',this.value,'theme')"
 							aria-label="Default select example">
 							<option value="light">Select Theme</option>
@@ -272,6 +265,12 @@
 							<option value="dark">Dark</option>
 							<option value="forest" selected>Forest</option>
 						</select>
+						<div class="form-check form-switch">
+							<input class="form-check-input"
+								onclick="changeAttribute('treeProfile',this.checked,'community')" type="checkbox"
+								id="treeProfile-community-switch" checked>
+							<label class="form-check-label" for="treeMap-community-switch">Show community</label>
+						</div>
 
 						<div class="input-group">
 							<label for="primaryColor">Primary Color:</label>
