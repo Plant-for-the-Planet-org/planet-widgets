@@ -13,7 +13,7 @@
   import ptBRLocale from "./../../public/data/locales/pt-BR.json";
   import { onMount } from "svelte";
   import getTenantConfig from "../../utils/tenantsConfig";
-
+  import TcBackground from '../common/themes/leniKlum/TcBackground.svelte'
   // Props that can be passed
   export let user;
   export let primarycolor = "#68b030";
@@ -23,6 +23,8 @@
   export let locale = "en";
   export let refresh = "none";
   export let tenantkey = "ten_I9TW3ncG";
+  export let forestname;
+
   $: primarycolor = primarycolor;
   $: counterbgcolor = circlebgcolor
     ? circlebgcolor
@@ -69,18 +71,27 @@
 <div
   class="treeProfile"
   style="--primary-color: {primarycolor};
-    --counter-background-color: {counterbgcolor};
+    --counter-background-color: {theme === 'forest'
+    ? 'transparent'
+    : counterbgcolor};
     --background-color: {theme ===
   'light'
     ? '#fff'
-    : '#2f3336'};
-    --link-color: {theme === 'light' ? '#6daff0' : '#fff'}"
+    : theme === "dark" ?
+    '#2f3336' :
+    '#fff'};
+    --link-color: {theme === 'light'|| "forest" ? '#6daff0' : '#fff'}"
 >
   {#await promise}
     <UserProfileLoader />
   {:then data}
     <div class="treeCounterContainer">
       <div class="treeCounterComponent">
+        {#if theme === "forest"}
+          <div class={"customBackground"}>
+            <TcBackground />
+          </div>
+        {/if}
         <div class="treeCounter">
           <div class="textContainer">
             <p class={`treecount ${theme === "dark" ? "planted" : ""}`}>
@@ -92,24 +103,30 @@
                   )
                 : localizedAbbreviatedNumber(locale, data.score.personal, 1)}
             </p>
-            <p class={`treecountLabel ${theme === "dark" ? "planted" : ""}`}>
-              {language[locale].treesPlanted}
-            </p>
           </div>
-          {#if data.score.target != 0}
+            {#if forestname}
             <div class="textContainer">
-              <p class="treecount">
-                {localizedAbbreviatedNumber(
-                  locale,
-                  Number(data.score.target),
-                  1
-                )}
+              <p class={`treecountLabel ${theme === "dark" ? "planted" : ""}`}>
+                {language[locale].trees}.
               </p>
-              <p class="treecountLabel">{language[locale].target}</p>
+              <p class={`treecountLabel ${theme === "dark" ? "planted" : ""}`}>
+                {language[locale].the} {forestname} {language[locale].forestGrows}
+              </p>
             </div>
-          {/if}
+        {:else}
+            <div class="textContainer">
+              <p class={`treecountLabel ${theme === "dark" ? "planted" : ""}`}>
+                    {language[locale].treesPlanted}
+                  </p>
+                {#if data.score.target != 0}
+                    <p class="treecount">
+                      {localizedAbbreviatedNumber(locale, data.score.target, 1)}
+                    </p>
+                    <p class="treecountLabel">{language[locale].target}</p>
+                {/if}
+            </div>
+        {/if}
         </div>
-
         <svg
           style={`width:${size * 2}px; height:${size * 2}px;position:absolute;`}
         >
@@ -304,6 +321,12 @@
     justify-content: center;
     align-items: center;
     text-align: center;
+    z-index: 1;
+  }
+  .customBackground {
+    width: 100%;
+    height: 100%;
+    position: absolute;
   }
   .treecount {
     font-size: 48px;
@@ -320,6 +343,8 @@
     color: white;
     margin: 0px;
     margin-top: 6px;
+    max-width: 195px;
+    word-wrap: break-word;
   }
   .primaryButton {
     color: white;
