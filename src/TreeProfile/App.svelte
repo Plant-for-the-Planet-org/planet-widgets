@@ -67,7 +67,7 @@
 </script>
 
 <div
-  class="treecounter"
+  class="treeProfile"
   style="--primary-color: {primarycolor};
     --counter-background-color: {counterbgcolor};
     --background-color: {theme ===
@@ -250,7 +250,7 @@
     all: initial;
   }
 
-  .treecounter {
+  .treeProfile {
     width: 100%;
     max-width: 420px;
     border-radius: 10px;
