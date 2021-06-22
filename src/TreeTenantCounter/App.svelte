@@ -169,7 +169,7 @@
   }
 
   .treeCounterContainer {
-    min-height: 420px;
+/*     min-height: 420px; */
     width: 100%;
     display: flex;
     flex-direction: column;
