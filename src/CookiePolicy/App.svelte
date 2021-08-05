@@ -7,24 +7,25 @@
     export let buttontext;
     export let theme = "light";
     export const hideCookieNotification = writable(cookiePolicy);
-    
-    function hideCookieNotice(){
-        hideCookieNotification.subscribe(value => {
-            localStorage.setItem('hidePlanetCookie', value=true)
-        })
-        cookiePolicy=true
+
+    function hideCookieNotice() {
+        hideCookieNotification.subscribe((value) => {
+            localStorage.setItem("hidePlanetCookie", (value = true));
+        });
+        cookiePolicy = true;
     }
-    
 </script>
 
 {#if !cookiePolicy}
-    <div class="cookiePolicy" style="--bg-color: {theme === 'light' ? "#fff" : "#2f3336"};
-                                    --text-color: {theme === 'light' ? "#000000" : "#fff"};
-                                    ">
+    <div
+        class="cookiePolicy"
+        style="--bg-color: {theme === 'light' ? '#fff' : '#2f3336'};
+            --text-color: {theme === 'light'
+            ? '#000000'
+            : '#fff'};"
+    >
         <div class="policyNotice">
-            <div class="cookiePolicyLink">
-                
-            </div>
+            <div class="cookiePolicyLink" />
             {@html message}
         </div>
         <button
@@ -40,11 +41,11 @@
 <style>
     @import "https://fonts.googleapis.com/css2?family=Raleway:wght@400;700&display=swap";
 
-    .cookiePolicyLink{
-    font-weight:700;
-    color: #007a49;
-    text-decoration: none;
-  }
+    .cookiePolicyLink {
+        font-weight: 700;
+        color: #007a49;
+        text-decoration: none;
+    }
     .cookiePolicy {
         position: fixed;
         background-color: var(--bg-color);
@@ -61,7 +62,6 @@
     .policyNotice {
         text-align: center;
     }
-   
 
     .primaryButton {
         color: white;
@@ -86,5 +86,4 @@
         transform: translateY(-7px);
         cursor: pointer;
     }
-    
 </style>
