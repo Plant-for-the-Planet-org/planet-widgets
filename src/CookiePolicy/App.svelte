@@ -5,7 +5,7 @@
     let cookiePolicy = localStorage.getItem("hidePlanetCookie");
     export let message;
     export let buttontext;
-
+    export let theme = "light";
     export const hideCookieNotification = writable(cookiePolicy);
     
     function hideCookieNotice(){
@@ -18,8 +18,13 @@
 </script>
 
 {#if !cookiePolicy}
-    <div class="cookiePolicy">
+    <div class="cookiePolicy" style="--bg-color: {theme === 'light' ? "#fff" : "#2f3336"};
+                                    --text-color: {theme === 'light' ? "#000000" : "#fff"};
+                                    ">
         <div class="policyNotice">
+            <div class="cookiePolicyLink">
+                
+            </div>
             {@html message}
         </div>
         <button
@@ -35,9 +40,15 @@
 <style>
     @import "https://fonts.googleapis.com/css2?family=Raleway:wght@400;700&display=swap";
 
+    .cookiePolicyLink{
+    font-weight:700;
+    color: #007a49;
+    text-decoration: none;
+  }
     .cookiePolicy {
         position: fixed;
-        background-color: white;
+        background-color: var(--bg-color);
+        color: var(--text-color);
         box-shadow: 0px 3px 6px -3px;
         bottom: 20px;
         left: 20px;
@@ -50,6 +61,7 @@
     .policyNotice {
         text-align: center;
     }
+   
 
     .primaryButton {
         color: white;
@@ -74,4 +86,5 @@
         transform: translateY(-7px);
         cursor: pointer;
     }
+    
 </style>
