@@ -67,9 +67,7 @@
       return () => clearInterval(fast);
     } else refresh === "none";
     // Find a way to do this without ID
-    console.log('document',document);
     let el = document.getElementsByTagName("tree-map")[0];
-    console.log('el',el);
     el.style.width = "100%";
     return;
   });
