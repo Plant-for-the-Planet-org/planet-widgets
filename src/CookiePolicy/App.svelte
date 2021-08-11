@@ -18,7 +18,7 @@
     export const hideCookieNotification = writable(cookiePolicy);
     function hideCookieNotice() {
         
-        const expiryTime = now.getTime() + 5000; 
+        const expiryTime = now.getTime() + 15000; 
         const data ={
             value: true,
             expiry: expiryTime,
