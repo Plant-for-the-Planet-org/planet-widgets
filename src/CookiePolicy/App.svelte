@@ -54,7 +54,6 @@
 {/if}
 
 <style>
-    @import "https://fonts.googleapis.com/css2?family=Raleway:wght@400;700&display=swap";
 
     .cookie-policy-link {
         font-weight: 700;
