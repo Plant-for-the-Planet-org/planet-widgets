@@ -33,19 +33,19 @@
 
 {#if !cookiePolicy}
     <div
-        class="cookiePolicy"
+        class="cookie-policy"
         style="--bg-color: {theme === 'light' ? '#fff' : '#2f3336'};
             --text-color: {theme === 'light'
             ? '#000000'
             : '#fff'};"
     >
-        <div class="policyNotice">
-            <div class="cookiePolicyLink" />
+        <div class="policy-notice">
+            <div class="cookie-policy-link" />
             {@html message}
         </div>
         <button
-            id={"cookieCloseButton"}
-            class="primaryButton"
+            id={"cookie-close-button"}
+            class="primary-button"
             on:click={hideCookieNotice}
         >
             {buttontext}
@@ -56,12 +56,12 @@
 <style>
     @import "https://fonts.googleapis.com/css2?family=Raleway:wght@400;700&display=swap";
 
-    .cookiePolicyLink {
+    .cookie-policy-link {
         font-weight: 700;
         color: #007a49;
         text-decoration: none;
     }
-    .cookiePolicy {
+    .cookie-policy {
         position: fixed;
         background-color: var(--bg-color);
         color: var(--text-color);
@@ -74,11 +74,11 @@
         z-index: 999999;
         font-family: "Raleway", sans-serif;
     }
-    .policyNotice {
+    .policy-notice {
         text-align: center;
     }
 
-    .primaryButton {
+    .primary-button {
         color: white;
         font-weight: bold;
         background-image: linear-gradient(97deg, #68b030 4%, #007a49 116%);
@@ -97,7 +97,7 @@
         transition-timing-function: cubic-bezier(0.165, 0.84, 0.44, 1);
         text-decoration: none;
     }
-    .primaryButton:hover {
+    .primary-button:hover {
         transform: translateY(-7px);
         cursor: pointer;
     }
