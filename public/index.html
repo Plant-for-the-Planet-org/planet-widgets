@@ -199,6 +199,10 @@
 						<input type="text" class="form-control" onblur="updateURL('treeMap', this.value)"
 							placeholder="Username or profile url" id="userSlug">
 					</div>
+					<div class="mb-3">
+						<input type="text" class="form-control" onblur="updateURL('treeMap', this.value)"
+							placeholder="Tenant ID or Project ID" id="tenantID">
+					</div>
 					<div id="error"></div>
 					<select class="form-select" onchange="changeAttribute('treeMap',this.value,'locale')"
 						aria-label="Default select example">
@@ -521,6 +525,7 @@
 				document.getElementById("error").innerHTML = "Invalid Profile URL";
 			});
 			document.getElementById("userSlug").placeholder = userslug;
+			document.getElementById("tenantID").placeholder = tenantkey;
 	}
 </script>
 

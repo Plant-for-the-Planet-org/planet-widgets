@@ -2,18 +2,34 @@
 
 <script>
     import { writable } from "../../utils/localstorage";
-    let cookiePolicy = localStorage.getItem("hidePlanetCookie");
     export let message;
     export let buttontext;
     export let theme = "light";
-    export const hideCookieNotification = writable(cookiePolicy);
+    const now = new Date();
+    let cookiePolicy = localStorage.getItem("hidePlanetCookie");
+    if(cookiePolicy){
+        cookiePolicy = JSON.parse(cookiePolicy)
+        if(now.getTime() > cookiePolicy.expiry){
+            localStorage.removeItem('hidePlanetCookie')
+            cookiePolicy = null;
+        }
+    }
 
+    export const hideCookieNotification = writable(cookiePolicy);
     function hideCookieNotice() {
+        
+        const expiryTime = now.getTime() + 5000; 
+        const data ={
+            value: true,
+            expiry: expiryTime,
+        }
         hideCookieNotification.subscribe((value) => {
-            localStorage.setItem("hidePlanetCookie", (value = true));
+            localStorage.setItem("hidePlanetCookie", JSON.stringify(data));
         });
+        
         cookiePolicy = true;
     }
+    
 </script>
 
 {#if !cookiePolicy}
@@ -56,7 +72,7 @@
         width: 280px;
         border-radius: 4px;
         padding: 20px;
-        z-index: 10;
+        z-index: 999999;
         font-family: "Raleway", sans-serif;
     }
     .policyNotice {
