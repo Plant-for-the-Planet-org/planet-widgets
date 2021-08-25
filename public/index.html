@@ -203,7 +203,7 @@
 					</div>
 					<div id="error"></div>
 					<div class="mb-3">
-						<input type="text" class="form-control" onblur="updateURL('treeMap', this.value)"
+						<input type="text" class="form-control" onblur="updateProjectURL('treeMap', this.value)"
 							placeholder="Project" id="project">
 					</div>
 					<div id="error1"></div>
@@ -254,7 +254,7 @@
 					</div>
 					<div id="error-prof"></div>
 					<div class="mb-3">
-						<input type="text" class="form-control" onblur="updateURL('treeProfile', (this.value))"
+						<input type="text" class="form-control" onblur="updateProjectURL('treeProfile', (this.value))"
 							placeholder="Project">
 					</div>
 					<div id="error-prof1"></div>
@@ -532,7 +532,8 @@
 			if (projectStr.match(regex)) {
 				projectSlug = projectStr.split("/").pop();
 			}
-			updateProjectAttribute(id, projectSlug)
+			updateProjectAttribute(id, projectSlug);
+
 		}
 	}
 
@@ -545,6 +546,7 @@
 			})
 			.then((data) => {
 				changeAttribute(id, userslug, 'user', true);
+				document.getElementById(id + 'Component').innerHTML = document.getElementById(id).outerHTML;
 			})
 			.catch((error) => {
 				console.log(error);
@@ -562,6 +564,7 @@
 			})
 			.then((data) => {
 				changeAttribute(id, projectSlug, 'project', true);
+				document.getElementById(id + 'Component').innerHTML = document.getElementById(id).outerHTML;
 			})
 			.catch((error) => {
 				console.log(error);
