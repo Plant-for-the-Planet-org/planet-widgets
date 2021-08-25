@@ -72,7 +72,8 @@
 		#error-prof,
 		#error-count,
 		#error-lead,
-		#error1 {
+		#error1,
+		#error-prof1 {
 			display: block;
 			color: red;
 			font-size: smaller;
@@ -252,6 +253,11 @@
 							placeholder="User URL">
 					</div>
 					<div id="error-prof"></div>
+					<div class="mb-3">
+						<input type="text" class="form-control" onblur="updateURL('treeProfile', (this.value))"
+							placeholder="Project">
+					</div>
+					<div id="error-prof1"></div>
 					<select class="form-select" onchange="changeAttribute('treeProfile',this.value,'locale')"
 						aria-label="Default select example">
 						<option value="en" selected>Select Language</option>
@@ -367,11 +373,7 @@
 			</div>
 			<div id="treeProfileWidget">
 				<div id="treeProfileComponent">
-<<<<<<< HEAD
 					<tree-profile user='sagar-aryal' project="proj_WZkyugryh35sMmZMmXCwq7YY" tenantkey="ten_I9TW3ncG" theme="forest" id="treeProfile">
-=======
-					<tree-profile user='sagar-aryal' tenantkey="ten_I9TW3ncG" theme="forest" id="treeProfile">
->>>>>>> d1309f755fdc32558b31a33dcf38e1ea34e6afe0
 					</tree-profile>
 				</div>
 				<div id="treeProfileCode" class="code-container"></div>
@@ -552,7 +554,7 @@
 	}
 
 	function updateUserAttribute(id, projectSlug) {
-		fetch(` https://app-development.plant-for-the-planet.org/app/projects/${projectSlug}`)
+		fetch(` https://app.plant-for-the-planet.org/app/projects/${projectSlug}`)
 			.then((response) => {
 				if (!response.ok) {
 					throw new Error("Invalid Project");
