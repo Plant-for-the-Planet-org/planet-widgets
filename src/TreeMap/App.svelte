@@ -17,7 +17,7 @@
   import ptBRLocale from "./../../public/data/locales/pt-BR.json";
   import { onMount } from "svelte";
   import getTenantConfig from "../../utils/tenantsConfig";
-  import TcBackground from '../common/themes/leniKlum/TcBackground.svelte';
+  import TcBackground from "../common/themes/leniKlum/TcBackground.svelte";
   let w;
   // Props that can be passed
   export let user;
@@ -67,7 +67,8 @@
       }, 5000);
       return () => clearInterval(fast);
     } else refresh === "none";
-    let el = document.getElementById("treeMap");
+    // Find a way to do this without ID
+    let el = document.getElementsByTagName("tree-map")[0];
     el.style.width = "100%";
     return;
   });
@@ -208,14 +209,14 @@
   bind:clientWidth={w}
   style="--widgetWidth:{w};--primary-color: {primarycolor};
         --counter-background-color: {theme === 'forest'
-          ? 'transparent'
-          : counterbgcolor}; 
+    ? 'transparent'
+    : counterbgcolor}; 
         --background-color: {theme === 'light'
-          ? '#fff'
-          : theme === 'dark'
-          ? '#2f3336'
-          : '#fff'};
-        --link-color: {theme === 'light' || "forest" ? '#6daff0' : '#fff'}"
+    ? '#fff'
+    : theme === 'dark'
+    ? '#2f3336'
+    : '#fff'};
+        --link-color: {theme === 'light' || 'forest' ? '#6daff0' : '#fff'}"
 >
   {#await promise}
     <UserProfileLoader />
@@ -228,78 +229,86 @@
               <TcBackground />
             </div>
           {/if}
-        <div class="treeCounter">
-          <div class="textContainer">
-            <p class={`treecount ${theme === "dark" ? "planted" : ""}`}>
-              {community === "true"
-                ? localizedAbbreviatedNumber(
-                    locale,
-                    data.score.personal + data.score.received,
-                    1
-                  )
-                : localizedAbbreviatedNumber(locale, data.score.personal, 1)}
-            </p>
-          </div>
-        {#if forestname}
+          <div class="treeCounter">
             <div class="textContainer">
-              <p class={`treecountLabel ${theme === "dark" ? "planted" : ""}`}>
-                {language[locale].trees}.
-              </p>
-              <p class={`treecountLabel ${theme === "dark" ? "planted" : ""}`}>
-                {language[locale].the} {forestname} {language[locale].forestGrows}
+              <p class={`treecount ${theme === "dark" ? "planted" : ""}`}>
+                {community === "true"
+                  ? localizedAbbreviatedNumber(
+                      locale,
+                      data.score.personal + data.score.received,
+                      1
+                    )
+                  : localizedAbbreviatedNumber(locale, data.score.personal, 1)}
               </p>
             </div>
-        {:else}
-            <div class="textContainer">
-              <p class={`treecountLabel ${theme === "dark" ? "planted" : ""}`}>
-                    {language[locale].treesPlanted}
-                  </p>
+            {#if forestname}
+              <div class="textContainer">
+                <p
+                  class={`treecountLabel ${theme === "dark" ? "planted" : ""}`}
+                >
+                  {language[locale].trees}.
+                </p>
+                <p
+                  class={`treecountLabel ${theme === "dark" ? "planted" : ""}`}
+                >
+                  {language[locale].the}
+                  {forestname}
+                  {language[locale].forestGrows}
+                </p>
+              </div>
+            {:else}
+              <div class="textContainer">
+                <p
+                  class={`treecountLabel ${theme === "dark" ? "planted" : ""}`}
+                >
+                  {language[locale].treesPlanted}
+                </p>
                 {#if data.score.target != 0}
-                    <p class="treecount">
-                      {localizedAbbreviatedNumber(locale, data.score.target, 1)}
-                    </p>
-                    <p class="treecountLabel">{language[locale].target}</p>
+                  <p class="treecount">
+                    {localizedAbbreviatedNumber(locale, data.score.target, 1)}
+                  </p>
+                  <p class="treecountLabel">{language[locale].target}</p>
                 {/if}
-            </div>
-        {/if}
-        </div>
+              </div>
+            {/if}
+          </div>
           <svg
             style={`width:${size * 2}px; height:${
               size * 2
             }px;position:absolute;`}
           >
-          {#if data.score.target > data.score.personal + data.score.received}
-            <circle
-              cx={size}
-              cy={size}
-              r={radius}
-              stroke={primarycolor}
-              stroke-linecap="round"
-              stroke-width="16"
-              transform={`rotate(-90,${size},${size})`}
-              stroke-dasharray={circumference}
-              stroke-dashoffset={circumference *
-                (1 -
-                  (data.score.personal + data.score.received) /
-                    data.score.target)}
-              fill="transparent"
-            />
+            {#if data.score.target > data.score.personal + data.score.received}
+              <circle
+                cx={size}
+                cy={size}
+                r={radius}
+                stroke={primarycolor}
+                stroke-linecap="round"
+                stroke-width="16"
+                transform={`rotate(-90,${size},${size})`}
+                stroke-dasharray={circumference}
+                stroke-dashoffset={circumference *
+                  (1 -
+                    (data.score.personal + data.score.received) /
+                      data.score.target)}
+                fill="transparent"
+              />
             {:else if data.score.target < data.score.personal + data.score.received}
-            <circle
-              cx={size}
-              cy={size}
-              r={radius}
-              stroke={primarycolor}
-              stroke-linecap="round"
-              stroke-width="16"
-              transform={`rotate(-90,${size},${size})`}
-              stroke-dasharray={circumference}
-              stroke-dashoffset={circumference *
-                (1 ==
-                  (data.score.personal + data.score.received) /
-                    data.score.target)}
-              fill="transparent"
-            />
+              <circle
+                cx={size}
+                cy={size}
+                r={radius}
+                stroke={primarycolor}
+                stroke-linecap="round"
+                stroke-width="16"
+                transform={`rotate(-90,${size},${size})`}
+                stroke-dasharray={circumference}
+                stroke-dashoffset={circumference *
+                  (1 ==
+                    (data.score.personal + data.score.received) /
+                      data.score.target)}
+                fill="transparent"
+              />
             {/if}
           </svg>
         </div>
@@ -312,33 +321,12 @@
       </div>
     </div>
     <div class={`mapContainer ${w > 640 ? "w60" : "w100"}`}>
-      {#if community === "true"}
-        {#if theme === "light"}
-          <div
-            id="map"
-            class={`view ${w > 640 ? "viewLandscape" : "viewPortrait"}`}
-            use:createMap
-          />
-        {:else}
-          <div
-            id="map"
-            class={`view ${w > 640 ? "viewLandscape" : "viewPortrait"}`}
-            use:createMap
-          />
-        {/if}
-      {:else if theme === "light"}
-        <div
-          id="map"
-          class={`view ${w > 640 ? "viewLandscape" : "viewPortrait"}`}
-          use:createMap
-        />
-      {:else}
-        <div
-          id="map"
-          class={`view ${w > 640 ? "viewLandscape" : "viewPortrait"}`}
-          use:createMap
-        />
-      {/if}
+      <div
+        id="map"
+        class={`view ${w > 640 ? "viewLandscape" : "viewPortrait"}`}
+        use:createMap
+      />
+
       <div class="footer">
         <div class="footerContainer">
           <div class="footerLink">
@@ -349,68 +337,65 @@
             </a>
           </div>
           <div class="footerLinkBold">
-            <a
-              href={"https://a.plant-for-the-planet.org/"}
-              target="_blank"
-              >
+            <a href={"https://a.plant-for-the-planet.org/"} target="_blank">
               <div class="seperater">|</div>
               {language[locale].poweredBy}
             </a>
 
-        {#if community === "true"}
-          <div
-            class="infoIcon"
-            style={`color: ${theme === "dark" ? "#fff" : "#000"}`}
-          >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              height="14"
-              width="14"
-              viewBox="0 0 512 512"
-            >
-              <path
-                fill={`${theme === "light" ? "#6daff0" : "#fff"}`}
-                d="M256 40c118.621 0 216 96.075 216 216 0 119.291-96.61 216-216 216-119.244 0-216-96.562-216-216 0-119.203 96.602-216 216-216m0-32C119.043 8 8 119.083 8 256c0 136.997 111.043 248 248 248s248-111.003 248-248C504 119.083 392.957 8 256 8zm-36 344h12V232h-12c-6.627 0-12-5.373-12-12v-8c0-6.627 5.373-12 12-12h48c6.627 0 12 5.373 12 12v140h12c6.627 0 12 5.373 12 12v8c0 6.627-5.373 12-12 12h-72c-6.627 0-12-5.373-12-12v-8c0-6.627 5.373-12 12-12zm36-240c-17.673 0-32 14.327-32 32s14.327 32 32 32 32-14.327 32-32-14.327-32-32-32z"
-              />
-            </svg>
-            <p class="infoText ">
-              {localizedAbbreviatedNumber(
-                locale,
-                Number(data.score.personal),
-                1
-              )}
-              {language[locale].treesPlantedBy}
-              {data.displayName}
-              {community === "true"
-                ? `${language[locale].and} ${localizedAbbreviatedNumber(
+            {#if community === "true"}
+              <div
+                class="infoIcon"
+                style={`color: ${theme === "dark" ? "#fff" : "#000"}`}
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  height="14"
+                  width="14"
+                  viewBox="0 0 512 512"
+                >
+                  <path
+                    fill={`${theme === "light" ? "#6daff0" : "#fff"}`}
+                    d="M256 40c118.621 0 216 96.075 216 216 0 119.291-96.61 216-216 216-119.244 0-216-96.562-216-216 0-119.203 96.602-216 216-216m0-32C119.043 8 8 119.083 8 256c0 136.997 111.043 248 248 248s248-111.003 248-248C504 119.083 392.957 8 256 8zm-36 344h12V232h-12c-6.627 0-12-5.373-12-12v-8c0-6.627 5.373-12 12-12h48c6.627 0 12 5.373 12 12v140h12c6.627 0 12 5.373 12 12v8c0 6.627-5.373 12-12 12h-72c-6.627 0-12-5.373-12-12v-8c0-6.627 5.373-12 12-12zm36-240c-17.673 0-32 14.327-32 32s14.327 32 32 32 32-14.327 32-32-14.327-32-32-32z"
+                  />
+                </svg>
+                <p class="infoText ">
+                  {localizedAbbreviatedNumber(
                     locale,
-                    Number(data.score.received),
+                    Number(data.score.personal),
                     1
-                  )} ${language[locale].treesPlantedByComm}`
-                : ""}
-            </p>
+                  )}
+                  {language[locale].treesPlantedBy}
+                  {data.displayName}
+                  {community === "true"
+                    ? `${language[locale].and} ${localizedAbbreviatedNumber(
+                        locale,
+                        Number(data.score.received),
+                        1
+                      )} ${language[locale].treesPlantedByComm}`
+                    : ""}
+                </p>
+              </div>
+            {/if}
           </div>
-        {/if}
-        </div>
         </div>
       </div>
       <div class="imageHeader">
         {#if data.image}
-        <div
+          <div
             class="logoPlanet"
             style={`background-color:${theme === "dark" ? "#2f3336" : ""}`}
           >
-          <a
-            href={`${getTenantConfig(tenantkey).url}/t/${data.slug}`}
-            target="_blank"
-          >
-            <img
-              class="logo"
-              src={getImageUrl("profile", "thumb", data.image)}
-              alt={data.displayName}
-            />
-          </a>
-        </div>
+            <a
+              href={`${getTenantConfig(tenantkey).url}/t/${data.slug}`}
+              target="_blank"
+            >
+              <img
+                class="logo"
+                src={getImageUrl("profile", "thumb", data.image)}
+                alt={data.displayName}
+              />
+            </a>
+          </div>
         {/if}
         {#if data.hasLogoLicense}
           <div
@@ -449,6 +434,7 @@
   }
   .treemap {
     width: 100%;
+    max-width: 940px;
     border-radius: 10px;
     display: flex;
 
@@ -590,7 +576,8 @@
     bottom: 12px;
     right: 12px;
   }
-  .footerLink > a, .footerLinkBold > a {
+  .footerLink > a,
+  .footerLinkBold > a {
     color: var(--link-color);
     text-decoration: none;
   }
@@ -600,10 +587,10 @@
     display: flex;
     flex-direction: row;
   }
-  .seperater{
+  .seperater {
     padding-right: 4px;
   }
-  .footerContainer{
+  .footerContainer {
     display: flex;
     flex-direction: row;
   }
@@ -614,24 +601,22 @@
     display: flex;
     flex-direction: row;
   }
-  @media screen and (max-width: 376px){
-    .footerContainer{
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    width: 300px;
-    margin-right: 6px;
+  @media screen and (max-width: 376px) {
+    .footerContainer {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      width: 300px;
+      margin-right: 6px;
+    }
+    .footerLink {
+      margin-bottom: 6px;
+    }
+    .seperater {
+      display: none;
+    }
   }
-  .footerLink{
-    margin-bottom: 6px;
-  }
-  .seperater{
-    display: none;
-  }
-  }
-
-
 
   .logo {
     border-radius: 50%;
