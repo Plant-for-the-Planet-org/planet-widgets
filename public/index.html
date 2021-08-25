@@ -71,7 +71,9 @@
 		#error,
 		#error-prof,
 		#error-count,
-		#error-lead {
+		#error-lead,
+		#error1,
+		#error-prof1 {
 			display: block;
 			color: red;
 			font-size: smaller;
@@ -201,6 +203,12 @@
 					</div>
 
 					<div id="error"></div>
+					<div class="mb-3">
+						<input type="text" class="form-control" onblur="updateProjectURL('treeMap', this.value)"
+							placeholder="Project" id="project">
+					</div>
+					<div id="error1"></div>
+					
 					<select class="form-select" onchange="changeAttribute('treeMap',this.value,'locale')"
 						aria-label="Default select example">
 						<option value="en" selected>Select Language</option>
@@ -246,6 +254,11 @@
 							placeholder="User URL">
 					</div>
 					<div id="error-prof"></div>
+					<div class="mb-3">
+						<input type="text" class="form-control" onblur="updateProjectURL('treeProfile', (this.value))"
+							placeholder="Project">
+					</div>
+					<div id="error-prof1"></div>
 					<select class="form-select" onchange="changeAttribute('treeProfile',this.value,'locale')"
 						aria-label="Default select example">
 						<option value="en" selected>Select Language</option>
@@ -372,7 +385,7 @@
 			</div>
 			<div id="treeTenantCounterWidget">
 				<div id="treeTenantCounterComponent">
-					<tree-tenantcounter tenantkey="ten_I9TW3ncG" theme="forest" id="treeTenantCounter">
+					<tree-tenantcounter tenantkey="ten_I9TW3ncG"  theme="forest" id="treeTenantCounter">
 					</tree-tenantcounter>
 				</div>
 				<div id="treeTenantCounterCode" class="code-container"></div>
@@ -433,6 +446,11 @@
 		if (user) {
 			updateURL('treeMap', user);
 			updateURL('treeProfile', user);
+		}
+		var project = url.searchParams.get("project");
+		if (project) {
+			updateProjectURL('treeMap', project);
+			updateProjectURL('treeProfile', project);
 		}
 		update();
 	}
@@ -506,6 +524,19 @@
 			updateUserAttribute(id, userslug)
 		}
 	}
+	function updateProjectURL(id, projectStr) {
+		document.getElementById("error1").innerHTML = "";
+		if (projectStr) {
+			let projectSlug = projectStr;
+			var expression = /[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*)?/gi;
+			var regex = new RegExp(expression);
+			if (projectStr.match(regex)) {
+				projectSlug = projectStr.split("/").pop();
+			}
+			updateProjectAttribute(id, projectSlug);
+
+		}
+	}
 
 	function updateUserAttribute(id, userslug) {
 		fetch(`https://app.plant-for-the-planet.org/app/profiles/${userslug}`)
@@ -516,12 +547,31 @@
 			})
 			.then((data) => {
 				changeAttribute(id, userslug, 'user', true);
+				document.getElementById(id + 'Component').innerHTML = document.getElementById(id).outerHTML;
 			})
 			.catch((error) => {
 				console.log(error);
 				document.getElementById("error").innerHTML = "Invalid Profile URL";
 			});
 			document.getElementById("userSlug").placeholder = userslug;
+	}
+
+	function updateProjectAttribute(id, projectSlug) {
+		fetch(` https://app.plant-for-the-planet.org/app/projects/${projectSlug}`)
+			.then((response) => {
+				if (!response.ok) {
+					throw new Error("Invalid Project");
+				} else return response.json();
+			})
+			.then((data) => {
+				changeAttribute(id, projectSlug, 'project', true);
+				document.getElementById(id + 'Component').innerHTML = document.getElementById(id).outerHTML;
+			})
+			.catch((error) => {
+				console.log(error);
+				document.getElementById("error1").innerHTML = "Invalid Project URL";
+			});
+			document.getElementById("project").placeholder = projectSlug;
 	}
 </script>
 
