@@ -71,7 +71,8 @@
 		#error,
 		#error-prof,
 		#error-count,
-		#error-lead {
+		#error-lead,
+		#error1 {
 			display: block;
 			color: red;
 			font-size: smaller;
@@ -200,6 +201,12 @@
 							placeholder="Username or profile url" id="userSlug">
 					</div>
 					<div id="error"></div>
+					<div class="mb-3">
+						<input type="text" class="form-control" onblur="updateURL('treeMap', this.value)"
+							placeholder="Project" id="project">
+					</div>
+					<div id="error1"></div>
+					
 					<select class="form-select" onchange="changeAttribute('treeMap',this.value,'locale')"
 						aria-label="Default select example">
 						<option value="en" selected>Select Language</option>
@@ -349,7 +356,7 @@
 		<div class="col-lg-12 col-xl-8 widgetContainer">
 			<div id="treeMapWidget">
 				<div id="treeMapComponent">
-					<tree-map user='sagar-aryal' tenantkey="ten_I9TW3ncG" proj="proj_WZkyugryh35sMmZMmXCwq7YY" theme="forest" id="treeMap">
+					<tree-map user='sagar-aryal' tenantkey="ten_I9TW3ncG" project="proj_WZkyugryh35sMmZMmXCwq7YY" theme="forest" id="treeMap">
 					</tree-map>
 				</div>
 				<div id="treeMapCode" class="code-container"></div>
@@ -360,7 +367,7 @@
 			</div>
 			<div id="treeProfileWidget">
 				<div id="treeProfileComponent">
-					<tree-profile user='sagar-aryal' proj="proj_WZkyugryh35sMmZMmXCwq7YY" tenantkey="ten_I9TW3ncG" theme="forest" id="treeProfile">
+					<tree-profile user='sagar-aryal' project="proj_WZkyugryh35sMmZMmXCwq7YY" tenantkey="ten_I9TW3ncG" theme="forest" id="treeProfile">
 					</tree-profile>
 				</div>
 				<div id="treeProfileCode" class="code-container"></div>
@@ -432,6 +439,11 @@
 		if (user) {
 			updateURL('treeMap', user);
 			updateURL('treeProfile', user);
+		}
+		var project = url.searchParams.get("project");
+		if (project) {
+			updateURL('treeMap', project);
+			updateURL('treeProfile', project);
 		}
 		update();
 	}
@@ -505,6 +517,18 @@
 			updateUserAttribute(id, userslug)
 		}
 	}
+	function updateURL(id, projectStr) {
+		document.getElementById("error1").innerHTML = "";
+		if (projectStr) {
+			let projectSlug = projectStr;
+			var expression = /[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*)?/gi;
+			var regex = new RegExp(expression);
+			if (projectStr.match(regex)) {
+				projectSlug = projectStr.split("/").pop();
+			}
+			updateUserAttribute(id, projectSlug)
+		}
+	}
 
 	function updateUserAttribute(id, userslug) {
 		fetch(`https://app.plant-for-the-planet.org/app/profiles/${userslug}`)
@@ -521,6 +545,23 @@
 				document.getElementById("error").innerHTML = "Invalid Profile URL";
 			});
 			document.getElementById("userSlug").placeholder = userslug;
+	}
+
+	function updateUserAttribute(id, projectSlug) {
+		fetch(` https://app-development.plant-for-the-planet.org/app/projects/${projectSlug}`)
+			.then((response) => {
+				if (!response.ok) {
+					throw new Error("Invalid Project");
+				} else return response.json();
+			})
+			.then((data) => {
+				changeAttribute(id, projectSlug, 'project', true);
+			})
+			.catch((error) => {
+				console.log(error);
+				document.getElementById("error1").innerHTML = "Invalid Project URL";
+			});
+			document.getElementById("project").placeholder = projectSlug;
 	}
 </script>
 
