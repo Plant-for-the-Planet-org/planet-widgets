@@ -362,7 +362,7 @@
 		<div class="col-lg-12 col-xl-8 widgetContainer">
 			<div id="treeMapWidget">
 				<div id="treeMapComponent">
-					<tree-map user='sagar-aryal' tenantkey="ten_I9TW3ncG" project="proj_WZkyugryh35sMmZMmXCwq7YY" theme="forest" id="treeMap">
+					<tree-map user='sagar-aryal' tenantkey="ten_I9TW3ncG" theme="forest" id="treeMap">
 					</tree-map>
 				</div>
 				<div id="treeMapCode" class="code-container"></div>
@@ -373,7 +373,7 @@
 			</div>
 			<div id="treeProfileWidget">
 				<div id="treeProfileComponent">
-					<tree-profile user='sagar-aryal' project="proj_WZkyugryh35sMmZMmXCwq7YY" tenantkey="ten_I9TW3ncG" theme="forest" id="treeProfile">
+					<tree-profile user='sagar-aryal' tenantkey="ten_I9TW3ncG" theme="forest" id="treeProfile">
 					</tree-profile>
 				</div>
 				<div id="treeProfileCode" class="code-container"></div>
@@ -448,8 +448,8 @@
 		}
 		var project = url.searchParams.get("project");
 		if (project) {
-			updateURL('treeMap', project);
-			updateURL('treeProfile', project);
+			updateProjectURL('treeMap', project);
+			updateProjectURL('treeProfile', project);
 		}
 		update();
 	}
@@ -523,7 +523,7 @@
 			updateUserAttribute(id, userslug)
 		}
 	}
-	function updateURL(id, projectStr) {
+	function updateProjectURL(id, projectStr) {
 		document.getElementById("error1").innerHTML = "";
 		if (projectStr) {
 			let projectSlug = projectStr;
@@ -532,7 +532,7 @@
 			if (projectStr.match(regex)) {
 				projectSlug = projectStr.split("/").pop();
 			}
-			updateUserAttribute(id, projectSlug)
+			updateProjectAttribute(id, projectSlug)
 		}
 	}
 
@@ -553,7 +553,7 @@
 			document.getElementById("userSlug").placeholder = userslug;
 	}
 
-	function updateUserAttribute(id, projectSlug) {
+	function updateProjectAttribute(id, projectSlug) {
 		fetch(` https://app.plant-for-the-planet.org/app/projects/${projectSlug}`)
 			.then((response) => {
 				if (!response.ok) {
