@@ -24,6 +24,7 @@
   export let refresh = "none";
   export let tenantkey = "ten_I9TW3ncG";
   export let forestname;
+  export let project;
 
   $: primarycolor = primarycolor;
   $: counterbgcolor = circlebgcolor
@@ -166,7 +167,7 @@
         </svg>
       </div>
       <a
-        href={`${getTenantConfig(tenantkey).url}/s/${data.slug}`}
+      href={project ? `https://donate.plant-for-the-planet.org/?tenant=${tenantkey}&to=${project}`:`${getTenantConfig(tenantkey).url}/s/${data.slug}`}
         class="primaryButton"
         on:click
         target="_blank">{language[locale].plantTrees}</a
