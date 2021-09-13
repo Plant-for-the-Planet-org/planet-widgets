@@ -176,8 +176,8 @@
 						  aria-label="Default select example">
 						 <option value="treeMap">Tree-Map</option>
 						 <option value="treeProfile">Tree-Profile</option>
-						 <option value="treeTenantCounter">Tree-Tenant-Counter</option>
-						 <option value="treeTenantLeaderboard">Tree-Tenant-Leaderboard</option>
+						 <!-- <option value="treeTenantCounter">Tree-Tenant-Counter</option>
+						 <option value="treeTenantLeaderboard">Tree-Tenant-Leaderboard</option> -->
 					 </select>
 				</div>
                
@@ -192,7 +192,7 @@
                      </div>
                      <div class="mb-3">
                         <input type="text" class="form-control" onblur="updateProjectURL('treeMap', this.value)"
-                           placeholder="Project" id="project">
+                           placeholder="Project URL" id="project">
                         <div id="error1"></div>
                      </div>
                      <select class="form-select-new" onchange="changeAttribute('treeMap',this.value,'locale')"
@@ -247,7 +247,7 @@
                      </div>
                      <div class="mb-3">
                         <input type="text" class="form-control" onblur="updateProjectURL('treeProfile', (this.value))"
-                           placeholder="Project">
+                           placeholder="Project URL">
                         <div id="error-prof1"></div>
                      </div>
                      <select class="form-select-new" onchange="changeAttribute('treeProfile',this.value,'locale')"
