@@ -4,6 +4,7 @@
   import UserProfileLoader from "../../utils/contentLoaders/UserProfileLoader.svelte";
   import { localizedAbbreviatedNumber } from "../../utils/formatNumber";
   import enLocale from "./../../public/data/locales/en.json";
+  import czLocale from "./../../public/data/locales/cz.json";
   import deLocale from "./../../public/data/locales/de.json";
   import esLocale from "./../../public/data/locales/es.json";
   import frLocale from "./../../public/data/locales/fr.json";
@@ -30,6 +31,7 @@
 
   let language = [];
   language["en"] = enLocale;
+  language["cz"] = czLocale;
   language["de"] = deLocale;
   language["es"] = esLocale;
   language["fr"] = frLocale;
