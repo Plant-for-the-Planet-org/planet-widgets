@@ -59,6 +59,7 @@
          margin-right: 20px;
          display: flex;
          align-items: center;
+         height: fit-content;
          }
          .customisation-column {
          display: flex;
@@ -74,6 +75,7 @@
          display: block;
          color: red;
          font-size: smaller;
+         margin-top: -20px;
          }
          .input-group-new,
          .form-select-new,
@@ -165,6 +167,11 @@
          margin-top: 20px;
          border-radius: 10px;
          }
+         .mb-3{
+            display: flex !important;
+            flex-direction: column;
+            align-items: flex-start !important;
+         }
       </style>
    </head>
    <body>
@@ -176,8 +183,8 @@
 						  aria-label="Default select example">
 						 <option value="treeMap">Tree-Map</option>
 						 <option value="treeProfile">Tree-Profile</option>
-						 <option value="treeTenantCounter">Tree-Tenant-Counter</option>
-						 <option value="treeTenantLeaderboard">Tree-Tenant-Leaderboard</option>
+						 <!-- <option value="treeTenantCounter">Tree-Tenant-Counter</option>
+						 <option value="treeTenantLeaderboard">Tree-Tenant-Leaderboard</option> -->
 					 </select>
 				</div>
                
@@ -187,18 +194,19 @@
                   <div  class="customizationContainer">
                      <div class="mb-3">
                         <input type="text" class="form-control" onblur="updateURL('treeMap', this.value)"
-                           placeholder="Username or profile url" id="userSlug">
+                           placeholder="Username or profile url" id="userSlug" /><br>
                         <div id="error"></div>
                      </div>
                      <div class="mb-3">
                         <input type="text" class="form-control" onblur="updateProjectURL('treeMap', this.value)"
-                           placeholder="Project" id="project">
+                           placeholder="Project URL" id="project"><br/>
                         <div id="error1"></div>
                      </div>
                      <select class="form-select-new" onchange="changeAttribute('treeMap',this.value,'locale')"
                         aria-label="Default select example">
                         <option value="en" selected>Select Language</option>
                         <option value="en">EN</option>
+                        <option value="cz">CZ</option>
                         <option value="de">DE</option>
                         <option value="es">ES</option>
                         <option value="fr">FR</option>
@@ -242,18 +250,19 @@
                   <div  class="customizationContainer">
                      <div class="mb-3">
                         <input type="text" class="form-control" onblur="updateURL('treeProfile', (this.value))"
-                           placeholder="User URL">
+                           placeholder="User URL"><br/>
                         <div id="error-prof"></div>
                      </div>
                      <div class="mb-3">
                         <input type="text" class="form-control" onblur="updateProjectURL('treeProfile', (this.value))"
-                           placeholder="Project">
+                           placeholder="Project URL"><br/>
                         <div id="error-prof1"></div>
                      </div>
                      <select class="form-select-new" onchange="changeAttribute('treeProfile',this.value,'locale')"
                         aria-label="Default select example">
                         <option value="en" selected>Select Language</option>
                         <option value="en">EN</option>
+                        <option value="cz">CZ</option>
                         <option value="de">DE</option>
                         <option value="es">ES</option>
                         <option value="fr">FR</option>
@@ -303,6 +312,7 @@
                      aria-label="Default select example">
                      <option value="en" selected>Select Language</option>
                      <option value="en">EN</option>
+                     <option value="cz">CZ</option>
                      <option value="de">DE</option>
                      <option value="es">ES</option>
                      <option value="fr">FR</option>
@@ -342,6 +352,7 @@
                      aria-label="Default select example">
                      <option value="en" selected>Select Language</option>
                      <option value="en">EN</option>
+                     <option value="cz">CZ</option>
                      <option value="de">DE</option>
                      <option value="es">ES</option>
                      <option value="fr">FR</option>
@@ -554,7 +565,7 @@
       		})
       		.catch((error) => {
       			console.log(error);
-      			document.getElementById("error").innerHTML = "Invalid Profile URL";
+      			document.getElementById("error-prof").innerHTML = "Invalid Profile URL";
       		});
       		document.getElementById("userSlug").placeholder = userslug;
       }
@@ -572,7 +583,7 @@
       		})
       		.catch((error) => {
       			console.log(error);
-      			document.getElementById("error1").innerHTML = "Invalid Project URL";
+      			document.getElementById("error-prof1").innerHTML = "Invalid Project URL";
       		});
       		document.getElementById("project").placeholder = projectSlug;
       }
