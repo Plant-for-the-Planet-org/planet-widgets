@@ -12,6 +12,9 @@ jobs:
         with:
           persist-credentials: false
 
+      - name: Upgrade npm to latest version
+        run: sudo npm i -g npm@latest
+
       - name: Install and Build 🔧
         run: |
           npm install
