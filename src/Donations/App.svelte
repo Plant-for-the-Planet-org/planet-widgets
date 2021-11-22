@@ -51,11 +51,11 @@
         <span on:click={closeModal} class="close">&times;</span>
         <div class="modal-body">
           <iframe
-            src="https://donate.plant-for-the-planet.org/?to=ridge-to-reef"
+            src="https://donate-with-planet-e1d30kvap-planetapp.vercel.app/?to=ridge-to-reef"
             width="100%"
             height="100%"
             frameborder="0"
-            scrolling="no"
+            scrolling="yes"
             allowtransparency="true"
             allowpaymentrequest="true"
             title="Donate to Plant for the Planet"  
