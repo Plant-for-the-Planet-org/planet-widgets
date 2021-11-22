@@ -83,21 +83,24 @@
   }
 
   .donate-button {
-    position: absolute;
-    top: 0;
-    right: 0;
-    background-color: #fff;
+    background-color: #68b030;
+    min-width: 75px;
+    max-width: 150px;
+    padding: 0 4px;
+    height: 22px;
+    display: flex;
+    -moz-box-pack: center;
+    justify-content: center;
+    -moz-box-align: center;
+    align-items: center;
+    border-radius: 11px;
     border: none;
-    color: #000;
-    padding: 15px 32px;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    font-size: 16px;
-    margin: 4px 2px;
-    cursor: pointer;
-    border-radius: 4px;
-    box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.75);
+    color: #fff;
+    /* font-family: "Raleway", sans-serif; */
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: 0.3px;
+    line-height: 1;
   }
 
   .modal {
