@@ -51,14 +51,14 @@
         <span on:click={closeModal} class="close">&times;</span>
         <div class="modal-body">
           <iframe
-            src="https://donate-with-planet-e1d30kvap-planetapp.vercel.app/?to=ridge-to-reef"
+            src="http://localhost:3000/?to=replanting-trees-to-the-burnt-magila-natural-forest-reserve"
             width="100%"
             height="100%"
             frameborder="0"
             scrolling="yes"
             allowtransparency="true"
             allowpaymentrequest="true"
-            title="Donate to Plant for the Planet"  
+            title="Donate to Plant for the Planet"
           />
         </div>
       </div>
@@ -116,12 +116,12 @@
   }
 
   .modal-content {
-    background-color: #fefefe;
+    background-color: transparent;
     border: 1px solid #888;
     width: 100%;
     height: 100%;
-    max-height: 600px;
-    max-width: 1000px;
+    /* max-height: 600px; */
+    /* max-width: 1000px; */
     position: relative;
   }
 
