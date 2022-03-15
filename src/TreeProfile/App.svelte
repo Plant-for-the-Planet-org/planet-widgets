@@ -169,7 +169,7 @@
         </svg>
       </div>
       <a
-      href={project ? `https://donate.plant-for-the-planet.org/?tenant=${tenantkey}&to=${project}&s=${data.slug}`:`${getTenantConfig(tenantkey).url}/s/${data.slug}`}
+      href={project ? `https://donate.plant-for-the-planet.org/?tenant=${tenantkey}&to=${project}${data.slug?`&s=${data.slug}`:''}`:`${getTenantConfig(tenantkey).url}/s/${data.slug}`}
         class="primaryButton"
         on:click
         target="_blank">{language[locale].plantTrees}</a
