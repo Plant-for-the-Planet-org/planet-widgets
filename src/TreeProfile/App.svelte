@@ -176,17 +176,19 @@
       >
 
       <div class="imageHeader">
-        <a
-          href={`${getTenantConfig(tenantkey).url}/t/${data.slug}`}
-          target="_blank"
-        >
-          <img
-            class="logo"
-            src={getImageUrl("profile", "thumb", data.image)}
-            alt={data.displayName}
-            href="www.facebook.com"
-          />
-        </a>
+        {#if data.image}
+          <a
+            href={`${getTenantConfig(tenantkey).url}/t/${data.slug}`}
+            target="_blank"
+          >
+            <img
+              class="logo"
+              src={getImageUrl("profile", "thumb", data.image)}
+              alt={data.displayName}
+              href="www.facebook.com"
+            />
+          </a>
+        {/if}
         {#if data.hasLogoLicense}
           <div
             class="logoPlanet"
