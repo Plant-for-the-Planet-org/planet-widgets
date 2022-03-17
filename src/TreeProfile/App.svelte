@@ -185,7 +185,6 @@
               class="logo"
               src={getImageUrl("profile", "thumb", data.image)}
               alt={data.displayName}
-              href="www.facebook.com"
             />
           </a>
         {/if}
