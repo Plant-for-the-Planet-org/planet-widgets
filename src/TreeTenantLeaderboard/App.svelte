@@ -72,7 +72,7 @@
 						<p class="user">{item.donorName}</p>
 						<p class="treeCount">
 							{getFormattedNumber(item.treeCount, locale)}
-							{' '}{language[locale].trees}
+							{' '}{item.treeCount === 1?language[locale].tree:language[locale].trees}
 						</p>
 					</li>
 				{/each}
@@ -87,7 +87,7 @@
 						<p class="user">{item.donorName}</p>
 						<p class="treeCount">
 							{getFormattedNumber(item.treeCount, locale)}
-							{' '}{language[locale].trees}
+							{' '}{item.treeCount === 1?language[locale].tree:language[locale].trees}
 						</p>
 					</div>
 				{/each}
