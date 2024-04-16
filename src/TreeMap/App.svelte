@@ -341,7 +341,7 @@
 						</a>
 					</div>
 					<div class="footerLinkBold">
-						<a href={'https://a.plant-for-the-planet.org/'} target="_blank">
+						<a href={'https://www.plant-for-the-planet.org/'} target="_blank">
 							<div class="seperater">|</div>
 							{language[locale].poweredBy}
 						</a>

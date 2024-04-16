@@ -223,7 +223,7 @@
 				<div class="block">
 					<a
 						class="footerLinkBold"
-						href={'https://a.plant-for-the-planet.org/'}
+						href={'https://www.plant-for-the-planet.org/'}
 						target="_blank"
 						>| {language[locale].poweredBy}
 					</a>
