@@ -100,10 +100,10 @@
 							{community === 'true'
 								? localizedAbbreviatedNumber(
 										locale,
-										data.score.personal + data.score.received,
+										data.scores.treesDonated.personal + data.scores.treesDonated.received + data.scores.treesPlanted,
 										1
 								  )
-								: localizedAbbreviatedNumber(locale, data.score.personal, 1)}
+								: localizedAbbreviatedNumber(locale, data.scores.treesDonated.received + data.scores.treesPlanted, 1)}
 						</p>
 					</div>
 					{#if forestname}
@@ -122,9 +122,9 @@
 							<p class={`treecountLabel ${theme === 'dark' ? 'planted' : ''}`}>
 								{language[locale].treesPlanted}
 							</p>
-							{#if data.score.target != 0}
+							{#if data.scores.treesDonated.target != 0}
 								<p class="treecount">
-									{localizedAbbreviatedNumber(locale, data.score.target, 1)}
+									{localizedAbbreviatedNumber(locale, data.scores.treesDonated.target, 1)}
 								</p>
 								<p class="treecountLabel">{language[locale].target}</p>
 							{/if}
@@ -134,7 +134,7 @@
 				<svg
 					style={`width:${size * 2}px; height:${size * 2}px;position:absolute;`}
 				>
-					{#if data.score.target > data.score.personal + data.score.received}
+					{#if data.scores.treesDonated.target > data.scores.treesDonated.personal + data.scores.treesDonated.received + data.scores.treesPlanted}
 						<circle
 							cx={size}
 							cy={size}
@@ -146,11 +146,11 @@
 							stroke-dasharray={circumference}
 							stroke-dashoffset={circumference *
 								(1 -
-									(data.score.personal + data.score.received) /
-										data.score.target)}
+									(data.scores.treesDonated.personal + data.scores.treesDonated.received + data.scores.treesPlanted) /
+										data.scores.treesDonated.target)}
 							fill="transparent"
 						/>
-					{:else if data.score.target < data.score.personal + data.score.received}
+					{:else if data.scores.treesDonated.target < data.scores.treesDonated.personal + data.scores.treesDonated.received + data.scores.treesPlanted}
 						<circle
 							cx={size}
 							cy={size}
@@ -162,8 +162,8 @@
 							stroke-dasharray={circumference}
 							stroke-dashoffset={circumference *
 								(1 ==
-									(data.score.personal + data.score.received) /
-										data.score.target)}
+									(data.scores.treesDonated.personal + data.scores.treesDonated.received + data.scores.treesPlanted) /
+										data.scores.treesDonated.target)}
 							fill="transparent"
 						/>
 					{/if}
@@ -246,7 +246,7 @@
 							<p class="infoText ">
 								{localizedAbbreviatedNumber(
 									locale,
-									Number(data.score.personal),
+									Number(data.scores.treesDonated.personal + data.scores.treesPlanted),
 									1
 								)}
 								{language[locale].treesPlantedBy}
@@ -254,7 +254,7 @@
 								{community === 'true'
 									? `${language[locale].and} ${localizedAbbreviatedNumber(
 											locale,
-											Number(data.score.received),
+											Number(data.scores.treesDonated.received),
 											1
 									  )} ${language[locale].treesPlantedByComm}`
 									: ''}
