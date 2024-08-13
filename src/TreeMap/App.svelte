@@ -110,10 +110,12 @@
 				fetchContributionsData.then((contributions) => {
 					let filteredContributions;
 					if (community === 'true') {
-						filteredContributions = contributions;
+						filteredContributions = contributions.filter((contrib) => {
+							return contrib.properties.plantDate !== null;
+						});
 					} else {
 						filteredContributions = contributions.filter((contrib) => {
-							return contrib.properties.type !== 'gift';
+							return contrib.properties.type !== 'gift' && contrib.properties.plantDate !== null;
 						});
 					}
 					const geojson = {
