@@ -293,7 +293,7 @@
 								stroke-dasharray={circumference}
 								stroke-dashoffset={circumference *
 									(1 -
-										(data.scores.treesDonated.personal + data.scores.treesDonated.received)  + data.scores.treesPlanted/
+										(data.scores.treesDonated.personal + data.scores.treesDonated.received  + data.scores.treesPlanted)/
 											data.scores.treesDonated.target)}
 								fill="transparent"
 							/>
@@ -309,7 +309,7 @@
 								stroke-dasharray={circumference}
 								stroke-dashoffset={circumference *
 									(1 ==
-										(data.scores.treesDonated.personal + data.scores.treesDonated.received)  + data.scores.treesPlanted/
+										(data.scores.treesDonated.personal + data.scores.treesDonated.received  + data.scores.treesPlanted)/
 											data.scores.treesDonated.target)}
 								fill="transparent"
 							/>

@@ -103,7 +103,7 @@
 										data.scores.treesDonated.personal + data.scores.treesDonated.received + data.scores.treesPlanted,
 										1
 								  )
-								: localizedAbbreviatedNumber(locale, data.scores.treesDonated.received + data.scores.treesPlanted, 1)}
+								: localizedAbbreviatedNumber(locale, data.scores.treesDonated.personal + data.scores.treesPlanted, 1)}
 						</p>
 					</div>
 					{#if forestname}
