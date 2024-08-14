@@ -110,10 +110,12 @@
 				fetchContributionsData.then((contributions) => {
 					let filteredContributions;
 					if (community === 'true') {
-						filteredContributions = contributions;
+						filteredContributions = contributions.filter((contrib) => {
+							return contrib.properties.plantDate !== null;
+						});
 					} else {
 						filteredContributions = contributions.filter((contrib) => {
-							return contrib.properties.type !== 'gift';
+							return contrib.properties.type !== 'gift' && contrib.properties.plantDate !== null;
 						});
 					}
 					const geojson = {
@@ -237,10 +239,10 @@
 								{community === 'true'
 									? localizedAbbreviatedNumber(
 											locale,
-											data.score.personal + data.score.received,
+											data.scores.treesDonated.personal + data.scores.treesDonated.received + data.scores.treesPlanted,
 											1
 									  )
-									: localizedAbbreviatedNumber(locale, data.score.personal, 1)}
+									: localizedAbbreviatedNumber(locale, data.scores.treesDonated.personal + data.scores.treesPlanted, 1)}
 							</p>
 						</div>
 						{#if forestname}
@@ -265,9 +267,9 @@
 								>
 									{language[locale].treesPlanted}
 								</p>
-								{#if data.score.target != 0}
+								{#if data.scores.treesDonated.target != 0}
 									<p class="treecount">
-										{localizedAbbreviatedNumber(locale, data.score.target, 1)}
+										{localizedAbbreviatedNumber(locale, data.scores.treesDonated.target, 1)}
 									</p>
 									<p class="treecountLabel">{language[locale].target}</p>
 								{/if}
@@ -279,7 +281,7 @@
 							size * 2
 						}px;position:absolute;`}
 					>
-						{#if data.score.target > data.score.personal + data.score.received}
+						{#if data.scores.treesDonated.target > data.scores.treesDonated.personal + data.scores.treesDonated.received + data.scores.treesPlanted}
 							<circle
 								cx={size}
 								cy={size}
@@ -291,11 +293,11 @@
 								stroke-dasharray={circumference}
 								stroke-dashoffset={circumference *
 									(1 -
-										(data.score.personal + data.score.received) /
-											data.score.target)}
+										(data.scores.treesDonated.personal + data.scores.treesDonated.received  + data.scores.treesPlanted)/
+											data.scores.treesDonated.target)}
 								fill="transparent"
 							/>
-						{:else if data.score.target < data.score.personal + data.score.received}
+						{:else if data.scores.treesDonated.target <= data.scores.treesDonated.personal + data.scores.treesDonated.received + data.scores.treesPlanted}
 							<circle
 								cx={size}
 								cy={size}
@@ -305,10 +307,7 @@
 								stroke-width="16"
 								transform={`rotate(-90,${size},${size})`}
 								stroke-dasharray={circumference}
-								stroke-dashoffset={circumference *
-									(1 ==
-										(data.score.personal + data.score.received) /
-											data.score.target)}
+								stroke-dashoffset={0}
 								fill="transparent"
 							/>
 						{/if}
@@ -365,7 +364,7 @@
 								<p class="infoText ">
 									{localizedAbbreviatedNumber(
 										locale,
-										Number(data.score.personal),
+										Number(data.scores.treesDonated.personal + data.scores.treesPlanted),
 										1
 									)}
 									{language[locale].treesPlantedBy}
@@ -373,7 +372,7 @@
 									{community === 'true'
 										? `${language[locale].and} ${localizedAbbreviatedNumber(
 												locale,
-												Number(data.score.received),
+												Number(data.scores.treesDonated.received),
 												1
 										  )} ${language[locale].treesPlantedByComm}`
 										: ''}
