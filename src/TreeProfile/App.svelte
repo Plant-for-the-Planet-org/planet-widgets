@@ -150,7 +150,7 @@
 										data.scores.treesDonated.target)}
 							fill="transparent"
 						/>
-					{:else if data.scores.treesDonated.target < data.scores.treesDonated.personal + data.scores.treesDonated.received + data.scores.treesPlanted}
+					{:else if data.scores.treesDonated.target <= data.scores.treesDonated.personal + data.scores.treesDonated.received + data.scores.treesPlanted}
 						<circle
 							cx={size}
 							cy={size}
@@ -160,10 +160,7 @@
 							stroke-width="16"
 							transform={`rotate(-90,${size},${size})`}
 							stroke-dasharray={circumference}
-							stroke-dashoffset={circumference *
-								(1 ==
-									(data.scores.treesDonated.personal + data.scores.treesDonated.received + data.scores.treesPlanted) /
-										data.scores.treesDonated.target)}
+							stroke-dashoffset={0}
 							fill="transparent"
 						/>
 					{/if}
