@@ -23,7 +23,7 @@
 	export let community = 'true';
 	export let locale = 'en';
 	export let refresh = 'none';
-	export let tenantkey = 'ten_I9TW3ncG';
+	export let tenantkey = 'ten_NxJq55pm';
 	export let forestname;
 	export let project;
 
