@@ -44,7 +44,10 @@
           const keyValuePairs = queryString.split("&");
           //Split each key=value string into an array of [key, value]
           // e.g., [["type", "tree-map"], ["user", "John-doe"], ...]
-          const entries = keyValuePairs.map((pair) => pair.split("="));
+          const entries = keyValuePairs.map((pair) => {
+            const [key, value] = pair.split("=");
+            return [key, decodeURIComponent(value || "")];
+          });
           //Convert the array of entries into an object
           // e.g., { type: "tree-map", user: "John-doe", ... }
           const paramObject = Object.fromEntries(entries);
@@ -61,7 +64,7 @@
           const forestname = paramObject.forestname || "";
           const project = paramObject.project || "";
           const goal = paramObject.goal || "";
-
+          console.log(paramObject, "=1");
           if (!widgetType) {
             showError("Missing required parameter: type is required");
             return;
