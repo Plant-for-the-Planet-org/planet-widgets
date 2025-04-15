@@ -36,24 +36,32 @@
           container.innerHTML = `<div class="error">${message}</div>`;
         }
         function loadWidget() {
-          const params = new URLSearchParams(window.location.search);
-          const widgetType = params.get("type");
-          const user = params.get("user");
-          const tenantKey =
-            params.get("tenantKey") ||
-            params.get("tenantkey") ||
-            "ten_NxJq55pm"; // Use default tenant if none provided
-          const theme = params.get("theme") || "default";
-          const primarycolor = params.get("primarycolor") || "#68b030";
-          const circlebgcolor = params.get("circlebgcolor") || "";
-          const community = params.get("community") || "true";
-          const locale = params.get("locale") || "en";
-          const refresh = params.get("refresh") || "none";
-          const forestname = params.get("forestname") || "";
-          const project = params.get("project") || "";
-          const goal = params.get("goal") || "";
+          // Get the query string part (after the ?)
+          // e.g., "type=tree-map&user=sagar-aryal"
+          const queryString = window.location.href.split("?")[1] || "";
+          //Split the query string into individual key=value pairs
+          // e.g., ["type=tree-map", "user=sagar-aryal", ...]
+          const keyValuePairs = queryString.split("&");
+          //Split each key=value string into an array of [key, value]
+          // e.g., [["type", "tree-map"], ["user", "sagar-aryal"], ...]
+          const entries = keyValuePairs.map((pair) => pair.split("="));
+          //Convert the array of entries into an object
+          // e.g., { type: "tree-map", user: "sagar-aryal", ... }
+          const paramObject = Object.fromEntries(entries);
 
-          // Validate required parameters
+          const widgetType = paramObject.type;
+          const user = paramObject.user;
+          const tenantKey = paramObject.tenantKey || "ten_NxJq55pm"; // Use default tenant if none provided
+          const theme = paramObject.theme || "default";
+          const primarycolor = paramObject.primarycolor || "#68b030";
+          const circlebgcolor = paramObject.circlebgcolor || "";
+          const community = paramObject.community || "true";
+          const locale = paramObject.locale || "en";
+          const refresh = paramObject.refresh || "none";
+          const forestname = paramObject.forestname || "";
+          const project = paramObject.project || "";
+          const goal = paramObject.goal || "";
+
           if (!widgetType) {
             showError("Missing required parameter: type is required");
             return;
@@ -67,7 +75,6 @@
             );
             return;
           }
-
           // Create the widget element first
           const widget = document.createElement(widgetType);
           const attributes = {
