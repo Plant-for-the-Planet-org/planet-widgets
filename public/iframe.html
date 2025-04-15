@@ -37,16 +37,16 @@
         }
         function loadWidget() {
           // Get the query string part (after the ?)
-          // e.g., "type=tree-map&user=sagar-aryal"
+          // e.g., "type=tree-map&user=John-doe"
           const queryString = window.location.href.split("?")[1] || "";
           //Split the query string into individual key=value pairs
-          // e.g., ["type=tree-map", "user=sagar-aryal", ...]
+          // e.g., ["type=tree-map", "user=John-doe", ...]
           const keyValuePairs = queryString.split("&");
           //Split each key=value string into an array of [key, value]
-          // e.g., [["type", "tree-map"], ["user", "sagar-aryal"], ...]
+          // e.g., [["type", "tree-map"], ["user", "John-doe"], ...]
           const entries = keyValuePairs.map((pair) => pair.split("="));
           //Convert the array of entries into an object
-          // e.g., { type: "tree-map", user: "sagar-aryal", ... }
+          // e.g., { type: "tree-map", user: "John-doe", ... }
           const paramObject = Object.fromEntries(entries);
 
           const widgetType = paramObject.type;
