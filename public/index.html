@@ -676,19 +676,19 @@
 					widgetIframe.innerHTML =
 					'<code>' +
 					'&lt;iframe ' + (id=="treeMap" ? 'height="445" width="950"':'height="470" width="435"') +
-					'src="'+ window.location.origin + '/iframe.html' +
+					'src="'+ encodeURI(window.location.origin + '/iframe.html' +
 					'?type=' + document.getElementById(id).nodeName.toLowerCase() +
 					'&user=' + document.getElementById(id).user +
 					'&tenantkey=' + document.getElementById(id).tenantkey +
 					'&theme=' + document.getElementById(id).theme +
-					'&primarycolor=' + (document.getElementById(id).primarycolor || '').replace(/#/g, '%23') +
-					'&circlebgcolor=' + (document.getElementById(id).circlebgcolor || '').replace(/#/g, '%23') +
+					'&primarycolor=' + (document.getElementById(id).primarycolor || '') +
+					'&circlebgcolor=' + (document.getElementById(id).circlebgcolor || '') +
 					'&community=' + document.getElementById(id).community +
 					'&locale=' + document.getElementById(id).locale +
 					'&refresh=' + document.getElementById(id).refresh +
 					'&forestname=' + (document.getElementById(id).forestname || '') +
 					'&project=' + (document.getElementById(id).project || '') +
-					'&goal=' + (document.getElementById(id).goal || '') +
+					'&goal=' + (document.getElementById(id).goal || '')).replace(/#/g, '%23') +
 					'"&gt;&lt;/iframe&gt;' +
 					'</code>';
 				}
