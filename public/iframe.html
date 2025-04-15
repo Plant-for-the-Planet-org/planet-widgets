@@ -114,12 +114,12 @@
   </head>
   <body>
     <main>
-      <div id="widget-container"></div>
+      <div id="widget-container" />
     </main>
     <script>
       (function () {
+        const container = document.getElementById("widget-container");
         function showError(message) {
-          const container = document.getElementById("widget-container");
           container.innerHTML = `<div class="error">${message}</div>`;
         }
         function loadWidget() {
@@ -181,7 +181,6 @@
           });
 
           // Add the widget to the container before loading the script
-          const container = document.getElementById("widget-container");
           container.innerHTML = ""; // Clear any existing content
           container.appendChild(widget);
 
