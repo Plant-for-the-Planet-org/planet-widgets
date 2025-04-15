@@ -681,8 +681,8 @@
 					'&user=' + document.getElementById(id).user +
 					'&tenantkey=' + document.getElementById(id).tenantkey +
 					'&theme=' + document.getElementById(id).theme +
-					'&primarycolor=' + (document.getElementById(id).primarycolor || '') +
-					'&circlebgcolor=' + (document.getElementById(id).circlebgcolor || '') +
+					'&primarycolor=' + (document.getElementById(id).primarycolor || '').replace(/#/g, '%23') +
+					'&circlebgcolor=' + (document.getElementById(id).circlebgcolor || '').replace(/#/g, '%23') +
 					'&community=' + document.getElementById(id).community +
 					'&locale=' + document.getElementById(id).locale +
 					'&refresh=' + document.getElementById(id).refresh +
