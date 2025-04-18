@@ -523,7 +523,7 @@
 						class="copyCodeButton"
 						onClick="copyToClipboard('treeMap', false); return false"
 					>
-						Copy Code
+						Copy code
 					</button>
 					<div id="treeMapIframe" class="code-container"></div>
 					<button
@@ -531,7 +531,7 @@
 						class="copyCodeButton"
 						onClick="copyToClipboard('treeMap', true); return false"
 					>
-						Copy Code
+						Copy iframe link
 					</button>
 				</div>
 				<div id="treeProfileWidget">
@@ -550,7 +550,7 @@
 						class="copyCodeButton"
 						onClick="copyToClipboard('treeProfile', false); return false"
 					>
-						Copy Code
+						Copy code
 					</button>
 					<div id="treeProfileIframe" class="code-container"></div>
 					<button
@@ -558,7 +558,7 @@
 						class="copyCodeButton"
 						onClick="copyToClipboard('treeProfile', true); return false"
 					>
-						Copy Code
+						Copy iframe link
 					</button>
 				</div>
 				<div id="treeTenantCounterWidget">
@@ -576,7 +576,7 @@
 						class="copyCodeButton"
 						onClick="copyToClipboard('treeTenantCounter'); return false"
 					>
-						Copy Code
+						Copy code
 					</button>
 				</div>
 				<div id="treeTenantLeaderboardWidget">
@@ -593,7 +593,7 @@
 						class="copyCodeButton"
 						onClick="copyToClipboard('treeTenantLeaderboard'); return false"
 					>
-						Copy Code
+						Copy code
 					</button>
 				</div>
 			</div>
@@ -675,8 +675,7 @@
 				if (widgetIframe) {
 					widgetIframe.innerHTML =
 					'<code>' +
-					'&lt;iframe ' + (id=="treeMap" ? 'height="445" width="950"':'height="470" width="435"') +
-					'src="'+ encodeURI(window.location.origin + '/iframe.html' +
+					encodeURI(window.location.origin + '/iframe.html' +
 					'?type=' + document.getElementById(id).nodeName.toLowerCase() +
 					'&user=' + document.getElementById(id).user +
 					'&tenantkey=' + document.getElementById(id).tenantkey +
@@ -685,11 +684,11 @@
 					'&circlebgcolor=' + (document.getElementById(id).circlebgcolor || '') +
 					'&community=' + document.getElementById(id).community +
 					'&locale=' + document.getElementById(id).locale +
-					'&refresh=' + document.getElementById(id).refresh +
+					//'&refresh=' + document.getElementById(id).refresh +
 					'&forestname=' + (document.getElementById(id).forestname || '') +
-					'&project=' + (document.getElementById(id).project || '') +
-					'&goal=' + (document.getElementById(id).goal || '')).replace(/#/g, '%23') +
-					'"&gt;&lt;/iframe&gt;' +
+					'&project=' + (document.getElementById(id).project || '') // +
+					//'&goal=' + (document.getElementById(id).goal || '')
+					).replace(/#/g, '%23') +
 					'</code>';
 				}
 			}
