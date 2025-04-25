@@ -521,9 +521,17 @@
 					<button
 						id="treeMapCopyButton"
 						class="copyCodeButton"
-						onClick="copyToClipboard('treeMap'); return false"
+						onClick="copyToClipboard('treeMap', false); return false"
 					>
-						Copy Code
+						Copy code
+					</button>
+					<div id="treeMapIframe" class="code-container"></div>
+					<button
+						id="treeMapIframeButton"
+						class="copyCodeButton"
+						onClick="copyToClipboard('treeMap', true); return false"
+					>
+						Copy iframe link
 					</button>
 				</div>
 				<div id="treeProfileWidget">
@@ -540,9 +548,17 @@
 					<button
 						id="treeProfileCopyButton"
 						class="copyCodeButton"
-						onClick="copyToClipboard('treeProfile'); return false"
+						onClick="copyToClipboard('treeProfile', false); return false"
 					>
-						Copy Code
+						Copy code
+					</button>
+					<div id="treeProfileIframe" class="code-container"></div>
+					<button
+						id="treeProfileIframeButton"
+						class="copyCodeButton"
+						onClick="copyToClipboard('treeProfile', true); return false"
+					>
+						Copy iframe link
 					</button>
 				</div>
 				<div id="treeTenantCounterWidget">
@@ -560,7 +576,7 @@
 						class="copyCodeButton"
 						onClick="copyToClipboard('treeTenantCounter'); return false"
 					>
-						Copy Code
+						Copy code
 					</button>
 				</div>
 				<div id="treeTenantLeaderboardWidget">
@@ -577,7 +593,7 @@
 						class="copyCodeButton"
 						onClick="copyToClipboard('treeTenantLeaderboard'); return false"
 					>
-						Copy Code
+						Copy code
 					</button>
 				</div>
 			</div>
@@ -644,6 +660,7 @@
 
 			function updateCode(id) {
 				var widgetCode = document.getElementById(id + 'Code');
+				var widgetIframe = document.getElementById(id + 'Iframe');
 				var widgetNode = document.getElementById(id + 'Script');
 				widgetNode.src =
 					`${window.location.origin}/build/` + widgetNode.src.split('/')[4];
@@ -655,16 +672,61 @@
 					'</br>' +
 					document.getElementById(id).outerHTML.replace(/</g, '&lt;') +
 					'</code>';
+				if (widgetIframe) {
+					let circlebgcolor = "";
+          			let primarycolor = "";
+          				if (document.getElementById(id).circlebgcolor) {
+            				circlebgcolor = document.getElementById(id).circlebgcolor.replace("#", "");
+         				 }
+          				if (document.getElementById(id).primarycolor) {
+           					primarycolor = document.getElementById(id).primarycolor.replace("#", "");
+						}
+					let queryParams = [];
+					queryParams.push(`type=${document.getElementById(id).nodeName.toLowerCase()}`)
+					if(document.getElementById(id).user){
+						queryParams.push(`user=${document.getElementById(id).user}`)
+					}
+
+					if(document.getElementById(id).tenantkey){
+						queryParams.push(`tenantkey=${document.getElementById(id).tenantkey}`)
+					}
+					if(document.getElementById(id).theme){
+						queryParams.push(`theme=${document.getElementById(id).theme}`)
+					}
+					if(primarycolor){
+						queryParams.push(`primarycolor=${primarycolor}`)
+					}
+					if(circlebgcolor){
+						queryParams.push(`circlebgcolor=${circlebgcolor}`)
+					}
+					if(document.getElementById(id).community){
+						queryParams.push(`community=${document.getElementById(id).community}`)
+					}
+					if(document.getElementById(id).locale){
+						queryParams.push(`locale=${document.getElementById(id).locale}`)
+					}
+					if(document.getElementById(id).forestname){
+						queryParams.push(`forestname=${document.getElementById(id).forestname}`)
+					}
+					if(document.getElementById(id).project){
+						queryParams.push(`project=${document.getElementById(id).project}`)
+					}
+    
+					widgetIframe.innerHTML =
+					'<code>' +
+					encodeURI(window.location.origin + '/iframe.html?' + queryParams.join("&")).replace(/#/g, '%23') +
+					'</code>';
+				}
 			}
 
-			function copyToClipboard(id) {
+			function copyToClipboard(id, copyIframe) {
 				window.getSelection().removeAllRanges();
 				let range = document.createRange();
-				range.selectNode(document.getElementById(id + 'Code'));
+				range.selectNode(document.getElementById(id + (copyIframe?'Iframe':'Code')));
 				window.getSelection().addRange(range);
 				document.execCommand('copy');
 				window.getSelection().removeAllRanges();
-				let button = document.getElementById(id + 'CopyButton');
+				let button = document.getElementById(id + (copyIframe? 'IframeButton':'CopyButton'));
 				const buttonText = button.innerHTML;
 				button.innerHTML = 'Copied!';
 				setTimeout(function () {

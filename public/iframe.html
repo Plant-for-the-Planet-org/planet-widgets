@@ -51,13 +51,12 @@
           //Convert the array of entries into an object
           // e.g., { type: "tree-map", user: "John-doe", ... }
           const paramObject = Object.fromEntries(entries);
-
           const widgetType = paramObject.type;
           const user = paramObject.user;
           const tenantKey = paramObject.tenantKey || "ten_NxJq55pm"; // Use default tenant if none provided
           const theme = paramObject.theme || "default";
-          const primarycolor = paramObject.primarycolor || "#68b030";
-          const circlebgcolor = paramObject.circlebgcolor || "";
+          let primarycolor = paramObject.primarycolor || "#68b030";
+          let circlebgcolor = paramObject.circlebgcolor || "";
           const community = paramObject.community || "true";
           const locale = paramObject.locale || "en";
           const refresh = paramObject.refresh || "none";
@@ -78,6 +77,14 @@
             );
             return;
           }
+
+          if (primarycolor && !primarycolor.includes("#")) {
+            primarycolor = `#${primarycolor}`;
+          }
+          if (circlebgcolor && !circlebgcolor.includes("#")) {
+            circlebgcolor = `#${circlebgcolor}`;
+          }
+
           // Create the widget element first
           const widget = document.createElement(widgetType);
           const attributes = {
