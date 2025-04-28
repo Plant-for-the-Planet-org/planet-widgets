@@ -172,8 +172,9 @@
 				background: rgb(255, 187, 0);
 				box-shadow: rgb(0 0 0 / 0%) 0px 0px 0px;
 				transform: none;
-				width: 300px;
-				margin-top: 20px;
+				width: 120px;
+				height: fit-content;
+				align-self: center;
 			}
 			.code-container {
 				display: flex;
@@ -181,8 +182,18 @@
 				background-color: white;
 				padding: 16px;
 				text-align: center;
-				margin-top: 20px;
 				border-radius: 10px;
+				flex: 1;
+				background: rgb(245, 245, 245);
+			}
+			.widgetContainer .copyCodeContainer {
+				display: flex;
+				flex-direction: row;
+				justify-content: space-between;
+				align-items: center;
+				gap: 20px;
+				margin-top: 20px;
+				width: 100%;
 			}
 			.mb-3 {
 				display: flex !important;
@@ -517,22 +528,26 @@
 						>
 						</tree-map>
 					</div>
-					<div id="treeMapCode" class="code-container"></div>
-					<button
-						id="treeMapCopyButton"
-						class="copyCodeButton"
-						onClick="copyToClipboard('treeMap', false); return false"
-					>
-						Copy code
-					</button>
-					<div id="treeMapIframe" class="code-container"></div>
-					<button
-						id="treeMapIframeButton"
-						class="copyCodeButton"
-						onClick="copyToClipboard('treeMap', true); return false"
-					>
-						Copy iframe link
-					</button>
+					<div class="copyCodeContainer">
+						<div id="treeMapCode" class="code-container"></div>
+						<button
+							id="treeMapCopyButton"
+							class="copyCodeButton"
+							onClick="copyToClipboard('treeMap', false); return false"
+						>
+							Copy code
+						</button>
+					</div>
+					<div class="copyCodeContainer">
+						<div id="treeMapIframe" class="code-container"></div>
+						<button
+							id="treeMapIframeButton"
+							class="copyCodeButton"
+							onClick="copyToClipboard('treeMap', true); return false"
+						>
+							Copy iframe link
+						</button>
+					</div>
 				</div>
 				<div id="treeProfileWidget">
 					<div id="treeProfileComponent">
@@ -544,22 +559,26 @@
 						>
 						</tree-profile>
 					</div>
-					<div id="treeProfileCode" class="code-container"></div>
-					<button
-						id="treeProfileCopyButton"
-						class="copyCodeButton"
-						onClick="copyToClipboard('treeProfile', false); return false"
-					>
-						Copy code
-					</button>
-					<div id="treeProfileIframe" class="code-container"></div>
-					<button
-						id="treeProfileIframeButton"
-						class="copyCodeButton"
-						onClick="copyToClipboard('treeProfile', true); return false"
-					>
-						Copy iframe link
-					</button>
+					<div class="copyCodeContainer">
+						<div id="treeProfileCode" class="code-container"></div>
+						<button
+							id="treeProfileCopyButton"
+							class="copyCodeButton"
+							onClick="copyToClipboard('treeProfile', false); return false"
+						>
+							Copy code
+						</button>
+					</div>
+					<div class="copyCodeContainer">
+						<div id="treeProfileIframe" class="code-container"></div>
+						<button
+							id="treeProfileIframeButton"
+							class="copyCodeButton"
+							onClick="copyToClipboard('treeProfile', true); return false"
+						>
+							Copy iframe link
+						</button>
+					</div>
 				</div>
 				<div id="treeTenantCounterWidget">
 					<div id="treeTenantCounterComponent">
@@ -570,14 +589,16 @@
 						>
 						</tree-tenantcounter>
 					</div>
-					<div id="treeTenantCounterCode" class="code-container"></div>
-					<button
-						id="treeTenantCounterCopyButton"
-						class="copyCodeButton"
-						onClick="copyToClipboard('treeTenantCounter'); return false"
-					>
-						Copy code
-					</button>
+					<div class="copyCodeContainer">
+						<div id="treeTenantCounterCode" class="code-container"></div>
+						<button
+							id="treeTenantCounterCopyButton"
+							class="copyCodeButton"
+							onClick="copyToClipboard('treeTenantCounter'); return false"
+						>
+							Copy code
+						</button>
+					</div>
 				</div>
 				<div id="treeTenantLeaderboardWidget">
 					<div id="treeTenantLeaderboardComponent">
@@ -587,14 +608,16 @@
 						>
 						</tree-tenantleaderboard>
 					</div>
-					<div id="treeTenantLeaderboardCode" class="code-container"></div>
-					<button
-						id="treeTenantLeaderboardCopyButton"
-						class="copyCodeButton"
-						onClick="copyToClipboard('treeTenantLeaderboard'); return false"
-					>
-						Copy code
-					</button>
+					<div class="copyCodeContainer">
+						<div id="treeTenantLeaderboardCode" class="code-container"></div>
+						<button
+							id="treeTenantLeaderboardCopyButton"
+							class="copyCodeButton"
+							onClick="copyToClipboard('treeTenantLeaderboard'); return false"
+						>
+							Copy code
+						</button>
+					</div>
 				</div>
 			</div>
 		</div>
