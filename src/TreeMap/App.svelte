@@ -19,6 +19,7 @@
 	import { onMount } from 'svelte';
 	import getTenantConfig from '../../utils/tenantsConfig';
 	import TcBackground from '../common/themes/leniKlum/TcBackground.svelte';
+	import { getUtmParams } from '../../utils/utmParams';
 	let w;
 	// Props that can be passed
 	export let user;
@@ -31,6 +32,8 @@
 	export let tenantkey = 'ten_NxJq55pm';
 	export let forestname;
 	export let project;
+	export let utmcampaign;
+	export let utmid;
 
 	$: primarycolor = primarycolor;
 	$: counterbgcolor = circlebgcolor
@@ -315,8 +318,8 @@
 				</div>
 				<a
 					href={project
-						? `https://donate.plant-for-the-planet.org/?tenant=${tenantkey}&to=${project}&s=${data.slug}`
-						: `${getTenantConfig(tenantkey).url}/s/${data.slug}`}
+						? `https://donate.plant-for-the-planet.org/?tenant=${tenantkey}&to=${project}&s=${data.slug}${getUtmParams(utmcampaign, utmid)}`
+						: `${getTenantConfig(tenantkey).url}/s/${data.slug}${getUtmParams(utmcampaign, utmid)}`}
 					class="primaryButton"
 					on:click
 					target="_blank">{language[locale].plantTrees}</a
