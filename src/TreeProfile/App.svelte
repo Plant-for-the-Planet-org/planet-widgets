@@ -174,7 +174,7 @@
 					? `https://donate.plant-for-the-planet.org/?tenant=${tenantkey}&to=${project}${
 							data.slug ? `&s=${data.slug}` : ''
 					  }${getUtmParams(utmcampaign, utmid)}`
-					: `${getTenantConfig(tenantkey).url}/s/${data.slug}${getUtmParams(utmcampaign, utmid)}`}
+					: `${getTenantConfig(tenantkey).url}/s/${data.slug}${getUtmParams(utmcampaign, utmid,'?')}`}
 				class="primaryButton"
 				on:click
 				target="_blank">{language[locale].plantTrees}</a

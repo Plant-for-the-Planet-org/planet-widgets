@@ -319,7 +319,7 @@
 				<a
 					href={project
 						? `https://donate.plant-for-the-planet.org/?tenant=${tenantkey}&to=${project}&s=${data.slug}${getUtmParams(utmcampaign, utmid)}`
-						: `${getTenantConfig(tenantkey).url}/s/${data.slug}${getUtmParams(utmcampaign, utmid)}`}
+						: `${getTenantConfig(tenantkey).url}/s/${data.slug}${getUtmParams(utmcampaign, utmid,'?')}`}
 					class="primaryButton"
 					on:click
 					target="_blank">{language[locale].plantTrees}</a
